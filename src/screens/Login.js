@@ -1,20 +1,38 @@
-import React from 'react';
-import { StyleSheet, View, Text, Image, TouchableHighlight } from 'react-native';
+import React, { useRef } from 'react';
+import { StyleSheet, View, Image, Animated } from 'react-native';
+import UserLogin from '../components/UserLogin';
 
 function Login() {
+  const flexAnimTop = useRef(new Animated.Value(0.65)).current;
+  const flexAnimBottom = useRef(new Animated.Value(0.35)).current;
+  const imageSize = useRef(new Animated.Value(200)).current;
+
+  function onClickStart() {
+    Animated.timing(flexAnimTop, {
+      toValue: 0.3,
+      duration: 1000,
+      useNativeDriver: false,
+    }).start();
+    Animated.timing(flexAnimBottom, {
+      toValue: 0.7,
+      duration: 1000,
+      useNativeDriver: false,
+    }).start();
+    Animated.timing(imageSize, {
+      toValue: 130,
+      duration: 1000,
+      useNativeDriver: false,
+    }).start();
+  }
+
   return (
     <View style={styles.container}>
-      <View style={styles.logoContainer}>
-        <Image source={require('../assets/ic_launcher_round.png')} />
-      </View>
-      <View style={styles.loginContainer}>
-        <Text style={styles.header}>Um jeito fácil de manter regular suas consultas!</Text>
-        <Text style={styles.description}>Faça um breve login</Text>
-        <View style={styles.startContainer}>
-          <TouchableHighlight style={styles.start}>
-            <Text style={styles.startText}>Iniciar</Text>
-          </TouchableHighlight></View>
-      </View>
+      <Animated.View style={{ ...styles.logoContainer, flex: flexAnimTop }}>
+        <Animated.Image style={{ width: imageSize, height: imageSize }} source={require('../assets/ic_launcher_round.png')} />
+      </Animated.View>
+      <Animated.View style={{ ...styles.loginContainer, flex: flexAnimBottom }}>
+        <UserLogin onClickStart={() => onClickStart()} />
+      </Animated.View>
     </View>
   )
 };
@@ -25,47 +43,15 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   logoContainer: {
-    flex: 0.65,
     alignItems: 'center',
     justifyContent: 'center',
   },
   loginContainer: {
-    flex: 0.35,
     backgroundColor: '#FFF',
     borderTopLeftRadius: 40,
     borderTopRightRadius: 40,
     padding: 30,
     paddingTop: 40,
-  },
-  header: {
-    fontSize: 23,
-    color: '#0f2f49',
-    fontWeight: '700',
-  },
-  description: {
-    color: '#939394',
-  },
-  startContainer: {
-    flex: 1,
-    justifyContent: 'flex-end',
-  },
-  start: {
-    backgroundColor: '#01877c',
-    borderRadius: 20,
-    alignItems: 'center',
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 1,
-    },
-    shadowOpacity: 0.20,
-    shadowRadius: 1.41,
-    elevation: 2,
-  },
-  startText: {
-    color: '#FFF',
-    fontWeight: '700',
-    padding: 10,
   },
 });
 
