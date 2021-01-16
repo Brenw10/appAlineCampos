@@ -6,7 +6,7 @@ import WelcomeLogin from '../components/WelcomeLogin';
 function Login() {
   const [userlogin, setUserLogin] = useState();
 
-  const duration = 300;
+  const duration = 500;
   const flexTopAnim = new Animated.Value(0.65);
   const flexBottomAnim = new Animated.Value(0.35);
   const imageSizeAnim = new Animated.Value(200);
