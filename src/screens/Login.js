@@ -13,26 +13,44 @@ function Login() {
   const opacityAnim = new Animated.Value(1);
 
   function onClickStart() {
-    Animated.timing(flexTopAnim, {
-      toValue: 0.3,
-      duration,
-      useNativeDriver: false,
-    }).start();
-    Animated.timing(flexBottomAnim, {
-      toValue: 0.7,
-      duration,
-      useNativeDriver: false,
-    }).start();
-    Animated.timing(imageSizeAnim, {
-      toValue: 130,
-      duration,
-      useNativeDriver: false,
-    }).start();
-    Animated.timing(opacityAnim, {
-      toValue: 0,
-      duration,
-      useNativeDriver: false,
-    }).start(() => setUserLogin(true));
+    Animated.sequence([
+      Animated.parallel([
+        Animated.timing(flexTopAnim, {
+          toValue: 1,
+          duration,
+          useNativeDriver: false,
+        }),
+        Animated.timing(flexBottomAnim, {
+          toValue: 0,
+          duration,
+          useNativeDriver: false,
+        }),
+        Animated.timing(imageSizeAnim, {
+          toValue: 130,
+          duration,
+          useNativeDriver: false,
+        }),
+        Animated.timing(opacityAnim, {
+          toValue: 0,
+          duration,
+          useNativeDriver: false,
+        }),
+      ]),
+      Animated.parallel([
+        Animated.timing(flexTopAnim, {
+          toValue: 0.3,
+          duration,
+          delay: duration,
+          useNativeDriver: false,
+        }),
+        Animated.timing(flexBottomAnim, {
+          toValue: 0.7,
+          duration,
+          delay: duration,
+          useNativeDriver: false,
+        }),
+      ]),
+    ]).start(() => setUserLogin(true));
   }
 
   return (
