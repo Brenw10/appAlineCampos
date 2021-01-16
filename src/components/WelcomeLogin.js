@@ -7,7 +7,7 @@ function WelcomeLogin({ onClickStart }) {
   return (
     <>
       <Logo
-        title="Um jeito fácil de manter regular suas consultas!"
+        title="Um jeito fácil de manter regular sua saúde!"
         description="Faça um breve login"
       />
       <View style={styles.startContainer}>
