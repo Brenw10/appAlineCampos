@@ -15,7 +15,7 @@ function UserLogin() {
     <KeyboardAvoidingView style={{ flex: 1 }} behavior='height'>
       <Logo
         title="Inicio de acesso ao usuário"
-        description="Em caso de usuário novo, preencha e clique em registrar"
+        description="Digite seus dados"
       />
       <Input
         placeholder='CPF'
@@ -37,7 +37,7 @@ function UserLogin() {
         keyboardType='numeric'
         value={phone}
         onChangeText={value => dispatchPhone({ type: ACTIONS.ADD, payload: { value } })}
-        maxLength={9}
+        maxLength={11}
         leftIcon={
           <Icon
             name='phone'
