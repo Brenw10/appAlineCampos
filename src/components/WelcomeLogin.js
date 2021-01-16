@@ -1,12 +1,15 @@
 import React from 'react';
-import { StyleSheet, View, Text } from 'react-native';
+import { StyleSheet, View } from 'react-native';
+import Logo from './Logo';
 import PrimaryButton from './PrimaryButton';
 
 function WelcomeLogin({ onClickStart }) {
   return (
     <>
-      <Text style={styles.header}>Um jeito fácil de manter regular suas consultas!</Text>
-      <Text style={styles.description}>Faça um breve login</Text>
+      <Logo
+        title="Um jeito fácil de manter regular suas consultas!"
+        description="Faça um breve login"
+      />
       <View style={styles.startContainer}>
         <PrimaryButton text="Iniciar" onClick={() => onClickStart()} />
       </View>
@@ -15,14 +18,6 @@ function WelcomeLogin({ onClickStart }) {
 }
 
 const styles = StyleSheet.create({
-  header: {
-    fontSize: 23,
-    color: '#0f2f49',
-    fontWeight: '700',
-  },
-  description: {
-    color: '#939394',
-  },
   startContainer: {
     flex: 1,
     justifyContent: 'flex-end',

@@ -16,11 +16,17 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginTop: 5,
     marginBottom: 5,
-    borderWidth: 1,
-
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 0.20,
+    shadowRadius: 1.41,
+    elevation: 2,
   },
   text: {
-    color: '#000',
+    color: '#01877c',
     fontWeight: '700',
     padding: 10,
   },

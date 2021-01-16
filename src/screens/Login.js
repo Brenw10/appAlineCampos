@@ -38,11 +38,12 @@ function Login() {
   return (
     <View style={styles.container}>
       <Animated.View style={{ ...styles.topContainer, flex: flexTopAnim }}>
-        <Animated.Image style={{ width: imageSizeAnim, height: imageSizeAnim }} source={require('../assets/ic_launcher_round.png')} />
+        <Animated.Image style={{ width: imageSizeAnim, height: imageSizeAnim }}
+          source={require('../assets/ic_launcher_round.png')} />
       </Animated.View>
       <Animated.View style={{ ...styles.bottomContainer, flex: flexBottomAnim }}>
         {
-          opacityAnim._value &&
+          !userlogin &&
           <Animated.View style={{ flex: 1, opacity: opacityAnim }}>
             <WelcomeLogin onClickStart={() => onClickStart()} />
           </Animated.View>
