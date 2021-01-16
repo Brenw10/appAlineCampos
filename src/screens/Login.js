@@ -1,37 +1,55 @@
-import React, { useRef } from 'react';
+import React, { useState } from 'react';
 import { StyleSheet, View, Image, Animated } from 'react-native';
 import UserLogin from '../components/UserLogin';
+import WelcomeLogin from '../components/WelcomeLogin';
 
 function Login() {
-  const flexAnimTop = useRef(new Animated.Value(0.65)).current;
-  const flexAnimBottom = useRef(new Animated.Value(0.35)).current;
-  const imageSize = useRef(new Animated.Value(200)).current;
+  const [userlogin, setUserLogin] = useState();
+
+  const duration = 300;
+  const flexTopAnim = new Animated.Value(0.65);
+  const flexBottomAnim = new Animated.Value(0.35);
+  const imageSizeAnim = new Animated.Value(200);
+  const opacityAnim = new Animated.Value(1);
 
   function onClickStart() {
-    Animated.timing(flexAnimTop, {
+    Animated.timing(flexTopAnim, {
       toValue: 0.3,
-      duration: 1000,
+      duration,
       useNativeDriver: false,
     }).start();
-    Animated.timing(flexAnimBottom, {
+    Animated.timing(flexBottomAnim, {
       toValue: 0.7,
-      duration: 1000,
+      duration,
       useNativeDriver: false,
     }).start();
-    Animated.timing(imageSize, {
+    Animated.timing(imageSizeAnim, {
       toValue: 130,
-      duration: 1000,
+      duration,
       useNativeDriver: false,
     }).start();
+    Animated.timing(opacityAnim, {
+      toValue: 0,
+      duration,
+      useNativeDriver: false,
+    }).start(() => setUserLogin(true));
   }
 
   return (
     <View style={styles.container}>
-      <Animated.View style={{ ...styles.logoContainer, flex: flexAnimTop }}>
-        <Animated.Image style={{ width: imageSize, height: imageSize }} source={require('../assets/ic_launcher_round.png')} />
+      <Animated.View style={{ ...styles.topContainer, flex: flexTopAnim }}>
+        <Animated.Image style={{ width: imageSizeAnim, height: imageSizeAnim }} source={require('../assets/ic_launcher_round.png')} />
       </Animated.View>
-      <Animated.View style={{ ...styles.loginContainer, flex: flexAnimBottom }}>
-        <UserLogin onClickStart={() => onClickStart()} />
+      <Animated.View style={{ ...styles.bottomContainer, flex: flexBottomAnim }}>
+        {
+          opacityAnim._value &&
+          <Animated.View style={{ flex: 1, opacity: opacityAnim }}>
+            <WelcomeLogin onClickStart={() => onClickStart()} />
+          </Animated.View>
+        }
+        {
+          userlogin && <UserLogin />
+        }
       </Animated.View>
     </View>
   )
@@ -42,11 +60,11 @@ const styles = StyleSheet.create({
     backgroundColor: '#01877c',
     flex: 1,
   },
-  logoContainer: {
+  topContainer: {
     alignItems: 'center',
     justifyContent: 'center',
   },
-  loginContainer: {
+  bottomContainer: {
     backgroundColor: '#FFF',
     borderTopLeftRadius: 40,
     borderTopRightRadius: 40,
