@@ -4,14 +4,12 @@ import { LocaleConfig } from 'react-native-calendars';
 
 LocaleConfig.defaultLocale = 'pt-BR';
 
-const ClientCalendar: () => React$Node = () => {
+function ClientCalendar() {
 	return (
 		<>
 			<CalendarList
 				pastScrollRange={0}
 				futureScrollRange={12}
-				scrollEnabled={true}
-				showScrollIndicator={true}
 			/>
 		</>
 	)
