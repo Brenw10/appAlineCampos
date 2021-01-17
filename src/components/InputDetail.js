@@ -9,7 +9,7 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 10,
     color: 'grey',
-    marginTop: -25,
+    marginTop: -22,
     marginLeft: 10,
   },
 });
