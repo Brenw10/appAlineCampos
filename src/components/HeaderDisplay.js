@@ -37,21 +37,25 @@ function HeaderDisplay(props) {
         Animated.timing(flexTopAnim, {
           toValue: 1 - props.flex,
           duration,
+          delay: duration,
           useNativeDriver: false,
         }),
         Animated.timing(flexBottomAnim, {
           toValue: props.flex,
           duration,
+          delay: duration,
           useNativeDriver: false,
         }),
         Animated.timing(imageSizeAnim, {
           toValue: props.imageSize,
           duration,
+          delay: duration,
           useNativeDriver: false,
         }),
         Animated.timing(opacityAnim, {
           toValue: 1,
           duration,
+          delay: duration,
           useNativeDriver: false,
         }),
       ]).start(() => {
