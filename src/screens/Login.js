@@ -9,14 +9,14 @@ function Login() {
   const [imageSize, setImageSize] = useState(200);
 
   function onClickStart() {
-    setFlex(0.6);
-    setImageSize(150);
+    setFlex(0.7);
+    setImageSize(130);
   }
 
   return (
     <>
       <HeaderDisplay flex={flex} imageSize={imageSize} duration={500}
-        firstAnimDone={() => setUserLogin(true)}>
+        onFirstAnimDone={() => setUserLogin(true)}>
         {
           userlogin
             ? <UserLogin />

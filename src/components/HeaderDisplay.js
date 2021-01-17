@@ -32,7 +32,7 @@ function HeaderDisplay(props) {
         useNativeDriver: false,
       }),
     ]).start(() => {
-      if (props.firstAnimDone) props.firstAnimDone();
+      if (props.onFirstAnimDone) props.onFirstAnimDone();
       Animated.parallel([
         Animated.timing(flexTopAnim, {
           toValue: 1 - props.flex,
@@ -55,7 +55,7 @@ function HeaderDisplay(props) {
           useNativeDriver: false,
         }),
       ]).start(() => {
-        if (props.secondAnimDone) props.secondAnimDone();
+        if (props.onSecondAnimDone) props.onSecondAnimDone();
       });
     });
   }
