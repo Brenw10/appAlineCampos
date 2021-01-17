@@ -7,7 +7,7 @@ import InputDetail from './InputDetail';
 import Logo from './Logo';
 import PrimaryButton from './PrimaryButton';
 
-function UserLogin() {
+function UserLogin({ onClickEnter }) {
   const [cpf, dispatchCPF] = useReducer(OnlyNumbers);
   const [phone, dispatchPhone] = useReducer(OnlyNumbers);
   const [name, setName] = useState();
@@ -18,7 +18,7 @@ function UserLogin() {
         title="Inicio de acesso ao usuário"
         description="Digite seus dados"
       />
-      
+
       <Input
         placeholder='CPF'
         keyboardType='numeric'
@@ -67,7 +67,7 @@ function UserLogin() {
       <InputDetail text="DDD + Número" />
 
       <View style={styles.actions}>
-        <PrimaryButton text="Entrar" />
+        <PrimaryButton text="Entrar" onClick={() => onClickEnter()} />
       </View>
     </KeyboardAvoidingView>
   )

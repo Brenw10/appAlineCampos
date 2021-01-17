@@ -2,25 +2,23 @@ import React, { useState } from 'react';
 import HeaderDisplay from '../components/HeaderDisplay';
 import WelcomeLogin from '../components/WelcomeLogin';
 import UserLogin from '../components/UserLogin';
+import SCREENS from '../constants/screens';
 
 function Login() {
-  const [userlogin, setUserLogin] = useState();
-  const [flex, setFlex] = useState(0.35);
-  const [imageSize, setImageSize] = useState(200);
-
-  function onClickStart() {
-    setFlex(0.7);
-    setImageSize(130);
-  }
+  const [screen, setScreen] = useState(SCREENS.WELCOME);
+  const [newScreen, setNewScreen] = useState(screen);
 
   return (
     <>
-      <HeaderDisplay flex={flex} imageSize={imageSize} duration={500}
-        onFirstAnimDone={() => setUserLogin(true)}>
+      <HeaderDisplay flex={newScreen.FLEX} imageSize={newScreen.IMAGE_SIZE} duration={500}
+        onFirstAnimDone={() => setScreen(newScreen)}>
         {
-          userlogin
-            ? <UserLogin />
-            : <WelcomeLogin onClickStart={() => onClickStart()} />
+          screen === SCREENS.WELCOME &&
+          <WelcomeLogin onClickStart={() => setNewScreen(SCREENS.LOGIN)} />
+        }
+        {
+          screen === SCREENS.LOGIN &&
+          <UserLogin onClickEnter={() => setNewScreen(SCREENS.HOME)} />
         }
       </HeaderDisplay>
     </>
