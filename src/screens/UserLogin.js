@@ -67,7 +67,7 @@ function UserLogin({ onClickEnter }) {
       <InputDetail text="DDD + Número" />
 
       <View style={styles.actions}>
-        <PrimaryButton text="Entrar" onClick={() => onClickEnter()} />
+        <PrimaryButton text="Entrar" icon='paper-plane' onClick={() => onClickEnter()} />
       </View>
     </KeyboardAvoidingView>
   )

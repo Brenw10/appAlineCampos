@@ -3,6 +3,7 @@ import HeaderDisplay from '../components/HeaderDisplay';
 import WelcomeLogin from './WelcomeLogin';
 import UserLogin from './UserLogin';
 import SCREENS from '../constants/screens';
+import Actions from './Actions';
 
 function Login() {
   const [screen, setScreen] = useState(SCREENS.WELCOME);
@@ -13,12 +14,16 @@ function Login() {
       <HeaderDisplay flex={newScreen.FLEX} imageSize={newScreen.IMAGE_SIZE} duration={500}
         onFirstAnimDone={() => setScreen(newScreen)}>
         {
-          screen === SCREENS.WELCOME &&
+          screen.NAME === SCREENS.WELCOME.NAME &&
           <WelcomeLogin onClickStart={() => setNewScreen(SCREENS.LOGIN)} />
         }
         {
-          screen === SCREENS.LOGIN &&
+          screen.NAME === SCREENS.LOGIN.NAME &&
           <UserLogin onClickEnter={() => setNewScreen(SCREENS.HOME)} />
+        }
+        {
+          screen.NAME === SCREENS.HOME.NAME &&
+          <Actions />
         }
       </HeaderDisplay>
     </>

@@ -1,10 +1,14 @@
 import React from 'react';
-import { StyleSheet, Text, TouchableHighlight } from 'react-native';
+import { StyleSheet, Text, TouchableHighlight, View } from 'react-native';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
-function PrimaryButton({ text, onClick }) {
+function PrimaryButton({ text, icon, onClick }) {
   return (
     <TouchableHighlight style={styles.button} onPress={() => onClick()}>
-      <Text style={styles.text}>{text}</Text>
+      <View style={styles.container}>
+        <Text style={styles.text}>{text.toUpperCase()}</Text>
+        {icon && <Icon name={icon} size={15} color='#FFF' style={styles.icon} />}
+      </View>
     </TouchableHighlight>
   );
 }
@@ -24,11 +28,21 @@ const styles = StyleSheet.create({
     elevation: 2,
     marginTop: 5,
     marginBottom: 5,
+    padding: 10,
+  },
+  container: {
+    flexDirection: 'row',
   },
   text: {
     color: '#FFF',
     fontWeight: '700',
-    padding: 10,
+    flex: 1,
+    textAlign: 'center',
+  },
+  icon: {
+    position: 'absolute',
+    right: 10,
+    paddingTop: 2,
   },
 });
 

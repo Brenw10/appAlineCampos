@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import SplashScreen from 'react-native-splash-screen'
-import Login from './src/screens/Login';
+import Routes from './src/screens/Routes';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import './src/services/CalendarConfig.js';
@@ -14,7 +14,7 @@ function App() {
 		<>
 			<NavigationContainer>
 				<Stack.Navigator>
-					<Stack.Screen name="Login" component={Login} options={{ headerShown: false }} />
+					<Stack.Screen name="Routes" component={Routes} options={{ headerShown: false }} />
 				</Stack.Navigator>
 			</NavigationContainer>
 		</>

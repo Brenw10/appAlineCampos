@@ -11,8 +11,8 @@ const CONSTANT = {
   },
   HOME: {
     NAME: 'HOME',
-    FLEX: 0.35,
-    IMAGE_SIZE: 200,
+    FLEX: 0.4,
+    IMAGE_SIZE: 250,
   },
 };
 

@@ -11,7 +11,7 @@ function WelcomeLogin({ onClickStart }) {
         description="Faça um breve login"
       />
       <View style={styles.startContainer}>
-        <PrimaryButton text="Iniciar" onClick={() => onClickStart()} />
+        <PrimaryButton text="Iniciar" icon='rocket' onClick={() => onClickStart()} />
       </View>
     </>
   );
