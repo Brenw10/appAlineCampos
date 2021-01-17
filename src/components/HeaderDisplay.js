@@ -68,7 +68,7 @@ function HeaderDisplay(props) {
     <View style={styles.container}>
       <Animated.View style={{ ...styles.topContainer, flex: flexTopAnim }}>
         <Animated.Image style={{ width: imageSizeAnim, height: imageSizeAnim }}
-          source={require('../assets/ic_launcher_round.png')} />
+          source={require('../assets/logo.png')} resizeMode='contain' />
       </Animated.View>
       <Animated.View style={{ ...styles.bottomContainer, flex: flexBottomAnim }}>
         <Animated.View style={{ flex: 1, opacity: opacityAnim }}>
