@@ -3,9 +3,9 @@ import { KeyboardAvoidingView, StyleSheet, View } from 'react-native';
 import { Input } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import OnlyNumbers, { ACTIONS } from '../reducers/OnlyNumber';
-import InputDetail from './InputDetail';
-import Logo from './Logo';
-import PrimaryButton from './PrimaryButton';
+import InputDetail from '../components/InputDetail';
+import Logo from '../components/Logo';
+import PrimaryButton from '../components/PrimaryButton';
 
 function UserLogin({ onClickEnter }) {
   const [cpf, dispatchCPF] = useReducer(OnlyNumbers);

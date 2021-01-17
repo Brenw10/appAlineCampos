@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import HeaderDisplay from '../components/HeaderDisplay';
-import WelcomeLogin from '../components/WelcomeLogin';
-import UserLogin from '../components/UserLogin';
+import WelcomeLogin from './WelcomeLogin';
+import UserLogin from './UserLogin';
 import SCREENS from '../constants/screens';
 
 function Login() {

@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-import Logo from './Logo';
-import PrimaryButton from './PrimaryButton';
+import Logo from '../components/Logo';
+import PrimaryButton from '../components/PrimaryButton';
 
 function WelcomeLogin({ onClickStart }) {
   return (
