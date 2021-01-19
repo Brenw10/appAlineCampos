@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import HeaderDisplay from '../components/HeaderDisplay';
+import Navigation from '../components/Navigation';
 import WelcomeLogin from './WelcomeLogin';
 import UserLogin from './UserLogin';
 import SCREENS from '../constants/screens';
@@ -11,7 +11,7 @@ function Login() {
 
   return (
     <>
-      <HeaderDisplay
+      <Navigation
         flex={newScreen.FLEX}
         imageSize={newScreen.IMAGE_SIZE}
         duration={500}
@@ -30,7 +30,7 @@ function Login() {
           screen.NAME === SCREENS.HOME.NAME &&
           <Actions onClick={() => setNewScreen(SCREENS.WELCOME)} />
         }
-      </HeaderDisplay>
+      </Navigation>
     </>
   )
 };
