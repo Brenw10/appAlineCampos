@@ -1,11 +1,13 @@
 import React from "react";
 import PrimaryButton from "../components/PrimaryButton";
+import SCREEN from '../constants/screens';
 
-function Actions(props) {
+function Actions({ onScreenChange }) {
   const buttons = [
     {
       title: 'Agendar uma consulta',
       icon: 'calendar',
+      screen: SCREEN.SCHEDULE,
     },
     {
       title: 'Ver minhas consultas',
@@ -33,7 +35,9 @@ function Actions(props) {
     <>
       {
         buttons.map((value, i) =>
-          <PrimaryButton key={i} text={value.title} icon={value.icon} onClick={() => props.onClick()} />
+          <PrimaryButton key={i} text={value.title} icon={value.icon}
+            onClick={() => onScreenChange(value.screen)}
+          />
         )
       }
     </>
