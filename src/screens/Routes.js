@@ -5,6 +5,7 @@ import UserLogin from './UserLogin';
 import SCREENS from '../constants/screens';
 import Actions from './Actions';
 import Schedule from './Schedule';
+import Scheduling from './Scheduling';
 
 function Login() {
   const [screen, setScreen] = useState(SCREENS.INIT);
@@ -43,6 +44,10 @@ function Login() {
         {
           screen.NAME === SCREENS.SCHEDULE.NAME &&
           <Schedule onScreenChange={screen => onScreenChange(screen)} />
+        }
+        {
+          screen.NAME === SCREENS.SCHEDULING.NAME &&
+          <Scheduling onScreenChange={screen => onScreenChange(screen)} />
         }
       </Navigation>
     </>

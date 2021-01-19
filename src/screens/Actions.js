@@ -7,6 +7,7 @@ function Actions({ onScreenChange }) {
     {
       title: 'Agendar Consulta',
       icon: 'calendar',
+      screen: SCREENS.SCHEDULING,
     },
     {
       title: 'Ver Consultas',

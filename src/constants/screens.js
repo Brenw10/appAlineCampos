@@ -19,6 +19,11 @@ const CONSTANT = {
     FLEX: 0.75,
     IMAGE_SIZE: 120,
   },
+  SCHEDULING: {
+    NAME: 'SCHEDULING',
+    FLEX: 0.75,
+    IMAGE_SIZE: 120,
+  },
 };
 
 export default CONSTANT;
