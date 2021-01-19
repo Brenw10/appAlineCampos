@@ -6,7 +6,11 @@ function PrimaryButton(props) {
   const { text, icon, onClick, isLeft } = props;
 
   return (
-    <TouchableHighlight style={{ ...styles.button, ...props.styles }} onPress={() => onClick()}>
+    <TouchableHighlight
+      style={{ ...styles.button, ...props.styles }}
+      onPress={() => onClick()}
+      underlayColor='#003834'
+    >
       <View style={styles.container}>
         {icon && isLeft && <Icon name={icon} size={18} color='#FFF' style={styles.iconLeft} />}
         <Text style={styles.text}>{text.toUpperCase()}</Text>
