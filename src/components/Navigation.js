@@ -10,11 +10,11 @@ function HeaderDisplay(props) {
   const propsRef = useRef(props);
 
   useEffect(() => {
-    if (props !== propsRef.current) anim();
+    if (props !== propsRef.current) hideAnim();
     propsRef.current = props;
   }, [props.flex, props.imageSize]);
 
-  function anim() {
+  function hideAnim() {
     Animated.parallel([
       Animated.timing(flexTopAnim, {
         toValue: 1,
@@ -38,34 +38,38 @@ function HeaderDisplay(props) {
       }),
     ]).start(() => {
       if (props.onFirstAnimDone) props.onFirstAnimDone();
-      Animated.parallel([
-        Animated.timing(flexTopAnim, {
-          toValue: 1 - props.flex,
-          duration,
-          delay: duration,
-          useNativeDriver: false,
-        }),
-        Animated.timing(flexBottomAnim, {
-          toValue: props.flex,
-          duration,
-          delay: duration,
-          useNativeDriver: false,
-        }),
-        Animated.timing(imageSizeAnim, {
-          toValue: props.imageSize,
-          duration,
-          delay: duration,
-          useNativeDriver: false,
-        }),
-        Animated.timing(opacityAnim, {
-          toValue: 1,
-          duration,
-          delay: duration,
-          useNativeDriver: false,
-        }),
-      ]).start(() => {
-        if (props.onSecondAnimDone) props.onSecondAnimDone();
-      });
+      showAnim();
+    });
+  }
+
+  function showAnim() {
+    Animated.parallel([
+      Animated.timing(flexTopAnim, {
+        toValue: 1 - props.flex,
+        duration,
+        delay: duration,
+        useNativeDriver: false,
+      }),
+      Animated.timing(flexBottomAnim, {
+        toValue: props.flex,
+        duration,
+        delay: duration,
+        useNativeDriver: false,
+      }),
+      Animated.timing(imageSizeAnim, {
+        toValue: props.imageSize,
+        duration,
+        delay: duration,
+        useNativeDriver: false,
+      }),
+      Animated.timing(opacityAnim, {
+        toValue: 1,
+        duration,
+        delay: duration,
+        useNativeDriver: false,
+      }),
+    ]).start(() => {
+      if (props.onSecondAnimDone) props.onSecondAnimDone();
     });
   }
 
