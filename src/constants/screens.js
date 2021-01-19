@@ -16,8 +16,8 @@ const CONSTANT = {
   },
   SCHEDULE: {
     NAME: 'SCHEDULE',
-    FLEX: 0.7,
-    IMAGE_SIZE: 130,
+    FLEX: 0.65,
+    IMAGE_SIZE: 150,
   },
 };
 
