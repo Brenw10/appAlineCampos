@@ -29,6 +29,11 @@ function Actions({ onScreenChange }) {
       title: 'Parceiros',
       icon: 'users',
     },
+    {
+      title: 'Sair',
+      icon: 'reply',
+      screen: SCREENS.INIT,
+    },
   ];
 
   return (

@@ -11,13 +11,13 @@ const CONSTANT = {
   },
   ACTIONS: {
     NAME: 'ACTIONS',
-    FLEX: 0.5,
+    FLEX: 0.6,
     IMAGE_SIZE: 180,
   },
   SCHEDULE: {
     NAME: 'SCHEDULE',
-    FLEX: 0.65,
-    IMAGE_SIZE: 150,
+    FLEX: 0.75,
+    IMAGE_SIZE: 120,
   },
 };
 
