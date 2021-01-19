@@ -1,6 +1,6 @@
 const CONSTANT = {
-  WELCOME: {
-    NAME: 'WELCOME',
+  INIT: {
+    NAME: 'INIT',
     FLEX: 0.35,
     IMAGE_SIZE: 200,
   },
@@ -9,10 +9,10 @@ const CONSTANT = {
     FLEX: 0.7,
     IMAGE_SIZE: 130,
   },
-  HOME: {
-    NAME: 'HOME',
+  ACTIONS: {
+    NAME: 'ACTIONS',
     FLEX: 0.5,
-    IMAGE_SIZE: 200,
+    IMAGE_SIZE: 180,
   },
 };
 

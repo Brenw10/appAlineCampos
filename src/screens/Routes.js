@@ -6,7 +6,7 @@ import SCREENS from '../constants/screens';
 import Actions from './Actions';
 
 function Login() {
-  const [screen, setScreen] = useState(SCREENS.WELCOME);
+  const [screen, setScreen] = useState(SCREENS.INIT);
   const [newScreen, setNewScreen] = useState(screen);
 
   return (
@@ -19,16 +19,16 @@ function Login() {
         imageDefaultSize={200}
         onFirstAnimDone={() => setScreen(newScreen)}>
         {
-          screen.NAME === SCREENS.WELCOME.NAME &&
+          screen.NAME === SCREENS.INIT.NAME &&
           <WelcomeLogin onClickStart={() => setNewScreen(SCREENS.LOGIN)} />
         }
         {
           screen.NAME === SCREENS.LOGIN.NAME &&
-          <UserLogin onClickEnter={() => setNewScreen(SCREENS.HOME)} />
+          <UserLogin onClickEnter={() => setNewScreen(SCREENS.ACTIONS)} />
         }
         {
-          screen.NAME === SCREENS.HOME.NAME &&
-          <Actions onClick={() => setNewScreen(SCREENS.WELCOME)} />
+          screen.NAME === SCREENS.ACTIONS.NAME &&
+          <Actions onClick={() => setNewScreen(SCREENS.INIT)} />
         }
       </Navigation>
     </>
