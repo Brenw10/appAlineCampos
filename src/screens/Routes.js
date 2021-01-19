@@ -24,7 +24,6 @@ function Login() {
       <Navigation
         flex={newScreen.FLEX}
         imageSize={newScreen.IMAGE_SIZE}
-        isBackEnable={true}
         duration={500}
         image={require('../assets/logo.png')}
         imageDefaultSize={200}

@@ -6,7 +6,7 @@ import OnlyNumbers, { ACTIONS } from '../reducers/OnlyNumber';
 import InputDetail from '../components/InputDetail';
 import Logo from '../components/Logo';
 import PrimaryButton from '../components/PrimaryButton';
-import SCREEN from '../constants/screens';
+import SCREENS from '../constants/screens';
 
 function UserLogin({ onScreenChange }) {
   const [cpf, dispatchCPF] = useReducer(OnlyNumbers);
@@ -68,7 +68,7 @@ function UserLogin({ onScreenChange }) {
       <InputDetail text="DDD + Número" />
 
       <View style={styles.actions}>
-        <PrimaryButton text="Entrar" icon='paper-plane' onClick={() => onScreenChange(SCREEN.ACTIONS)} />
+        <PrimaryButton text="Entrar" icon='paper-plane' onClick={() => onScreenChange(SCREENS.ACTIONS)} />
       </View>
     </KeyboardAvoidingView>
   )

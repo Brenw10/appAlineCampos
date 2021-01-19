@@ -1,13 +1,13 @@
 import React from "react";
 import PrimaryButton from "../components/PrimaryButton";
-import SCREEN from '../constants/screens';
+import SCREENS from '../constants/screens';
 
 function Actions({ onScreenChange }) {
   const buttons = [
     {
       title: 'Agendar uma consulta',
       icon: 'calendar',
-      screen: SCREEN.SCHEDULE,
+      screen: SCREENS.SCHEDULE,
     },
     {
       title: 'Ver minhas consultas',

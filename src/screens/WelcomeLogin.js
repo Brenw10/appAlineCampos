@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import Logo from '../components/Logo';
 import PrimaryButton from '../components/PrimaryButton';
-import SCREEN from '../constants/screens';
+import SCREENS from '../constants/screens';
 
 function WelcomeLogin({ onScreenChange }) {
   return (
@@ -12,7 +12,7 @@ function WelcomeLogin({ onScreenChange }) {
         description="Faça um breve login"
       />
       <View style={styles.startContainer}>
-        <PrimaryButton text="Iniciar" icon='rocket' onClick={() => onScreenChange(SCREEN.LOGIN)} />
+        <PrimaryButton text="Iniciar" icon='rocket' onClick={() => onScreenChange(SCREENS.LOGIN)} />
       </View>
     </>
   );
