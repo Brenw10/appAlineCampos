@@ -5,20 +5,20 @@ import SCREENS from '../constants/screens';
 function Actions({ onScreenChange }) {
   const buttons = [
     {
-      title: 'Agendar uma consulta',
+      title: 'Agendar Consulta',
       icon: 'calendar',
-      screen: SCREENS.SCHEDULE,
     },
     {
-      title: 'Ver minhas consultas',
+      title: 'Ver Consultas',
       icon: 'bookmark',
+      screen: SCREENS.SCHEDULE,
     },
     {
       title: 'Pacotes Promocionais',
       icon: 'archive',
     },
     {
-      title: 'Dicas de saúde',
+      title: 'Dicas de Saúde',
       icon: 'gratipay',
     },
     {
