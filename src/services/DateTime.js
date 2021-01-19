@@ -2,17 +2,22 @@ import Moment from 'moment';
 
 Moment.locale('pt-BR');
 
-function setDateTimeValue(dateTime, field, value) {
-  return new Date(Moment(dateTime).set(field, value));
+function getDateTimeFormat(date) {
+  return Moment(date).format('DD/MM/YYYY HH:mm');
 }
 
-function getDateTimeFormat(dateTime) {
-  return Moment(dateTime).format('DD/MM/YYYY HH:mm');
+function getDateFormat(date) {
+  return Moment(date).format('DD/MM/YYYY');
+}
+
+function addDate(date, field, value) {
+  return new Date(Moment(date).add(value, field));
 }
 
 const service = {
   getDateTimeFormat,
-  setDateTimeValue,
+  getDateFormat,
+  addDate,
 };
 
 export default service;

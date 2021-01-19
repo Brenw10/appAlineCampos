@@ -1,43 +1,55 @@
 import React, { useState } from 'react';
 import PrimaryButton from "../components/PrimaryButton";
-import { StyleSheet, Text, View } from 'react-native';
+import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import SCREENS from '../constants/screens';
 import { CheckBox } from 'react-native-elements'
-import DateTimePicker from '@react-native-community/datetimepicker';
-import IconButton from '../components/IconButton';
+import SelectDate from '../components/SelectDate';
 import DateTime from '../services/DateTime';
+import CALENDAR from '../constants/calendar';
 
 function Scheduling({ onScreenChange }) {
-  const [dateTime, setDateTime] = useState();
-  const [mode, setMode] = useState();
+  const [date, setDate] = useState();
   const [treatments, setTreatments] = useState([
     {
       id: 1,
-      name: "Acupuntura",
+      name: "Avaliação",
+      minutes: 60,
     },
     {
       id: 2,
-      name: "Massagem Relaxante",
+      name: "Acupuntura",
+      minutes: 60,
     },
     {
       id: 3,
-      name: "Cone Chinês",
+      name: "Massagem Relaxante",
+      minutes: 60,
     },
     {
       id: 4,
+      name: "Cone Chinês",
+      minutes: 60,
+    },
+    {
+      id: 5,
       name: "Ventosaterapia",
+      minutes: 60,
+    },
+    {
+      id: 6,
+      name: "Auriculoterapia",
+      minutes: 60,
+    },
+    {
+      id: 7,
+      name: "Recovery",
+      minutes: 60,
     },
   ]);
 
   function onToggleTreatment(value) {
     const newValue = Object.assign(value, { checked: !value.checked });
     setTreatments([...Object.assign(treatments, newValue)]);
-  }
-
-  function onChangeDateTime(selectedDate) {
-    setMode(mode === 'date' ? 'time' : null);
-    const newDateTime = DateTime.setDateTimeValue(selectedDate || dateTime, 'second', 0);
-    setDateTime(newDateTime);
   }
 
   function renderTreatments() {
@@ -50,39 +62,24 @@ function Scheduling({ onScreenChange }) {
     );
   }
 
+  const disabled = !treatments.find(value => value.checked);
   return (
     <>
       <PrimaryButton styles={styles.back}
         icon='angle-left' text='Voltar' isLeft={true}
         onClick={() => onScreenChange(SCREENS.ACTIONS)}
       />
-
-      <Text style={styles.sectionText}>Tratamentos</Text>
-      <View style={styles.treatments}>
-        {renderTreatments()}
-      </View>
-
-      <View style={styles.calendarContainer}>
-        <IconButton name='calendar' onPress={() => setMode('date')} />
-        <Text style={styles.calendarDate}>
-          {
-            dateTime
-              ?
-              DateTime.getDateTimeFormat(dateTime)
-              :
-              ' < Selecione Data e Horario de Atendimento'
-          }
-        </Text>
-      </View>
-      {
-        mode &&
-        <DateTimePicker
-          mode={mode}
-          is24Hour={true}
-          value={dateTime || new Date()}
-          onChange={(_, selectedDate) => onChangeDateTime(selectedDate)}
+      <ScrollView>
+        <Text style={styles.sectionText}>Tratamentos</Text>
+        <View style={styles.treatments}>{renderTreatments()}</View>
+        <SelectDate date={date}
+          disabled={disabled}
+          setDate={date => setDate(date)}
+          message={disabled ? 'Antes Selecione um Tratamento' : 'Selecione a Data Atendimento'}
+          maximumDate={DateTime.addDate(new Date(), 'months', CALENDAR.MAX_MONTH)}
+          minimumDate={new Date()}
         />
-      }
+      </ScrollView>
     </>
   )
 }
@@ -100,14 +97,6 @@ const styles = StyleSheet.create({
   treatments: {
     marginBottom: 20,
   },
-  calendarContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    alignSelf: 'center',
-  },
-  calendarDate: {
-    marginLeft: 15,
-  }
 });
 
 export default Scheduling;
