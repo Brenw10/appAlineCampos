@@ -9,6 +9,11 @@ function Login() {
   const [screen, setScreen] = useState(SCREENS.INIT);
   const [newScreen, setNewScreen] = useState(screen);
 
+  function onHideAnimDone(showAnim) {
+    setScreen(newScreen);
+    showAnim();
+  }
+
   return (
     <>
       <Navigation
@@ -17,7 +22,7 @@ function Login() {
         duration={500}
         image={require('../assets/logo.png')}
         imageDefaultSize={200}
-        onHideAnimDone={() => setScreen(newScreen)}>
+        onHideAnimDone={showAnim => onHideAnimDone(showAnim)}>
         {
           screen.NAME === SCREENS.INIT.NAME &&
           <WelcomeLogin onClickStart={() => setNewScreen(SCREENS.LOGIN)} />

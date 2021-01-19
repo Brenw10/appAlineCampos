@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import { StyleSheet, View, Animated } from 'react-native';
 
-function HeaderDisplay(props) {
+function Navigation(props) {
   const duration = useRef(props.duration).current;
   const flexTopAnim = useRef(new Animated.Value(1 - props.flex)).current;
   const flexBottomAnim = useRef(new Animated.Value(props.flex)).current;
@@ -12,7 +12,7 @@ function HeaderDisplay(props) {
   useEffect(() => {
     if (props !== propsRef.current) hideAnim();
     propsRef.current = props;
-  }, [props.flex, props.imageSize]);
+  }, [props.flex]);
 
   function hideAnim() {
     Animated.parallel([
@@ -36,10 +36,7 @@ function HeaderDisplay(props) {
         duration,
         useNativeDriver: false,
       }),
-    ]).start(() => {
-      if (props.onHideAnimDone) props.onHideAnimDone();
-      showAnim();
-    });
+    ]).start(() => props.onHideAnimDone(showAnim));
   }
 
   function showAnim() {
@@ -68,9 +65,7 @@ function HeaderDisplay(props) {
         delay: duration,
         useNativeDriver: false,
       }),
-    ]).start(() => {
-      if (props.onShowAnimDone) props.onShowAnimDone();
-    });
+    ]).start();
   }
 
   return (
@@ -106,4 +101,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default HeaderDisplay;
+export default Navigation;
