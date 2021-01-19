@@ -17,7 +17,7 @@ function Login() {
         duration={500}
         image={require('../assets/logo.png')}
         imageDefaultSize={200}
-        onFirstAnimDone={() => setScreen(newScreen)}>
+        onHideAnimDone={() => setScreen(newScreen)}>
         {
           screen.NAME === SCREENS.INIT.NAME &&
           <WelcomeLogin onClickStart={() => setNewScreen(SCREENS.LOGIN)} />

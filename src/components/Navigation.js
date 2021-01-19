@@ -37,7 +37,7 @@ function HeaderDisplay(props) {
         useNativeDriver: false,
       }),
     ]).start(() => {
-      if (props.onFirstAnimDone) props.onFirstAnimDone();
+      if (props.onHideAnimDone) props.onHideAnimDone();
       showAnim();
     });
   }
@@ -69,7 +69,7 @@ function HeaderDisplay(props) {
         useNativeDriver: false,
       }),
     ]).start(() => {
-      if (props.onSecondAnimDone) props.onSecondAnimDone();
+      if (props.onShowAnimDone) props.onShowAnimDone();
     });
   }
 
