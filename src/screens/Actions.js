@@ -1,7 +1,7 @@
 import React from "react";
 import PrimaryButton from "../components/PrimaryButton";
 
-function Actions() {
+function Actions(props) {
   const buttons = [
     {
       title: 'Agendar uma consulta',
@@ -23,12 +23,18 @@ function Actions() {
       title: 'Galeria de Fotos',
       icon: 'camera',
     },
+    {
+      title: 'Parceiros',
+      icon: 'users',
+    },
   ];
 
   return (
     <>
       {
-        buttons.map((value, i) => <PrimaryButton key={i} text={value.title} icon={value.icon} />)
+        buttons.map((value, i) =>
+          <PrimaryButton key={i} text={value.title} icon={value.icon} onClick={() => props.onClick()} />
+        )
       }
     </>
   );

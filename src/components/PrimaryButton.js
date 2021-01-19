@@ -7,7 +7,7 @@ function PrimaryButton({ text, icon, onClick }) {
     <TouchableHighlight style={styles.button} onPress={() => onClick()}>
       <View style={styles.container}>
         <Text style={styles.text}>{text.toUpperCase()}</Text>
-        {icon && <Icon name={icon} size={15} color='#FFF' style={styles.icon} />}
+        {icon && <Icon name={icon} size={18} color='#FFF' style={styles.icon} />}
       </View>
     </TouchableHighlight>
   );
@@ -42,7 +42,6 @@ const styles = StyleSheet.create({
   icon: {
     position: 'absolute',
     right: 10,
-    paddingTop: 2,
   },
 });
 

@@ -11,7 +11,12 @@ function Login() {
 
   return (
     <>
-      <HeaderDisplay flex={newScreen.FLEX} imageSize={newScreen.IMAGE_SIZE} duration={500}
+      <HeaderDisplay
+        flex={newScreen.FLEX}
+        imageSize={newScreen.IMAGE_SIZE}
+        duration={500}
+        image={require('../assets/logo.png')}
+        imageDefaultSize={200}
         onFirstAnimDone={() => setScreen(newScreen)}>
         {
           screen.NAME === SCREENS.WELCOME.NAME &&
@@ -23,7 +28,7 @@ function Login() {
         }
         {
           screen.NAME === SCREENS.HOME.NAME &&
-          <Actions />
+          <Actions onClick={() => setNewScreen(SCREENS.WELCOME)} />
         }
       </HeaderDisplay>
     </>

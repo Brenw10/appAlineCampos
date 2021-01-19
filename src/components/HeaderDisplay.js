@@ -31,6 +31,11 @@ function HeaderDisplay(props) {
         duration,
         useNativeDriver: false,
       }),
+      Animated.timing(imageSizeAnim, {
+        toValue: props.imageDefaultSize,
+        duration,
+        useNativeDriver: false,
+      }),
     ]).start(() => {
       if (props.onFirstAnimDone) props.onFirstAnimDone();
       Animated.parallel([
@@ -68,7 +73,7 @@ function HeaderDisplay(props) {
     <View style={styles.container}>
       <Animated.View style={{ ...styles.topContainer, flex: flexTopAnim }}>
         <Animated.Image style={{ width: imageSizeAnim, height: imageSizeAnim }}
-          source={require('../assets/logo.png')} resizeMode='contain' />
+          source={props.image} resizeMode='contain' />
       </Animated.View>
       <Animated.View style={{ ...styles.bottomContainer, flex: flexBottomAnim }}>
         <Animated.View style={{ flex: 1, opacity: opacityAnim }}>
