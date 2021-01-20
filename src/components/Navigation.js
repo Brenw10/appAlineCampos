@@ -9,7 +9,7 @@ const CONSTANT = {
 
 function Navigation(props) {
   const propsRef = useRef(props);
-  const translateY = useRef(new Animated.Value(0));
+  const bottomViewTranslateY = useRef(new Animated.Value(0));
   const opacity = useRef(new Animated.Value(1));
   const imageHeight = useRef(new Animated.Value(getImageHeight()));
   const imageTranslateY = useRef(new Animated.Value(0));
@@ -37,7 +37,7 @@ function Navigation(props) {
 
   function hideAnim() {
     Animated.parallel([
-      Animated.timing(translateY.current, {
+      Animated.timing(bottomViewTranslateY.current, {
         toValue: bottomViewHeight - CONSTANT.MARGIN,
         duration: props.duration,
         useNativeDriver: true,
@@ -64,7 +64,7 @@ function Navigation(props) {
   }
 
   function displayScreen() {
-    Animated.timing(translateY.current, {
+    Animated.timing(bottomViewTranslateY.current, {
       toValue: bottomViewHeight - CONSTANT.MARGIN,
       duration: 0,
       useNativeDriver: true,
@@ -76,7 +76,7 @@ function Navigation(props) {
 
   function showAnim() {
     Animated.parallel([
-      Animated.timing(translateY.current, {
+      Animated.timing(bottomViewTranslateY.current, {
         toValue: 0,
         duration: props.duration,
         delay: props.duration,
@@ -113,8 +113,8 @@ function Navigation(props) {
       case CONSTANT.CALCULATED: {
         const viewMiddle = topViewHeight / 2;
         const imageMiddle = parseFloat(JSON.stringify(imageHeight.current)) / 2;
-        const translateY = viewMiddle - imageMiddle;
-        return Math.max(translateY, 0);
+        const y = viewMiddle - imageMiddle;
+        return Math.max(y, 0);
       }
       default: {
         return 0;
@@ -162,7 +162,7 @@ function Navigation(props) {
       <Animated.View
         style={{
           ...styles.bottomContainer,
-          transform: [{ translateY: translateY.current }],
+          transform: [{ translateY: bottomViewTranslateY.current }],
           opacity: dummy ? 0 : 1
         }}
         onLayout={event => setBottomViewHeight(event.nativeEvent.layout.height)}
