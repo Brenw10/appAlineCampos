@@ -13,7 +13,7 @@ function Navigation(props) {
   const opacity = useRef(new Animated.Value(1));
   const imageHeight = useRef(new Animated.Value(getImageHeight()));
   const imageTranslateY = useRef(new Animated.Value(0));
-  const [height, setHeight] = useState();
+  const [bottomViewHeight, setBottomViewHeight] = useState();
   const [topViewHeight, setTopViewHeight] = useState();
   const [dummy, setDummy] = useState();
   const [init, setInit] = useState();
@@ -24,8 +24,8 @@ function Navigation(props) {
   }, [props.children]);
 
   useEffect(() => {
-    if (height && dummy) displayScreen();
-  }, [height]);
+    if (bottomViewHeight && dummy) displayScreen();
+  }, [bottomViewHeight]);
 
 
   useEffect(() => {
@@ -38,7 +38,7 @@ function Navigation(props) {
   function hideAnim() {
     Animated.parallel([
       Animated.timing(translateY.current, {
-        toValue: height - CONSTANT.MARGIN,
+        toValue: bottomViewHeight - CONSTANT.MARGIN,
         duration: props.duration,
         useNativeDriver: true,
       }),
@@ -65,7 +65,7 @@ function Navigation(props) {
 
   function displayScreen() {
     Animated.timing(translateY.current, {
-      toValue: height - CONSTANT.MARGIN,
+      toValue: bottomViewHeight - CONSTANT.MARGIN,
       duration: 0,
       useNativeDriver: true,
     }).start(() => {
@@ -136,7 +136,7 @@ function Navigation(props) {
 
   function getImageHeight() {
     const windowHeight = getWindowHeight();
-    const imageSize = (height ? windowHeight - height : windowHeight) - CONSTANT.MARGIN;
+    const imageSize = (bottomViewHeight ? windowHeight - bottomViewHeight : windowHeight) - CONSTANT.MARGIN;
     const maxImageSize = getMaxImageSize();
     const minImageSize = getMinImageSize();
     if (imageSize > maxImageSize) return maxImageSize;
@@ -165,7 +165,7 @@ function Navigation(props) {
           transform: [{ translateY: translateY.current }],
           opacity: dummy ? 0 : 1
         }}
-        onLayout={event => setHeight(event.nativeEvent.layout.height)}
+        onLayout={event => setBottomViewHeight(event.nativeEvent.layout.height)}
       >
         <Animated.View style={{ opacity: opacity.current }}>
           {props.children}
