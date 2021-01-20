@@ -8,7 +8,11 @@ function App() {
 		SplashScreen.hide();
 	});
 
-	return <Routes />;
+	return (
+		<>
+			<Routes />
+		</>
+	);
 };
 
 export default App;

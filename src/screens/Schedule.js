@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet } from "react-native";
+import { StyleSheet, View } from "react-native";
 import ClientCalendar from '../components/ClientCalendar';
 import PrimaryButton from "../components/PrimaryButton";
 import SCREENS from '../constants/screens';
@@ -10,7 +10,9 @@ function Schedule({ onScreenChange }) {
       <PrimaryButton style={styles.back}
         icon='angle-left' text='Voltar' isLeft={true}
         onClick={() => onScreenChange(SCREENS.ACTIONS)} />
-      <ClientCalendar />
+      <View style={{ height: '100%' }}>
+        <ClientCalendar />
+      </View>
     </>
   );
 }

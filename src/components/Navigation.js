@@ -165,7 +165,8 @@ function Navigation(props) {
         style={{
           ...styles.bottomContainer,
           transform: [{ translateY: bottomViewTranslateY.current }],
-          opacity: dummy ? 0 : 1
+          opacity: dummy ? 0 : 1,
+          maxHeight: (1 - (getMinImageSize() / getWindowHeight())) * 100 + "%",
         }}
         onLayout={event => setBottomViewHeight(event.nativeEvent.layout.height)}
       >
