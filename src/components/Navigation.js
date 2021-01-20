@@ -11,7 +11,7 @@ function Navigation(props) {
   const propsRef = useRef(props);
   const bottomViewTranslateY = useRef(new Animated.Value(0));
   const opacity = useRef(new Animated.Value(1));
-  const imageHeight = useRef(new Animated.Value(getImageHeight()));
+  const imageHeight = useRef(new Animated.Value(0));
   const imageTranslateY = useRef(new Animated.Value(0));
   const [bottomViewHeight, setBottomViewHeight] = useState();
   const [topViewHeight, setTopViewHeight] = useState();
@@ -29,11 +29,12 @@ function Navigation(props) {
 
 
   useEffect(() => {
-    if (!init && topViewHeight) {
+    if (!init && topViewHeight && bottomViewHeight) {
+      imageHeight.current = new Animated.Value(getImageHeight());
       imageTranslateY.current = new Animated.Value(getImageTranslateY(CONSTANT.CALCULATED));
       setInit(true);
     }
-  }, [topViewHeight]);
+  }, [topViewHeight, bottomViewHeight]);
 
   function hideAnim() {
     Animated.parallel([
