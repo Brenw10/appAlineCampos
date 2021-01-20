@@ -29,7 +29,6 @@ function Navigation(props) {
     if (bottomViewHeight && dummy) displayScreen();
   }, [bottomViewHeight]);
 
-
   useEffect(() => {
     if (!init && topViewHeight && bottomViewHeight) {
       imageHeight.current = new Animated.Value(getImageHeight());
@@ -110,7 +109,7 @@ function Navigation(props) {
     switch (type) {
       case CONSTANT.FULLSCREEN: {
         const windowMiddle = getWindowHeight() / 2;
-        const imageMiddle = getImageHeight() / 2;
+        const imageMiddle = CONSTANT.MAX_IMAGE_SIZE / 2;
         return windowMiddle - imageMiddle - CONSTANT.MARGIN;
       }
       case CONSTANT.CALCULATED: {
@@ -130,12 +129,9 @@ function Navigation(props) {
   }
 
   function getImageHeight() {
-    const windowHeight = getWindowHeight();
-    const viewHeight = topViewHeight || windowHeight;
-    const imageSize = viewHeight - CONSTANT.MARGIN;
-    if (imageSize > CONSTANT.MAX_IMAGE_SIZE) return CONSTANT.MAX_IMAGE_SIZE;
-    if (imageSize < CONSTANT.MIN_IMAGE_SIZE) return CONSTANT.MIN_IMAGE_SIZE;
-    return imageSize;
+    if (topViewHeight > CONSTANT.MAX_IMAGE_SIZE) return CONSTANT.MAX_IMAGE_SIZE;
+    if (topViewHeight < CONSTANT.MIN_IMAGE_SIZE) return CONSTANT.MIN_IMAGE_SIZE;
+    return topViewHeight;
   }
 
   return (
