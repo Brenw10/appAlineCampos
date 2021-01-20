@@ -1,5 +1,5 @@
 import React, { useReducer, useState } from 'react';
-import { KeyboardAvoidingView, StyleSheet, View } from 'react-native';
+import { ScrollView, StyleSheet } from 'react-native';
 import { Input } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import OnlyNumbers, { ACTIONS } from '../reducers/OnlyNumber';
@@ -14,7 +14,7 @@ function UserLogin({ onScreenChange }) {
   const [name, setName] = useState();
 
   return (
-    <KeyboardAvoidingView style={{ flex: 1 }} behavior='height'>
+    <ScrollView>
       <Logo
         title="Inicio de acesso ao usuário"
         description="Digite seus dados"
@@ -67,17 +67,16 @@ function UserLogin({ onScreenChange }) {
       />
       <InputDetail text="DDD + Número" />
 
-      <View style={styles.actions}>
-        <PrimaryButton text="Entrar" icon='paper-plane' onClick={() => onScreenChange(SCREENS.ACTIONS)} />
-      </View>
-    </KeyboardAvoidingView>
+      <PrimaryButton style={styles.button}
+        text="Entrar" icon='paper-plane' onClick={() => onScreenChange(SCREENS.ACTIONS)}
+      />
+    </ScrollView>
   )
 }
 
 const styles = StyleSheet.create({
-  actions: {
-    flex: 1,
-    justifyContent: 'flex-end',
+  button: {
+    marginTop: '30%',
   },
 });
 

@@ -11,11 +11,6 @@ function Login() {
   const [screen, setScreen] = useState(SCREENS.INIT);
   const [newScreen, setNewScreen] = useState(screen);
 
-  function onHideAnimDone(showAnim) {
-    setScreen(newScreen);
-    showAnim();
-  }
-
   function onScreenChange(screen) {
     return screen && setNewScreen(screen);
   }
@@ -23,12 +18,10 @@ function Login() {
   return (
     <>
       <Navigation
-        flex={newScreen.FLEX}
-        imageSize={newScreen.IMAGE_SIZE}
         duration={500}
         image={require('../assets/logo.png')}
-        imageDefaultSize={200}
-        onHideAnimDone={showAnim => onHideAnimDone(showAnim)}>
+        setScreen={() => setScreen(newScreen)}
+        onHideAnimDone={showAnim => showAnim()}>
         {
           screen.NAME === SCREENS.INIT.NAME &&
           <WelcomeLogin onScreenChange={screen => onScreenChange(screen)} />

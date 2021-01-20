@@ -11,17 +11,16 @@ function WelcomeLogin({ onScreenChange }) {
         title="Um jeito fácil de manter regular sua saúde!"
         description="Faça um breve login"
       />
-      <View style={styles.startContainer}>
-        <PrimaryButton text="Iniciar" icon='rocket' onClick={() => onScreenChange(SCREENS.LOGIN)} />
-      </View>
+      <PrimaryButton style={styles.button}
+        text="Iniciar" icon='rocket' onClick={() => onScreenChange(SCREENS.LOGIN)}
+      />
     </>
   );
 }
 
 const styles = StyleSheet.create({
-  startContainer: {
-    flex: 1,
-    justifyContent: 'flex-end',
+  button: {
+    marginTop: '30%',
   },
 });
 
