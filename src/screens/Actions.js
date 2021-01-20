@@ -1,4 +1,5 @@
 import React from "react";
+import { ScrollView } from "react-native";
 import PrimaryButton from "../components/PrimaryButton";
 import SCREENS from '../constants/screens';
 
@@ -38,7 +39,7 @@ function Actions({ onScreenChange }) {
   ];
 
   return (
-    <>
+    <ScrollView>
       {
         buttons.map((value, i) =>
           <PrimaryButton key={i} text={value.title} icon={value.icon}
@@ -46,7 +47,7 @@ function Actions({ onScreenChange }) {
           />
         )
       }
-    </>
+    </ScrollView>
   );
 }
 
