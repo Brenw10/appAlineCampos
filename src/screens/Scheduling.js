@@ -65,7 +65,7 @@ function Scheduling({ onScreenChange }) {
   const disabled = !treatments.find(value => value.checked);
   return (
     <>
-      <PrimaryButton styles={styles.back}
+      <PrimaryButton style={styles.back}
         icon='angle-left' text='Voltar' isLeft={true}
         onClick={() => onScreenChange(SCREENS.ACTIONS)}
       />

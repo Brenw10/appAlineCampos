@@ -7,7 +7,7 @@ function PrimaryButton(props) {
 
   return (
     <TouchableHighlight
-      style={{ ...styles.button, ...props.styles }}
+      style={{ ...styles.button, ...props.style }}
       onPress={() => onClick()}
       underlayColor='#003834'
     >

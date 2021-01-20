@@ -7,7 +7,7 @@ import SCREENS from '../constants/screens';
 function Schedule({ onScreenChange }) {
   return (
     <>
-      <PrimaryButton styles={styles.back}
+      <PrimaryButton style={styles.back}
         icon='angle-left' text='Voltar' isLeft={true}
         onClick={() => onScreenChange(SCREENS.ACTIONS)} />
       <ClientCalendar />
