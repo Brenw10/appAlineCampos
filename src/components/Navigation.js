@@ -5,6 +5,8 @@ const CONSTANT = {
   MARGIN: 40,
   FULLSCREEN: 'FULLSCREEN',
   CALCULATED: 'CALCULATED',
+  MAX_IMAGE_SIZE: 250,
+  MIN_IMAGE_SIZE: 150,
 };
 
 function Navigation(props) {
@@ -49,7 +51,7 @@ function Navigation(props) {
         useNativeDriver: true,
       }),
       Animated.timing(imageHeight.current, {
-        toValue: getMaxImageSize(),
+        toValue: CONSTANT.MAX_IMAGE_SIZE,
         duration: props.duration,
         useNativeDriver: false,
       }),
@@ -127,22 +129,12 @@ function Navigation(props) {
     return Dimensions.get('window').height;
   }
 
-  function getMaxImageSize() {
-    return getWindowHeight() / 2.8;
-  }
-
-  function getMinImageSize() {
-    return getWindowHeight() * 0.2;
-  }
-
   function getImageHeight() {
     const windowHeight = getWindowHeight();
     const viewHeight = (windowHeight - bottomViewHeight) || windowHeight;
     const imageSize = viewHeight - CONSTANT.MARGIN;
-    const maxImageSize = getMaxImageSize();
-    const minImageSize = getMinImageSize();
-    if (imageSize > maxImageSize) return maxImageSize;
-    if (imageSize < minImageSize) return minImageSize;
+    if (imageSize > CONSTANT.MAX_IMAGE_SIZE) return CONSTANT.MAX_IMAGE_SIZE;
+    if (imageSize < CONSTANT.MIN_IMAGE_SIZE) return CONSTANT.MIN_IMAGE_SIZE;
     return imageSize;
   }
 
@@ -166,7 +158,7 @@ function Navigation(props) {
           ...styles.bottomContainer,
           transform: [{ translateY: bottomViewTranslateY.current }],
           opacity: dummy ? 0 : 1,
-          maxHeight: (1 - (getMinImageSize() / getWindowHeight())) * 100 + "%",
+          maxHeight: (1 - (CONSTANT.MIN_IMAGE_SIZE / getWindowHeight())) * 100 + "%",
         }}
         onLayout={event => setBottomViewHeight(event.nativeEvent.layout.height)}
       >
