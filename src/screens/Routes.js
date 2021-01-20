@@ -19,6 +19,7 @@ function Login() {
     <>
       <Navigation
         duration={500}
+        delay={0}
         image={require('../assets/logo.png')}
         setScreen={() => setScreen(newScreen)}
         onHideAnimDone={showAnim => showAnim()}>

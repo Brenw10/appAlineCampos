@@ -80,25 +80,25 @@ function Navigation(props) {
       Animated.timing(bottomViewTranslateY.current, {
         toValue: 0,
         duration: props.duration,
-        delay: props.duration,
+        delay: props.delay,
         useNativeDriver: true,
       }),
       Animated.timing(opacity.current, {
         toValue: 1,
         duration: props.duration,
-        delay: props.duration,
+        delay: props.delay,
         useNativeDriver: true,
       }),
       Animated.timing(imageHeight.current, {
         toValue: getImageHeight(),
         duration: props.duration,
-        delay: props.duration,
+        delay: props.delay,
         useNativeDriver: false,
       }),
       Animated.timing(imageTranslateY.current, {
         toValue: getImageTranslateY(CONSTANT.CALCULATED),
         duration: props.duration,
-        delay: props.duration,
+        delay: props.delay,
         useNativeDriver: false,
       }),
     ]).start();
