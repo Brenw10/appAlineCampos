@@ -7,6 +7,7 @@ const CONSTANT = {
   CALCULATED: 'CALCULATED',
   MAX_IMAGE_SIZE: 200,
   MIN_IMAGE_SIZE: 100,
+  IMAGE_SIZE_PERCENTAGE: 0.8,
 };
 
 function Navigation(props) {
@@ -129,9 +130,10 @@ function Navigation(props) {
   }
 
   function getImageHeight() {
-    if (topViewHeight > CONSTANT.MAX_IMAGE_SIZE) return CONSTANT.MAX_IMAGE_SIZE;
-    if (topViewHeight < CONSTANT.MIN_IMAGE_SIZE) return CONSTANT.MIN_IMAGE_SIZE;
-    return topViewHeight;
+    const imageSize = topViewHeight * CONSTANT.IMAGE_SIZE_PERCENTAGE;
+    if (imageSize > CONSTANT.MAX_IMAGE_SIZE) return CONSTANT.MAX_IMAGE_SIZE;
+    if (imageSize < CONSTANT.MIN_IMAGE_SIZE) return CONSTANT.MIN_IMAGE_SIZE;
+    return imageSize;
   }
 
   return (
