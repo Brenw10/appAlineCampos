@@ -136,7 +136,8 @@ function Navigation(props) {
 
   function getImageHeight() {
     const windowHeight = getWindowHeight();
-    const imageSize = (bottomViewHeight ? windowHeight - bottomViewHeight : windowHeight) - CONSTANT.MARGIN;
+    const viewHeight = (windowHeight - bottomViewHeight) || windowHeight;
+    const imageSize = viewHeight - CONSTANT.MARGIN;
     const maxImageSize = getMaxImageSize();
     const minImageSize = getMinImageSize();
     if (imageSize > maxImageSize) return maxImageSize;
