@@ -110,12 +110,12 @@ function Navigation(props) {
     switch (type) {
       case CONSTANT.FULLSCREEN: {
         const windowMiddle = getWindowHeight() / 2;
-        const imageMiddle = parseFloat(JSON.stringify(imageHeight.current)) / 2;
+        const imageMiddle = getImageHeight() / 2;
         return windowMiddle - imageMiddle - CONSTANT.MARGIN;
       }
       case CONSTANT.CALCULATED: {
         const viewMiddle = topViewHeight / 2;
-        const imageMiddle = parseFloat(JSON.stringify(imageHeight.current)) / 2;
+        const imageMiddle = getImageHeight() / 2;
         const y = viewMiddle - imageMiddle;
         return Math.max(y, 0);
       }
