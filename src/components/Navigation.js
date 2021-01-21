@@ -14,12 +14,11 @@ function Navigation(props) {
   const propsRef = useRef(props);
   const bottomViewTranslateY = useRef(new Animated.Value(0));
   const opacity = useRef(new Animated.Value(1));
-  const imageHeight = useRef(new Animated.Value(0));
-  const imageTranslateY = useRef(new Animated.Value(0));
+  const imageHeight = useRef();
+  const imageTranslateY = useRef();
   const [bottomViewHeight, setBottomViewHeight] = useState();
   const [topViewHeight, setTopViewHeight] = useState();
   const [dummy, setDummy] = useState();
-  const [init, setInit] = useState();
 
   useEffect(() => {
     if (props.children !== propsRef.current.children) hideAnim();
@@ -31,12 +30,12 @@ function Navigation(props) {
   }, [bottomViewHeight]);
 
   useEffect(() => {
-    if (!init && topViewHeight && bottomViewHeight) {
+    const isFirstTime = imageHeight.current === undefined && imageTranslateY.current === undefined;
+    if (isFirstTime && topViewHeight) {
       imageHeight.current = new Animated.Value(getImageHeight());
       imageTranslateY.current = new Animated.Value(getImageTranslateY(CONSTANT.CALCULATED));
-      setInit(true);
     }
-  }, [topViewHeight, bottomViewHeight]);
+  }, [topViewHeight]);
 
   function hideAnim() {
     Animated.parallel([
@@ -146,7 +145,7 @@ function Navigation(props) {
           style={{
             ...styles.image,
             height: imageHeight.current,
-            transform: [{ translateY: imageTranslateY.current }],
+            transform: [{ translateY: imageTranslateY.current || 0 }],
           }}
           source={props.image} resizeMode='contain' />
       </View>
