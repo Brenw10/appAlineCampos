@@ -115,8 +115,7 @@ function Navigation(props) {
       case CONSTANT.CALCULATED: {
         const viewMiddle = topViewHeight / 2;
         const imageMiddle = getImageHeight() / 2;
-        const y = viewMiddle - imageMiddle;
-        return Math.max(y, 0);
+        return viewMiddle - imageMiddle;
       }
       default: {
         return 0;
