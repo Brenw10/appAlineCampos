@@ -1,14 +1,16 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { Agenda } from 'react-native-calendars';
 import { LocaleConfig } from 'react-native-calendars';
+import CALENDAR from '../constants/calendar';
+import DateTime from '../services/DateTime';
 
 LocaleConfig.defaultLocale = 'pt-BR';
 
 function ClientCalendar() {
-
-	const items = {
-		'2021-01-18': [
+	const [items, setItems] = useState({});
+	const fake = {
+		[DateTime.getDefaultDateFormat(new Date())]: [
 			{
 				startTime: '13:00',
 				endTime: '15:00',
@@ -41,6 +43,18 @@ function ClientCalendar() {
 		],
 	};
 
+	useEffect(() => {
+		loadItems();
+	}, []);
+
+	function loadItems() {
+		const dates = DateTime
+			.getDaysInNextMonths(DateTime.getMonthStartDate(new Date()), CALENDAR.MAX_MONTH)
+			.map(value => ({ [DateTime.getDefaultDateFormat(value)]: [] }))
+			.reduce((obj, value) => Object.assign(obj, value), {});
+		setItems(dates);
+	}
+
 	function renderItem(item) {
 		return (
 			<View style={styles.item}>
@@ -56,7 +70,7 @@ function ClientCalendar() {
 			<Agenda
 				items={items}
 				pastScrollRange={0}
-				futureScrollRange={6}
+				futureScrollRange={CALENDAR.MAX_MONTH}
 				renderItem={item => renderItem(item)}
 			/>
 		</>
