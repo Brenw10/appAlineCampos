@@ -8,51 +8,59 @@ import DateTime from '../services/DateTime';
 LocaleConfig.defaultLocale = 'pt-BR';
 
 function ClientCalendar() {
+	const [data, setData] = useState([
+		{
+			date: DateTime.getDefaultDateFormat(new Date()),
+			startTime: '13:00',
+			endTime: '15:00',
+			patient: 'Carolina Campos',
+			treatments: [
+				{
+					name: "Acupuntura",
+				},
+				{
+					name: "Massagem Relaxante",
+				},
+			],
+		},
+		{
+			date: DateTime.getDefaultDateFormat(new Date()),
+			startTime: '15:30',
+			endTime: '17:00',
+			patient: 'Brendon Mota',
+			treatments: [
+				{
+					name: "Cone Chinês",
+				},
+				{
+					name: "Massagem Relaxante",
+				},
+				{
+					name: "Tratamento Ultra Secreto Desenvolvido pela Nasa em 1768",
+				},
+			],
+		},
+	]);
 	const [items, setItems] = useState({});
-	const fake = {
-		[DateTime.getDefaultDateFormat(new Date())]: [
-			{
-				startTime: '13:00',
-				endTime: '15:00',
-				patient: 'Carolina Campos',
-				treatments: [
-					{
-						name: "Acupuntura",
-					},
-					{
-						name: "Massagem Relaxante",
-					},
-				],
-			},
-			{
-				startTime: '15:30',
-				endTime: '17:00',
-				patient: 'Brendon Mota',
-				treatments: [
-					{
-						name: "Cone Chinês",
-					},
-					{
-						name: "Massagem Relaxante",
-					},
-					{
-						name: "Tratamento Ultra Secreto Desenvolvido pela Nasa em 1768",
-					},
-				],
-			},
-		],
-	};
 
 	useEffect(() => {
 		loadItems();
 	}, []);
 
+	function getMergedItems(value) {
+		return {
+			[DateTime.getDefaultDateFormat(value)]:
+				data.filter(item => item.date === DateTime.getDefaultDateFormat(value)),
+		};
+	}
+
 	function loadItems() {
-		const dates = DateTime
-			.getDaysInNextMonths(DateTime.getMonthStartDate(new Date()), CALENDAR.MAX_MONTH)
-			.map(value => ({ [DateTime.getDefaultDateFormat(value)]: [] }))
-			.reduce((obj, value) => Object.assign(obj, value), {});
-		setItems(dates);
+		setItems(
+			DateTime
+				.getDaysInNextMonths(DateTime.getMonthStartDate(new Date()), CALENDAR.MAX_MONTH)
+				.map(getMergedItems)
+				.reduce((obj, value) => Object.assign(obj, value), {})
+		);
 	}
 
 	function renderItem(item) {
