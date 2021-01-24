@@ -65,6 +65,7 @@ function UserLogin({ onScreenChange }) {
         placeholder='Nome'
         value={name}
         onChangeText={value => setName(value)}
+        disabled={cpf.length !== MAX_LENGTH.CPF}
         maxLength={MAX_LENGTH.NAME}
         leftIcon={
           <Icon
@@ -80,6 +81,7 @@ function UserLogin({ onScreenChange }) {
         placeholder='Celular'
         keyboardType='numeric'
         value={phone}
+        disabled={cpf.length !== MAX_LENGTH.CPF}
         onChangeText={value => dispatchPhone({ type: ACTIONS.ADD, payload: { value } })}
         maxLength={MAX_LENGTH.PHONE}
         leftIcon={
