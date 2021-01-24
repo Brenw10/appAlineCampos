@@ -34,6 +34,10 @@ function UserLogin({ onScreenChange }) {
     return cpf.length === MAX_LENGTH.CPF && phone.length === MAX_LENGTH.PHONE && name.length > 0;
   }
 
+  function setUser() {
+    return UserService.set({ cpf, phone, name });
+  }
+
   return (
     <ScrollView>
       <Logo
@@ -89,7 +93,7 @@ function UserLogin({ onScreenChange }) {
       <InputDetail text="DDD + Número" />
 
       <PrimaryButton style={styles.button} disabled={!isValid()}
-        text="Entrar" icon='paper-plane' onClick={() => onScreenChange(SCREENS.ACTIONS)}
+        text="Entrar" icon='paper-plane' onClick={() => onScreenChange(SCREENS.ACTIONS, setUser)}
       />
     </ScrollView>
   )

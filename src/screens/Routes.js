@@ -10,9 +10,18 @@ import Scheduling from './Scheduling';
 function Login() {
   const [screen, setScreen] = useState(SCREENS.INIT);
   const [newScreen, setNewScreen] = useState(screen);
+  const [callback, setCallback] = useState();
 
-  function onScreenChange(screen) {
-    return screen && setNewScreen(screen);
+  function onScreenChange(screen, cb) {
+    if (screen) {
+      setNewScreen(screen);
+      setCallback(cb);
+    }
+  }
+
+  async function onHideAnimDone(showAnim) {
+    await callback;
+    showAnim();
   }
 
   return (
@@ -22,26 +31,26 @@ function Login() {
         delay={0}
         image={require('../assets/logo.png')}
         setScreen={() => setScreen(newScreen)}
-        onHideAnimDone={showAnim => showAnim()}>
+        onHideAnimDone={onHideAnimDone}>
         {
           screen.NAME === SCREENS.INIT.NAME &&
-          <WelcomeLogin onScreenChange={screen => onScreenChange(screen)} />
+          <WelcomeLogin onScreenChange={onScreenChange} />
         }
         {
           screen.NAME === SCREENS.LOGIN.NAME &&
-          <UserLogin onScreenChange={screen => onScreenChange(screen)} />
+          <UserLogin onScreenChange={onScreenChange} />
         }
         {
           screen.NAME === SCREENS.ACTIONS.NAME &&
-          <Actions onScreenChange={screen => onScreenChange(screen)} />
+          <Actions onScreenChange={onScreenChange} />
         }
         {
           screen.NAME === SCREENS.SCHEDULE.NAME &&
-          <Schedule onScreenChange={screen => onScreenChange(screen)} />
+          <Schedule onScreenChange={onScreenChange} />
         }
         {
           screen.NAME === SCREENS.SCHEDULING.NAME &&
-          <Scheduling onScreenChange={screen => onScreenChange(screen)} />
+          <Scheduling onScreenChange={onScreenChange} />
         }
       </Navigation>
     </>
