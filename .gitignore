@@ -60,3 +60,4 @@ buck-out/
 
 yarn.lock
 /ios/Podfile.lock
+src/config/api.js

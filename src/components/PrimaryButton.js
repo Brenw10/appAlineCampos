@@ -3,13 +3,14 @@ import { StyleSheet, Text, TouchableHighlight, View } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 function PrimaryButton(props) {
-  const { text, icon, onClick, isLeft } = props;
+  const { text, icon, onClick, isLeft, disabled } = props;
 
   return (
     <TouchableHighlight
-      style={{ ...styles.button, ...props.style }}
+      style={{ ...styles.button, ...props.style, backgroundColor: disabled ? 'grey' : '#01877c' }}
       onPress={() => onClick()}
       underlayColor='#003834'
+      disabled={disabled}
     >
       <View style={styles.container}>
         {icon && isLeft && <Icon name={icon} size={18} color='#FFF' style={styles.iconLeft} />}
@@ -22,7 +23,6 @@ function PrimaryButton(props) {
 
 const styles = StyleSheet.create({
   button: {
-    backgroundColor: '#01877c',
     borderRadius: 20,
     alignItems: 'center',
     shadowColor: "#000",
