@@ -10,13 +10,8 @@ function UserLogin({ onScreenChange }) {
 
   async function googleSignIn() {
     return GoogleSignin.signIn()
-      .then(data => onScreenChange(SCREENS.ACTIONS, signIn(data)));
-  }
-
-  function signIn({ user }) {
-    return function () {
-      return UserService.set(user);
-    }
+      .then(({ user }) => UserService.set(user))
+      .then(() => onScreenChange(SCREENS.ACTIONS));
   }
 
   return (

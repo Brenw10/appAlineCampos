@@ -4,70 +4,46 @@ import { Agenda } from 'react-native-calendars';
 import { LocaleConfig } from 'react-native-calendars';
 import CALENDAR from '../constants/calendar';
 import DateTime from '../services/DateTime';
+import Appointment from '../services/Appointment';
 
 LocaleConfig.defaultLocale = 'pt-BR';
 
 function ClientCalendar() {
-	const [data, setData] = useState([
-		{
-			date: DateTime.getDefaultDateFormat(new Date()),
-			startTime: '13:00',
-			endTime: '15:00',
-			patient: 'Carolina Campos',
-			treatments: [
-				{
-					name: "Acupuntura",
-				},
-				{
-					name: "Massagem Relaxante",
-				},
-			],
-		},
-		{
-			date: DateTime.getDefaultDateFormat(new Date()),
-			startTime: '15:30',
-			endTime: '17:00',
-			patient: 'Brendon Mota',
-			treatments: [
-				{
-					name: "Cone Chinês",
-				},
-				{
-					name: "Massagem Relaxante",
-				},
-				{
-					name: "Tratamento Ultra Secreto Desenvolvido pela Nasa em 1768",
-				},
-			],
-		},
-	]);
 	const [items, setItems] = useState({});
 
 	useEffect(() => {
 		loadItems();
 	}, []);
 
-	function getMergedItems(value) {
-		return {
-			[DateTime.getDefaultDateFormat(value)]:
-				data.filter(item => item.date === DateTime.getDefaultDateFormat(value)),
-		};
+	function getMergedItems(data) {
+		return function (value) {
+			return {
+				[DateTime.getDefaultDateFormat(value)]:
+					data.filter(item =>
+						DateTime.getDefaultDateFormat(item.datetime) === DateTime.getDefaultDateFormat(value)
+					)
+			}
+		}
 	}
 
-	function loadItems() {
-		setItems(
-			DateTime
-				.getDaysInNextMonths(DateTime.getMonthStartDate(new Date()), CALENDAR.MAX_MONTH)
-				.map(getMergedItems)
-				.reduce((obj, value) => Object.assign(obj, value), {})
-		);
+	async function loadItems() {
+		const { data } = await Appointment.getAll();
+		const newItems = DateTime
+			.getDaysInNextMonths(DateTime.getMonthStartDate(new Date()), CALENDAR.MAX_MONTH)
+			.map(getMergedItems(data))
+			.reduce((obj, value) => Object.assign(obj, value), {});
+		setItems(newItems);
 	}
 
 	function renderItem(item) {
 		return (
 			<View style={styles.item}>
-				<Text style={styles.hour}>{`${item.startTime} - ${item.endTime}`}</Text>
-				<Text style={styles.patient}>{item.patient}</Text>
+				<Text style={styles.hour}>
+					{DateTime.getHourFormat(item.datetime)}
+					{' - '}
+					{DateTime.getHourFormat(DateTime.addDate(item.datetime, 'minute', item.duration))}
+				</Text>
+				<Text style={styles.patient}>{item.client.name}</Text>
 				<Text style={styles.treatments}>{item.treatments.map(value => value.name).join('\n')}</Text>
 			</View>
 		);
