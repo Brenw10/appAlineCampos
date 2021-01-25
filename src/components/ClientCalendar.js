@@ -5,6 +5,8 @@ import { LocaleConfig } from 'react-native-calendars';
 import CALENDAR from '../constants/calendar';
 import DateTime from '../services/DateTime';
 import Appointment from '../services/Appointment';
+import { APPOINTMENT } from '../constants/appointment';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 LocaleConfig.defaultLocale = 'pt-BR';
 
@@ -38,22 +40,30 @@ function ClientCalendar() {
 	function renderItem(item) {
 		return (
 			<View style={styles.item}>
-				<View style={{ flex: 1 }}>
-					<Text style={styles.hour}>
-						{DateTime.getHourFormat(item.datetime)}
-						{' - '}
-						{DateTime.getHourFormat(DateTime.addDate(item.datetime, 'minute', item.duration))}
-					</Text>
-					<Text style={styles.patient}>{item.client.name}</Text>
-					<Text style={styles.treatments}>{item.treatments.map(value => value.name).join('\n')}</Text>
+				<View style={styles.subItem}>
+					<View style={{ flex: 1 }}>
+						<Text style={styles.hour}>
+							{DateTime.getHourFormat(item.datetime)}
+							{' - '}
+							{DateTime.getHourFormat(DateTime.addDate(item.datetime, 'minute', item.duration))}
+						</Text>
+						<Text style={styles.patient}>{item.client.name}</Text>
+						<Text style={styles.treatments}>{item.treatments.map(value => value.name).join('\n')}</Text>
+					</View>
+					<Image
+						style={styles.image}
+						resizeMode='contain'
+						source={{
+							uri: item.client.photo,
+						}}
+					/>
 				</View>
-				<Image
-					style={styles.image}
-					resizeMode='contain'
-					source={{
-						uri: item.client.photo,
-					}}
-				/>
+				<View style={styles.statusContainer}>
+					<Icon name={APPOINTMENT[item.status].ICON} size={18} color={APPOINTMENT[item.status].COLOR} />
+					<Text style={styles.statusText}>
+						{APPOINTMENT[item.status].TEXT}
+					</Text>
+				</View>
 			</View>
 		);
 	}
@@ -76,6 +86,8 @@ const styles = StyleSheet.create({
 		padding: 10,
 		marginRight: 10,
 		marginTop: 17,
+	},
+	subItem: {
 		flexDirection: 'row',
 	},
 	hour: {
@@ -94,7 +106,15 @@ const styles = StyleSheet.create({
 		width: 70,
 		height: 70,
 		borderRadius: 100,
-	}
+	},
+	statusContainer: {
+		marginTop: 15,
+		alignSelf: 'center',
+		flexDirection: 'row',
+	},
+	statusText: {
+		marginLeft: 5,
+	},
 });
 
 export default ClientCalendar;
