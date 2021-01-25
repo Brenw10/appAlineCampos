@@ -1,8 +1,8 @@
 import Axios from 'axios';
 import { API } from '../config/api';
 
-function set(token, user) {
-  return Axios.post(`${API}/user`, { token, user });
+function set(idToken, user) {
+  return Axios.post(`${API}/user`, { idToken, user });
 }
 
 const service = {
