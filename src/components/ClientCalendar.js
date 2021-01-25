@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import React, { useLayoutEffect, useState } from 'react';
+import { View, Text, StyleSheet, Image } from 'react-native';
 import { Agenda } from 'react-native-calendars';
 import { LocaleConfig } from 'react-native-calendars';
 import CALENDAR from '../constants/calendar';
@@ -11,7 +11,7 @@ LocaleConfig.defaultLocale = 'pt-BR';
 function ClientCalendar() {
 	const [items, setItems] = useState({});
 
-	useEffect(() => {
+	useLayoutEffect(() => {
 		loadItems();
 	}, []);
 
@@ -38,13 +38,22 @@ function ClientCalendar() {
 	function renderItem(item) {
 		return (
 			<View style={styles.item}>
-				<Text style={styles.hour}>
-					{DateTime.getHourFormat(item.datetime)}
-					{' - '}
-					{DateTime.getHourFormat(DateTime.addDate(item.datetime, 'minute', item.duration))}
-				</Text>
-				<Text style={styles.patient}>{item.client.name}</Text>
-				<Text style={styles.treatments}>{item.treatments.map(value => value.name).join('\n')}</Text>
+				<View style={{ flex: 1 }}>
+					<Text style={styles.hour}>
+						{DateTime.getHourFormat(item.datetime)}
+						{' - '}
+						{DateTime.getHourFormat(DateTime.addDate(item.datetime, 'minute', item.duration))}
+					</Text>
+					<Text style={styles.patient}>{item.client.name}</Text>
+					<Text style={styles.treatments}>{item.treatments.map(value => value.name).join('\n')}</Text>
+				</View>
+				<Image
+					style={styles.image}
+					resizeMode='contain'
+					source={{
+						uri: item.client.photo,
+					}}
+				/>
 			</View>
 		);
 	}
@@ -67,6 +76,7 @@ const styles = StyleSheet.create({
 		padding: 10,
 		marginRight: 10,
 		marginTop: 17,
+		flexDirection: 'row',
 	},
 	hour: {
 		color: '#45535e',
@@ -80,6 +90,11 @@ const styles = StyleSheet.create({
 		marginTop: 10,
 		color: '#9caebb',
 	},
+	image: {
+		width: 70,
+		height: 70,
+		borderRadius: 100,
+	}
 });
 
 export default ClientCalendar;
