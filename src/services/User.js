@@ -4,15 +4,7 @@ import { GoogleSignin } from '@react-native-community/google-signin';
 
 async function set(user) {
   const { idToken } = await GoogleSignin.getCurrentUser();
-  return Axios.post(
-    `${API}/user`,
-    { user },
-    {
-      headers: {
-        'Authorization': `Bearer ${idToken}`,
-      },
-    },
-  );
+  return Axios.post(`${API}/user`, { user }, { headers: { Authorization: idToken } });
 }
 
 const service = {
