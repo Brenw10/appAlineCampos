@@ -77,7 +77,7 @@ function Scheduling({ onScreenChange }) {
           setDate={date => setDate(date)}
           message={disabled ? 'Antes Selecione um Tratamento' : 'Selecione a Data Atendimento'}
           maximumDate={DateTime.addDate(new Date(), 'months', CALENDAR.MAX_MONTH)}
-          minimumDate={new Date()}
+          minimumDate={DateTime.addDate(new Date(), 'day', 1)}
         />
       </ScrollView>
     </>
