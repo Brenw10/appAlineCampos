@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet } from 'react-native';
 import Logo from '../components/Logo';
 import PrimaryButton from '../components/PrimaryButton';
 import SCREENS from '../constants/screens';

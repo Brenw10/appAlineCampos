@@ -1,5 +1,3 @@
-const CONSTANT = {
+export const CALENDAR = {
   MAX_MONTH: 6,
 };
-
-export default CONSTANT;
