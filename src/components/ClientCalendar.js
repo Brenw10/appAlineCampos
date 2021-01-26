@@ -17,24 +17,28 @@ function ClientCalendar() {
 		loadItems();
 	}, []);
 
-	function getMergedItems(data) {
-		return function (value) {
-			return {
-				[DateTime.getDefaultDateFormat(value)]:
-					data.filter(item =>
-						DateTime.getDefaultDateFormat(item.datetime) === DateTime.getDefaultDateFormat(value)
-					)
-			}
-		}
-	}
-
 	async function loadItems() {
 		const { data } = await Appointment.getAll();
-		const newItems = DateTime
-			.getDaysInNextMonths(DateTime.getMonthStartDate(new Date()), CALENDAR.MAX_MONTH)
-			.map(getMergedItems(data))
-			.reduce((obj, value) => Object.assign(obj, value), {});
+		const dates = getUniqueDates(data);
+		const datesPopulated = getDatesPopulated(dates, data);
+		const newItems = getDatesItemFormat(datesPopulated);
 		setItems(newItems);
+	}
+
+	function getUniqueDates(data) {
+		return data
+			.map(value => DateTime.getDefaultDateFormat(value.datetime))
+			.filter((value, index, array) => index === array.findIndex(v => v === value))
+	}
+
+	function getDatesPopulated(dates, data) {
+		return dates.map(value => ({
+			[value]: data.filter(v => DateTime.getDefaultDateFormat(v.datetime) === value)
+		}));
+	}
+
+	function getDatesItemFormat(data) {
+		return data.reduce((obj, value) => Object.assign(obj, value), {});
 	}
 
 	function renderItem(item) {
