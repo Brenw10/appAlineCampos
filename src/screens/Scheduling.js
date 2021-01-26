@@ -5,7 +5,7 @@ import SCREENS from '../constants/screens';
 import { CheckBox } from 'react-native-elements'
 import SelectDate from '../components/SelectDate';
 import DateTime from '../services/DateTime';
-import CALENDAR from '../constants/calendar';
+import { CALENDAR } from '../constants/calendar';
 
 function Scheduling({ onScreenChange }) {
   const [date, setDate] = useState();
