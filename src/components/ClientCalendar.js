@@ -87,9 +87,8 @@ function ClientCalendar() {
 const styles = StyleSheet.create({
 	item: {
 		backgroundColor: '#FFF',
-		padding: 10,
-		marginRight: 10,
-		marginTop: 17,
+		padding: 20,
+		margin: 10,
 	},
 	subItem: {
 		flexDirection: 'row',
