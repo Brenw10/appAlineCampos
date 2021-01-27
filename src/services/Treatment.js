@@ -4,7 +4,7 @@ import { GoogleSignin } from '@react-native-community/google-signin';
 
 async function getAll() {
   const { idToken } = await GoogleSignin.getCurrentUser();
-  return Axios.get(`${API}/appointment`,
+  return Axios.get(`${API}/treatment`,
     { headers: { 'Cache-Control': 'no-cache', Authorization: idToken } }
   );
 }
