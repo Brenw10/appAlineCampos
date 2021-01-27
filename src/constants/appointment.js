@@ -9,7 +9,7 @@ export const APPOINTMENT = {
     TEXT: 'Consulta Cancelada',
     ICON: 'close', 
   },
-  APPROVED: {
+  ACCEPTED: {
     COLOR: '#01877c',
     TEXT: 'Consulta Aprovada',
     ICON: 'check', 
