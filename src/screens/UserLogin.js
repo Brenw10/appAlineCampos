@@ -2,16 +2,15 @@ import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import Logo from '../components/Logo';
 import { GoogleSignin, GoogleSigninButton } from '@react-native-community/google-signin';
-import SCREENS from '../constants/screens';
 import '../services/GoogleAuth';
 import UserService from '../services/User';
 
-function UserLogin({ onScreenChange }) {
+function UserLogin({ setRoute }) {
 
   async function googleSignIn() {
     return GoogleSignin.signIn()
       .then(({ user }) => UserService.set(user))
-      .then(() => onScreenChange(SCREENS.ACTIONS));
+      .then(() => setRoute('Actions'));
   }
 
   return (

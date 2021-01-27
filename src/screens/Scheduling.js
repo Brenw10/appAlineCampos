@@ -1,7 +1,6 @@
 import React, { useLayoutEffect, useState } from 'react';
 import PrimaryButton from "../components/PrimaryButton";
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
-import SCREENS from '../constants/screens';
 import { ButtonGroup, CheckBox } from 'react-native-elements';
 import SelectDate from '../components/SelectDate';
 import DateTime from '../services/DateTime';
@@ -14,7 +13,7 @@ const FIRST_TIME = {
   NO: 'Não',
 }
 
-function Scheduling({ onScreenChange }) {
+function Scheduling({ setRoute }) {
   const [date, setDate] = useState();
   const [treatments, setTreatments] = useState([]);
   const [isFirstTime, setIsFirstTime] = useState();
@@ -57,7 +56,7 @@ function Scheduling({ onScreenChange }) {
     <>
       <PrimaryButton style={styles.back}
         icon='angle-left' text='Voltar' isLeft={true}
-        onClick={() => onScreenChange(SCREENS.ACTIONS)}
+        onClick={() => setRoute('Actions')}
       />
       <ScrollView>
         <Text style={styles.sectionText}>É sua primeira consulta?</Text>

@@ -2,9 +2,8 @@ import React from 'react';
 import { StyleSheet } from 'react-native';
 import Logo from '../components/Logo';
 import PrimaryButton from '../components/PrimaryButton';
-import SCREENS from '../constants/screens';
 
-function WelcomeLogin({ onScreenChange }) {
+function WelcomeLogin({ setRoute }) {
   return (
     <>
       <Logo
@@ -12,7 +11,7 @@ function WelcomeLogin({ onScreenChange }) {
         description="Faça um breve login"
       />
       <PrimaryButton style={styles.button}
-        text="Iniciar" icon='rocket' onClick={() => onScreenChange(SCREENS.LOGIN)}
+        text="Iniciar" icon='rocket' onClick={() => setRoute('UserLogin')}
       />
     </>
   );
