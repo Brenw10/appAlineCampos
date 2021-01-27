@@ -33,10 +33,9 @@ function Scheduling({ onScreenChange }) {
   }
 
   function onButtonGroupPress(firstTime) {
-    if (firstTime === FIRST_TIME.YES) {
-      const newTreatments = [...treatments].map(value => Object.assign(value, { checked: value.isFirstType }));
-      setTreatments(newTreatments);
-    }
+    const checkedValue = value => ({ checked: firstTime === FIRST_TIME.YES ? value.isFirstType : false });
+    const newTreatments = [...treatments].map(value => Object.assign(value, checkedValue(value)));
+    setTreatments(newTreatments);
     setIsFirstTime(firstTime);
   }
 
@@ -45,7 +44,8 @@ function Scheduling({ onScreenChange }) {
       <CheckBox key={i}
         title={value.name}
         checked={value.checked}
-        disabled={isFirstTime === FIRST_TIME.YES}
+        uncheckedIcon={isFirstTime === FIRST_TIME.YES || value.isFirstType ? 'close' : 'square-o'}
+        disabled={isFirstTime === FIRST_TIME.YES || value.isFirstType}
         onPress={() => onToggleTreatment(value)}
       />
     );
