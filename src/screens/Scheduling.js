@@ -1,55 +1,43 @@
-import React, { useState } from 'react';
+import React, { useLayoutEffect, useState } from 'react';
 import PrimaryButton from "../components/PrimaryButton";
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import SCREENS from '../constants/screens';
-import { CheckBox } from 'react-native-elements'
+import { ButtonGroup, CheckBox } from 'react-native-elements'
 import SelectDate from '../components/SelectDate';
 import DateTime from '../services/DateTime';
 import { CALENDAR } from '../constants/calendar';
+import Treatment from '../services/Treatment';
+
+const FIRST_TIME = {
+  YES: 'Sim',
+  NO: 'Não',
+}
 
 function Scheduling({ onScreenChange }) {
   const [date, setDate] = useState();
-  const [treatments, setTreatments] = useState([
-    {
-      id: 1,
-      name: "Avaliação",
-      minutes: 60,
-    },
-    {
-      id: 2,
-      name: "Acupuntura",
-      minutes: 60,
-    },
-    {
-      id: 3,
-      name: "Massagem Relaxante",
-      minutes: 60,
-    },
-    {
-      id: 4,
-      name: "Cone Chinês",
-      minutes: 60,
-    },
-    {
-      id: 5,
-      name: "Ventosaterapia",
-      minutes: 60,
-    },
-    {
-      id: 6,
-      name: "Auriculoterapia",
-      minutes: 60,
-    },
-    {
-      id: 7,
-      name: "Recovery",
-      minutes: 60,
-    },
-  ]);
+  const [treatments, setTreatments] = useState([]);
+  const [isFirstTime, setIsFirstTime] = useState();
+
+  useLayoutEffect(() => {
+    loadTreatments();
+  }, []);
+
+  async function loadTreatments() {
+    const { data } = await Treatment.getAll();
+    setTreatments(data);
+  }
 
   function onToggleTreatment(value) {
     const newValue = Object.assign(value, { checked: !value.checked });
     setTreatments([...Object.assign(treatments, newValue)]);
+  }
+
+  function onButtonGroupPress(firstTime) {
+    if (firstTime === FIRST_TIME.YES) {
+      const newTreatments = [...treatments].map(value => Object.assign(value, { checked: value.isFirstType }));
+      setTreatments(newTreatments);
+    }
+    setIsFirstTime(firstTime);
   }
 
   function renderTreatments() {
@@ -57,12 +45,13 @@ function Scheduling({ onScreenChange }) {
       <CheckBox key={i}
         title={value.name}
         checked={value.checked}
+        disabled={isFirstTime === FIRST_TIME.YES}
         onPress={() => onToggleTreatment(value)}
       />
     );
   }
 
-  const disabled = !treatments.find(value => value.checked);
+  const disabledCalendar = !treatments.find(value => value.checked);
   return (
     <>
       <PrimaryButton style={styles.back}
@@ -70,12 +59,19 @@ function Scheduling({ onScreenChange }) {
         onClick={() => onScreenChange(SCREENS.ACTIONS)}
       />
       <ScrollView>
+        <Text style={styles.sectionText}>É sua primeira consulta?</Text>
+        <ButtonGroup
+          onPress={index => onButtonGroupPress(Object.values(FIRST_TIME)[index])}
+          selectedIndex={Object.values(FIRST_TIME).findIndex(value => value === isFirstTime)}
+          buttons={Object.values(FIRST_TIME).map(value => value)}
+        />
+
         <Text style={styles.sectionText}>Tratamentos</Text>
         <View style={styles.treatments}>{renderTreatments()}</View>
         <SelectDate date={date}
-          disabled={disabled}
+          disabled={disabledCalendar}
           setDate={date => setDate(date)}
-          message={disabled ? 'Antes Selecione um Tratamento' : 'Selecione a Data Atendimento'}
+          message={disabledCalendar ? 'Antes Selecione um Tratamento' : 'Selecione a Data Atendimento'}
           maximumDate={DateTime.addDate(new Date(), 'months', CALENDAR.MAX_MONTH)}
           minimumDate={DateTime.addDate(new Date(), 'day', 1)}
         />
