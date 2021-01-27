@@ -2,11 +2,12 @@ import React, { useLayoutEffect, useState } from 'react';
 import PrimaryButton from "../components/PrimaryButton";
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import SCREENS from '../constants/screens';
-import { ButtonGroup, CheckBox } from 'react-native-elements'
+import { ButtonGroup, CheckBox } from 'react-native-elements';
 import SelectDate from '../components/SelectDate';
 import DateTime from '../services/DateTime';
 import { CALENDAR } from '../constants/calendar';
 import Treatment from '../services/Treatment';
+import SelectTime from '../components/SelectTime';
 
 const FIRST_TIME = {
   YES: 'Sim',
@@ -40,18 +41,18 @@ function Scheduling({ onScreenChange }) {
   }
 
   function renderTreatments() {
-    return treatments.map((value, i) =>
-      <CheckBox key={i}
-        title={value.name}
-        checked={value.checked}
-        uncheckedIcon={isFirstTime === FIRST_TIME.YES || value.isFirstType ? 'close' : 'square-o'}
-        disabled={isFirstTime === FIRST_TIME.YES || value.isFirstType}
-        onPress={() => onToggleTreatment(value)}
-      />
-    );
+    return treatments
+      .filter(value => isFirstTime === FIRST_TIME.YES ? value.isFirstType : !value.isFirstType)
+      .map((value, i) =>
+        <CheckBox key={i}
+          title={value.name}
+          checked={value.checked}
+          disabled={isFirstTime === FIRST_TIME.YES}
+          onPress={() => onToggleTreatment(value)}
+        />
+      );
   }
 
-  const disabledCalendar = !treatments.find(value => value.checked);
   return (
     <>
       <PrimaryButton style={styles.back}
@@ -67,14 +68,16 @@ function Scheduling({ onScreenChange }) {
         />
 
         <Text style={styles.sectionText}>Tratamentos</Text>
-        <View style={styles.treatments}>{renderTreatments()}</View>
+        <View>{renderTreatments()}</View>
+
         <SelectDate date={date}
-          disabled={disabledCalendar}
           setDate={date => setDate(date)}
-          message={disabledCalendar ? 'Antes Selecione um Tratamento' : 'Selecione a Data Atendimento'}
+          message={'Selecione a Data Atendimento'}
           maximumDate={DateTime.addDate(new Date(), 'months', CALENDAR.MAX_MONTH)}
           minimumDate={DateTime.addDate(new Date(), 'day', 1)}
         />
+
+        <SelectTime />
       </ScrollView>
     </>
   )
@@ -89,9 +92,6 @@ const styles = StyleSheet.create({
     margin: 15,
     fontSize: 20,
     textTransform: 'uppercase',
-  },
-  treatments: {
-    marginBottom: 20,
   },
 });
 

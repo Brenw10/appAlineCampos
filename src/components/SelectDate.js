@@ -51,6 +51,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     alignSelf: 'center',
+    margin: 10,
   },
   date: {
     marginLeft: 10,

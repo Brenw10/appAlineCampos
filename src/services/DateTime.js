@@ -19,6 +19,7 @@ function addDate(date, field, value) {
 }
 
 const service = {
+  Moment,
   getDateFormat,
   addDate,
   getDefaultDateFormat,
