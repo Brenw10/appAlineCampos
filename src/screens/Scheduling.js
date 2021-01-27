@@ -6,7 +6,6 @@ import SelectDate from '../components/SelectDate';
 import DateTime from '../services/DateTime';
 import { CALENDAR } from '../constants/calendar';
 import Treatment from '../services/Treatment';
-import SelectTime from '../components/SelectTime';
 
 const FIRST_TIME = {
   YES: 'Sim',
@@ -75,8 +74,6 @@ function Scheduling({ setRoute }) {
           maximumDate={DateTime.addDate(new Date(), 'months', CALENDAR.MAX_MONTH)}
           minimumDate={DateTime.addDate(new Date(), 'day', 1)}
         />
-
-        <SelectTime />
       </ScrollView>
     </>
   )

@@ -11,20 +11,15 @@ function Navigation(props) {
   const [bottomViewHeight, setBottomViewHeight] = useState();
   const bottomViewTranslateY = useRef(new Animated.Value(0)).current;
 
-  async function setNewRoute(route) {
-    await hideAnim();
-    setDummy(true);
-    setRoute(route);
-  }
-
-  function hideAnim() {
-    return new Promise(resolve =>
-      Animated.timing(bottomViewTranslateY, {
-        toValue: bottomViewHeight - CONFIG.MARGIN,
-        duration: props.duration,
-        useNativeDriver: true,
-      }).start(() => resolve())
-    );
+  function hideAnim(route) {
+    Animated.timing(bottomViewTranslateY, {
+      toValue: bottomViewHeight - CONFIG.MARGIN,
+      duration: props.duration,
+      useNativeDriver: true,
+    }).start(() => {
+      setDummy(true);
+      setRoute(route);
+    });
   }
 
   function showAnim(height) {
@@ -46,7 +41,7 @@ function Navigation(props) {
   function getComponent() {
     const array = React.Children.toArray(props.children);
     const component = array.find(child => child.type.name === route);
-    return React.cloneElement(component, { setRoute: setNewRoute });
+    return React.cloneElement(component, { setRoute: hideAnim });
   }
 
   function onBottomViewLayout(height) {
