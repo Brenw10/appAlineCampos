@@ -45,7 +45,7 @@ function Actions({ setRoute }) {
 
   return (
     <View>
-      {user && <Logo title={'Bem-vindo ' + user.name} description='Selecione uma das opções abaixo' />}
+      <Logo title={`Olá ${user ? user.name : ''}`} description='Selecione uma das opções abaixo' />
       <ScrollView>
         {
           BUTTONS.map((value, i) =>
