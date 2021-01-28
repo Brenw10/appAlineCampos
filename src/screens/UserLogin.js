@@ -8,9 +8,11 @@ import UserService from '../services/User';
 function UserLogin({ setRoute }) {
 
   async function googleSignIn() {
-    return GoogleSignin.signIn()
-      .then(({ user }) => UserService.set(user))
-      .then(() => setRoute('Actions'));
+    const { accessToken } = await GoogleSignin.getTokens();
+    await GoogleSignin.clearCachedAccessToken(accessToken);
+    const { user } = await GoogleSignin.signIn();
+    await UserService.set(user);
+    setRoute('Actions');
   }
 
   return (
