@@ -1,7 +1,8 @@
-import React from "react";
-import { ScrollView } from "react-native";
+import React, { useLayoutEffect, useState } from "react";
+import { ScrollView, View } from "react-native";
 import PrimaryButton from "../components/PrimaryButton";
 import { GoogleSignin } from '@react-native-community/google-signin';
+import Logo from "../components/Logo";
 
 const BUTTONS = [
   {
@@ -26,21 +27,35 @@ const BUTTONS = [
 ];
 
 function Actions({ setRoute }) {
+  const [user, setUser] = useState();
+
+  useLayoutEffect(() => {
+    loadUser();
+  }, []);
+
+  async function loadUser() {
+    const { user } = await GoogleSignin.getCurrentUser();
+    setUser(user);
+  }
+
   async function onClickAction(value) {
     await value.FUNCTION && value.FUNCTION();
     setRoute(value.SCREEN);
   }
 
   return (
-    <ScrollView>
-      {
-        BUTTONS.map((value, i) =>
-          <PrimaryButton key={i} text={value.TITLE} icon={value.ICON}
-            onClick={() => onClickAction(value)}
-          />
-        )
-      }
-    </ScrollView>
+    <View>
+      {user && <Logo title={'Bem-vindo ' + user.name} description='Selecione uma das opções abaixo' />}
+      <ScrollView>
+        {
+          BUTTONS.map((value, i) =>
+            <PrimaryButton key={i} text={value.TITLE} icon={value.ICON}
+              onClick={() => onClickAction(value)}
+            />
+          )
+        }
+      </ScrollView>
+    </View>
   );
 }
 
