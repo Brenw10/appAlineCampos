@@ -3,6 +3,7 @@ import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { CheckBox } from 'react-native-elements';
 import DefaultModal from './DefaultModal';
 import { Buffer } from 'buffer';
+import Section from './Section';
 
 function Treatments({ treatments, onToggleTreatment, isFirstTime }) {
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -44,7 +45,7 @@ function Treatments({ treatments, onToggleTreatment, isFirstTime }) {
         setIsModalVisible={setIsModalVisible}
         image={imageProps}
       >
-        <Text>{selectedSeeMore.description}</Text>
+        <Section title={selectedSeeMore.name} description={selectedSeeMore.description} />
       </DefaultModal>
     );
   }
