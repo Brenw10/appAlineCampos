@@ -5,7 +5,7 @@ import { LocaleConfig } from 'react-native-calendars';
 import { CALENDAR } from '../constants/Calendar';
 import DateTime from '../services/DateTime';
 import Appointment from '../services/Appointment';
-import { APPOINTMENT } from '../constants/appointment';
+import { APPOINTMENT } from '../constants/Appointment';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 LocaleConfig.defaultLocale = 'pt-BR';

@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import PrimaryButton from "../components/PrimaryButton";
-import { ScrollView, StyleSheet, Text, View } from 'react-native';
-import { ButtonGroup, CheckBox } from 'react-native-elements';
+import { ScrollView, StyleSheet, Text } from 'react-native';
+import { ButtonGroup } from 'react-native-elements';
 import SelectDate from '../components/SelectDate';
 import DateTime from '../services/DateTime';
 import { CALENDAR } from '../constants/Calendar';
 import Treatment from '../services/Treatment';
+import Treatments from '../components/Treatments';
 
 const FIRST_TIME = {
   YES: 'Sim',
@@ -38,19 +39,6 @@ function Scheduling({ setRoute }) {
     setIsFirstTime(firstTime);
   }
 
-  function renderTreatments() {
-    return treatments
-      .filter(value => isFirstTime === FIRST_TIME.YES ? value.isFirstType : !value.isFirstType)
-      .map((value, i) =>
-        <CheckBox key={i}
-          title={value.name}
-          checked={value.checked}
-          disabled={isFirstTime === FIRST_TIME.YES}
-          onPress={() => onToggleTreatment(value)}
-        />
-      );
-  }
-
   return (
     <>
       <PrimaryButton style={styles.back}
@@ -69,7 +57,11 @@ function Scheduling({ setRoute }) {
           isFirstTime &&
           <>
             <Text style={styles.sectionText}>Tratamentos</Text>
-            <View>{renderTreatments()}</View>
+            <Treatments
+              onToggleTreatment={onToggleTreatment}
+              treatments={treatments}
+              isFirstTime={isFirstTime === FIRST_TIME.YES}
+            />
           </>
         }
 
