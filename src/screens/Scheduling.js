@@ -65,15 +65,23 @@ function Scheduling({ setRoute }) {
           buttons={Object.values(FIRST_TIME).map(value => value)}
         />
 
-        <Text style={styles.sectionText}>Tratamentos</Text>
-        <View>{renderTreatments()}</View>
+        {
+          isFirstTime &&
+          <>
+            <Text style={styles.sectionText}>Tratamentos</Text>
+            <View>{renderTreatments()}</View>
+          </>
+        }
 
-        <SelectDate date={date}
-          setDate={date => setDate(date)}
-          message={'Selecione a Data Atendimento'}
-          maximumDate={DateTime.addDate(new Date(), 'months', CALENDAR.MAX_MONTH)}
-          minimumDate={DateTime.addDate(new Date(), 'day', 1)}
-        />
+        {
+          treatments.find(value => value.checked) &&
+          <SelectDate date={date}
+            setDate={date => setDate(date)}
+            message={'Selecione a Data Atendimento'}
+            maximumDate={DateTime.addDate(new Date(), 'months', CALENDAR.MAX_MONTH)}
+            minimumDate={DateTime.addDate(new Date(), 'day', 1)}
+          />
+        }
       </ScrollView>
     </>
   )
