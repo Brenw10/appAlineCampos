@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PrimaryButton from "../components/PrimaryButton";
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import { ButtonGroup, CheckBox } from 'react-native-elements';
@@ -17,7 +17,7 @@ function Scheduling({ setRoute }) {
   const [treatments, setTreatments] = useState([]);
   const [isFirstTime, setIsFirstTime] = useState();
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     loadTreatments();
   }, []);
 

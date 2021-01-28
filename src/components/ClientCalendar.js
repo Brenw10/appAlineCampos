@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, Image } from 'react-native';
 import { Agenda } from 'react-native-calendars';
 import { LocaleConfig } from 'react-native-calendars';
@@ -13,7 +13,7 @@ LocaleConfig.defaultLocale = 'pt-BR';
 function ClientCalendar() {
 	const [items, setItems] = useState({});
 
-	useLayoutEffect(() => {
+	useEffect(() => {
 		loadItems();
 	}, []);
 

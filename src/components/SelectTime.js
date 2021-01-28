@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { TIME } from '../constants/SelectTime';
 import DateTime from '../services/DateTime';
 import { ButtonGroup } from 'react-native-elements';
@@ -6,7 +6,7 @@ import { ButtonGroup } from 'react-native-elements';
 function SelectTime() {
   const [time, setTime] = useState([]);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     setTime(getTime());
   }, []);
 

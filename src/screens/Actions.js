@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { ScrollView, View } from "react-native";
 import PrimaryButton from "../components/PrimaryButton";
 import { GoogleSignin } from '@react-native-community/google-signin';
@@ -29,7 +29,7 @@ const BUTTONS = [
 function Actions({ setRoute }) {
   const [user, setUser] = useState();
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     loadUser();
   }, []);
 
