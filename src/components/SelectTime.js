@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { TIME } from '../constants/SelectTime';
 import DateTime from '../services/DateTime';
-import { ButtonGroup } from 'react-native-elements';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
-function SelectTime() {
+function SelectTime(props) {
   const [time, setTime] = useState([]);
+  const [index, setIndex] = useState();
 
   useEffect(() => {
     setTime(getTime());
@@ -20,9 +21,47 @@ function SelectTime() {
     );
   }
 
-  return <ButtonGroup vertical
-    buttons={time.map(value => DateTime.getHourFormat(value))}
-  />
+  function onToggleItem(i) {
+    setIndex(i);
+    props.onSelectItem(time[i]);
+  }
+
+  function renderItems() {
+    return time.map((value, i) =>
+      <TouchableOpacity key={i} onPress={() => onToggleItem(i)}
+        style={{ ...styles.item, backgroundColor: i === index ? '#d8d8d8' : '#fafafa' }}>
+        <Text style={styles.hour}>
+          {DateTime.getHourFormat(value)}
+        </Text>
+      </TouchableOpacity>
+    );
+  }
+
+  return (
+    <View style={styles.container}>
+      {renderItems()}
+    </View>
+  );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'center',
+  },
+  item: {
+    backgroundColor: '#fafafa',
+    margin: 5,
+    padding: 10,
+    borderRadius: 5,
+    borderColor: '#eeeeee',
+    borderWidth: 1,
+  },
+  hour: {
+    color: '#42484c',
+    fontWeight: 'bold',
+  }
+});
 
 export default SelectTime;

@@ -8,6 +8,7 @@ import { CALENDAR } from '../constants/Calendar';
 import Treatment from '../services/Treatment';
 import Treatments from '../components/Treatments';
 import Section from '../components/Section';
+import SelectTime from '../components/SelectTime';
 
 const FIRST_TIME = {
   YES: 'Sim',
@@ -18,6 +19,7 @@ function Scheduling({ setRoute }) {
   const [date, setDate] = useState();
   const [treatments, setTreatments] = useState([]);
   const [isFirstTime, setIsFirstTime] = useState();
+  const [time, setTime] = useState();
 
   useEffect(() => {
     loadTreatments();
@@ -63,17 +65,14 @@ function Scheduling({ setRoute }) {
               treatments={treatments}
               isFirstTime={isFirstTime === FIRST_TIME.YES}
             />
+            <SelectDate date={date}
+              setDate={date => setDate(date)}
+              message={'Selecione a Data Atendimento'}
+              maximumDate={DateTime.addDate(new Date(), 'months', CALENDAR.MAX_MONTH)}
+              minimumDate={DateTime.addDate(new Date(), 'day', 1)}
+            />
+            <SelectTime onSelectItem={setTime} />
           </>
-        }
-
-        {
-          treatments.find(value => value.checked) &&
-          <SelectDate date={date}
-            setDate={date => setDate(date)}
-            message={'Selecione a Data Atendimento'}
-            maximumDate={DateTime.addDate(new Date(), 'months', CALENDAR.MAX_MONTH)}
-            minimumDate={DateTime.addDate(new Date(), 'day', 1)}
-          />
         }
       </ScrollView>
     </>
