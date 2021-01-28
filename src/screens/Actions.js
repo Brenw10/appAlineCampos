@@ -1,6 +1,7 @@
 import React from "react";
 import { ScrollView } from "react-native";
 import PrimaryButton from "../components/PrimaryButton";
+import { GoogleSignin } from '@react-native-community/google-signin';
 
 const BUTTONS = [
   {
@@ -14,19 +15,28 @@ const BUTTONS = [
     SCREEN: 'Schedule',
   },
   {
-    TITLE: 'Sair',
+    TITLE: 'Sair da Conta',
     ICON: 'reply',
     SCREEN: 'WelcomeLogin',
+    FUNCTION: () => {
+      return GoogleSignin.revokeAccess()
+        .then(() => GoogleSignin.signOut());
+    },
   },
 ];
 
 function Actions({ setRoute }) {
+  async function onClickAction(value) {
+    await value.FUNCTION && value.FUNCTION();
+    setRoute(value.SCREEN);
+  }
+
   return (
     <ScrollView>
       {
         BUTTONS.map((value, i) =>
           <PrimaryButton key={i} text={value.TITLE} icon={value.ICON}
-            onClick={() => setRoute(value.SCREEN)}
+            onClick={() => onClickAction(value)}
           />
         )
       }

@@ -8,8 +8,10 @@ import UserService from '../services/User';
 function UserLogin({ setRoute }) {
 
   async function googleSignIn() {
-    const { accessToken } = await GoogleSignin.getTokens();
-    await GoogleSignin.clearCachedAccessToken(accessToken);
+    if (await GoogleSignin.isSignedIn()) {
+      const { accessToken } = await GoogleSignin.getTokens();
+      await GoogleSignin.clearCachedAccessToken(accessToken);
+    }
     const { user } = await GoogleSignin.signIn();
     await UserService.set(user);
     setRoute('Actions');
