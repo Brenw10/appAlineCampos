@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View, Modal, TouchableOpacity, Image } from 'react-native';
+import { StyleSheet, View, Modal, TouchableOpacity, Image, ScrollView } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 function DefaultModal({ children, isModalVisible, setIsModalVisible, image }) {
@@ -11,11 +11,13 @@ function DefaultModal({ children, isModalVisible, setIsModalVisible, image }) {
     >
       <View style={styles.container}>
         <View style={styles.modalView}>
-          {image && <Image source={image} style={styles.image} resizeMode='stretch' />}
+          <ScrollView>
+            {image && <Image source={image} style={styles.image} resizeMode='stretch' />}
 
-          <View style={styles.contentView}>
-            {children}
-          </View>
+            <View style={{ ...styles.contentView, paddingTop: image ? 0 : 20 }}>
+              {children}
+            </View>
+          </ScrollView>
 
           <TouchableOpacity
             style={styles.closeButton}

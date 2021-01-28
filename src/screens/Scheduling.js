@@ -7,6 +7,7 @@ import DateTime from '../services/DateTime';
 import { CALENDAR } from '../constants/Calendar';
 import Treatment from '../services/Treatment';
 import Treatments from '../components/Treatments';
+import Section from '../components/Section';
 
 const FIRST_TIME = {
   YES: 'Sim',
@@ -46,7 +47,7 @@ function Scheduling({ setRoute }) {
         onClick={() => setRoute('Actions')}
       />
       <ScrollView>
-        <Text style={styles.sectionText}>É sua primeira consulta?</Text>
+        <Section title='É sua primeira consulta?' />
         <ButtonGroup
           onPress={index => onButtonGroupPress(Object.values(FIRST_TIME)[index])}
           selectedIndex={Object.values(FIRST_TIME).findIndex(value => value === isFirstTime)}
@@ -56,7 +57,7 @@ function Scheduling({ setRoute }) {
         {
           isFirstTime &&
           <>
-            <Text style={styles.sectionText}>Tratamentos</Text>
+            <Section title='Tratamentos' />
             <Treatments
               onToggleTreatment={onToggleTreatment}
               treatments={treatments}
@@ -82,12 +83,6 @@ function Scheduling({ setRoute }) {
 const styles = StyleSheet.create({
   back: {
     marginTop: -20,
-  },
-  sectionText: {
-    textAlign: 'center',
-    margin: 15,
-    fontSize: 20,
-    textTransform: 'uppercase',
   },
 });
 

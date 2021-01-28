@@ -4,8 +4,8 @@ import { StyleSheet, Text } from 'react-native';
 function SectionHeader({ title, description }) {
   return (
     <>
-      <Text style={styles.header}>{title}</Text>
-      <Text style={styles.description}>{description}</Text>
+      {title && <Text style={styles.header}>{title}</Text>}
+      {description && <Text style={styles.description}>{description}</Text>}
     </>
   );
 }
@@ -13,7 +13,7 @@ function SectionHeader({ title, description }) {
 const styles = StyleSheet.create({
   header: {
     textAlign: 'center',
-    marginBottom: 15,
+    margin: 15,
     fontSize: 20,
     textTransform: 'uppercase',
   },

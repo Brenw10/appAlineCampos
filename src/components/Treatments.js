@@ -45,7 +45,10 @@ function Treatments({ treatments, onToggleTreatment, isFirstTime }) {
         setIsModalVisible={setIsModalVisible}
         image={imageProps}
       >
-        <Section title={selectedSeeMore.name} description={selectedSeeMore.description} />
+        <Section
+          title={selectedSeeMore.name}
+          description={selectedSeeMore.description}
+        />
       </DefaultModal>
     );
   }
