@@ -10,13 +10,21 @@ function Navigation(props) {
   const [dummy, setDummy] = useState();
   const [bottomViewHeight, setBottomViewHeight] = useState();
   const bottomViewTranslateY = useRef(new Animated.Value(0)).current;
+  const bottomViewOpacity = useRef(new Animated.Value(1)).current;
 
   function hideAnim(route) {
-    Animated.timing(bottomViewTranslateY, {
-      toValue: bottomViewHeight - CONFIG.MARGIN,
-      duration: props.duration,
-      useNativeDriver: true,
-    }).start(() => {
+    Animated.parallel([
+      Animated.timing(bottomViewTranslateY, {
+        toValue: bottomViewHeight - CONFIG.MARGIN,
+        duration: props.duration,
+        useNativeDriver: true,
+      }),
+      Animated.timing(bottomViewOpacity, {
+        toValue: 0,
+        duration: props.duration,
+        useNativeDriver: true,
+      }),
+    ]).start(() => {
       setDummy(true);
       setRoute(route);
     });
@@ -30,11 +38,18 @@ function Navigation(props) {
         duration: 0,
         useNativeDriver: true,
       }),
-      Animated.timing(bottomViewTranslateY, {
-        toValue: 0,
-        duration: props.duration,
-        useNativeDriver: true,
-      }),
+      Animated.parallel([
+        Animated.timing(bottomViewTranslateY, {
+          toValue: 0,
+          duration: props.duration,
+          useNativeDriver: true,
+        }),
+        Animated.timing(bottomViewOpacity, {
+          toValue: 1,
+          duration: props.duration,
+          useNativeDriver: true,
+        }),
+      ]),
     ]).start();
   }
 
@@ -64,7 +79,9 @@ function Navigation(props) {
           opacity: dummy ? 0 : 1,
         }}
         onLayout={event => onBottomViewLayout(event.nativeEvent.layout.height)}>
-        {getComponent()}
+        <Animated.View style={{ opacity: bottomViewOpacity }}>
+          {getComponent()}
+        </Animated.View>
       </Animated.View>
 
       {dummy && <View style={styles.dummy} />}
