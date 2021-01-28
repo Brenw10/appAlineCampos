@@ -4,7 +4,7 @@ import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import { ButtonGroup, CheckBox } from 'react-native-elements';
 import SelectDate from '../components/SelectDate';
 import DateTime from '../services/DateTime';
-import { CALENDAR } from '../constants/calendar';
+import { CALENDAR } from '../constants/Calendar';
 import Treatment from '../services/Treatment';
 
 const FIRST_TIME = {
