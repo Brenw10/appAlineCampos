@@ -45,7 +45,7 @@ function Navigation(props) {
   }
 
   function onBottomViewLayout(height) {
-    if (bottomViewHeight) showAnim(height);
+    if (bottomViewHeight && dummy) showAnim(height);
     setBottomViewHeight(height);
   }
 
