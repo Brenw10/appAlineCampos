@@ -20,7 +20,6 @@ function Navigation(props) {
   const bottomViewOpacity = useRef(new Animated.Value(1)).current;
 
   function hideAnim(route, arg) {
-    if (arg) setArg(arg);
     Animated.parallel([
       Animated.timing(bottomViewTranslateY, {
         toValue: bottomViewHeight - CONFIG.MARGIN,
@@ -34,6 +33,7 @@ function Navigation(props) {
       }),
     ]).start(() => {
       setStatus(STATUS.RESET);
+      setArg(arg);
       setRoute(route);
     });
   }
