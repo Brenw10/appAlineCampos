@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import PrimaryButton from "../components/PrimaryButton";
-import { ScrollView, StyleSheet, Text } from 'react-native';
+import { ScrollView, StyleSheet, View } from 'react-native';
 import { ButtonGroup } from 'react-native-elements';
 import SelectDate from '../components/SelectDate';
 import DateTime from '../services/DateTime';
@@ -65,12 +65,16 @@ function Scheduling({ setRoute }) {
               treatments={treatments}
               isFirstTime={isFirstTime === FIRST_TIME.YES}
             />
-            <SelectDate date={date}
-              setDate={date => setDate(date)}
-              message={'Selecione a Data Atendimento'}
-              maximumDate={DateTime.addDate(new Date(), 'months', CALENDAR.MAX_MONTH)}
-              minimumDate={DateTime.addDate(new Date(), 'day', 1)}
-            />
+            <Section title='Data da Consulta' />
+            <View style={styles.centered}>
+              <SelectDate date={date}
+                setDate={date => setDate(date)}
+                message={'Selecione a Data Atendimento'}
+                maximumDate={DateTime.addDate(new Date(), 'months', CALENDAR.MAX_MONTH)}
+                minimumDate={DateTime.addDate(new Date(), 'day', 1)}
+              />
+            </View>
+            <Section title='Horário da Consulta' />
             <SelectTime onSelectItem={setTime} />
           </>
         }
@@ -82,6 +86,9 @@ function Scheduling({ setRoute }) {
 const styles = StyleSheet.create({
   back: {
     marginTop: -20,
+  },
+  centered: {
+    alignItems: 'center',
   },
 });
 
