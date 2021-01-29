@@ -2,6 +2,7 @@ import React from 'react';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import Logo from '../components/Logo';
 import PrimaryButton from '../components/PrimaryButton';
+import CancelButton from '../components/CancelButton';
 import DateTime from '../services/DateTime';
 import Section from '../components/Section';
 
@@ -20,36 +21,40 @@ function SchedulingResult({ setRoute, treatments, datetime }) {
       <Logo
         title='Agendamento de Consulta'
         description='Confime os dados e envie o pedido de consulta para aprovação' />
-      <Section
-        title="Horário da consulta"
-      />
-      <View style={styles.datetimeContainer}>
-        <Text>{`${DateTime.getDateFormat(datetime)}`}</Text>
-        <Text>
-          {'De: ' + DateTime.getHourFormat(datetime)}
-          {' - '}
-          {'Até: ' + DateTime.getHourFormat(getEndDateTime())}
-        </Text>
+      <View style={styles.resultsContainer}>
+        <Section
+          title="Horário da consulta"
+        />
+        <View style={styles.centered}>
+          <Text>{`${DateTime.getDateFormat(datetime)}`}</Text>
+          <Text style={styles.underline}>
+            {'De: ' + DateTime.getHourFormat(datetime)}
+            {' - '}
+            {'Até: ' + DateTime.getHourFormat(getEndDateTime())}
+          </Text>
+        </View>
+        <Section
+          title="Tratamentos escolhidos"
+          description={
+            treatments
+              .map(value => ` - ${value.name}`)
+              .join('\n')
+          }
+        />
+        <Section
+          title="Valor total da consulta"
+        />
+        <View style={styles.centered}>
+          <Text style={styles.price}>R$ {getTreatmentTotalPrice()}</Text>
+        </View>
       </View>
-      <Section
-        title="Tratamentos escolhidos"
-        description={
-          treatments
-            .map(value => ` - ${value.name}`)
-            .join('\n')
-        }
-      />
-      <Section
-        title="Valor total da consulta"
-        description={'R$ ' + getTreatmentTotalPrice()}
-      />
       <View style={styles.buttonsView}>
-        <PrimaryButton
+        <CancelButton style={styles.cancelButton} relativeIcon={true}
           icon='close' text='Cancelar' isLeft={true}
           onClick={() => setRoute('Actions')}
         />
-        <PrimaryButton
-          icon='check' text='Enviar Consulta'
+        <PrimaryButton style={styles.confirmButton} relativeIcon={true}
+          icon='check' text='Confirmar'
         />
       </View>
     </ScrollView>
@@ -57,11 +62,42 @@ function SchedulingResult({ setRoute, treatments, datetime }) {
 }
 
 const styles = StyleSheet.create({
-  datetimeContainer: {
+  centered: {
     alignItems: 'center',
   },
   buttonsView: {
     marginTop: 15,
+    flexDirection: 'row',
+  },
+  resultsContainer: {
+    backgroundColor: '#fafafa',
+    borderWidth: 1,
+    borderColor: '#e3e3e3',
+    padding: 20,
+    paddingTop: 0,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 0.18,
+    shadowRadius: 1.00,
+    elevation: 1,
+  },
+  price: {
+    fontSize: 18,
+    fontWeight: 'bold',
+  },
+  underline: {
+    textDecorationLine: 'underline',
+  },
+  cancelButton: {
+    flex: 0.5,
+    margin: 10,
+  },
+  confirmButton: {
+    flex: 0.5,
+    margin: 10,
   },
 });
 
