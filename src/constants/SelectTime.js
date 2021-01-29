@@ -4,7 +4,7 @@ export const TIME = {
     MINUTE: 0,
   },
   END_TIME: {
-    HOUR: 18,
+    HOUR: 17,
     MINUTE: 0,
   },
   COUNTING_MINUTES: 30,
