@@ -7,12 +7,14 @@ const CONFIG = {
 
 function Navigation(props) {
   const [route, setRoute] = useState(props.initial);
+  const [arg, setArg] = useState();
   const [dummy, setDummy] = useState();
   const [bottomViewHeight, setBottomViewHeight] = useState();
   const bottomViewTranslateY = useRef(new Animated.Value(0)).current;
   const bottomViewOpacity = useRef(new Animated.Value(1)).current;
 
-  function hideAnim(route) {
+  function hideAnim(route, arg) {
+    if (arg) setArg(arg);
     Animated.parallel([
       Animated.timing(bottomViewTranslateY, {
         toValue: bottomViewHeight - CONFIG.MARGIN,
@@ -56,7 +58,7 @@ function Navigation(props) {
   function getComponent() {
     const array = React.Children.toArray(props.children);
     const component = array.find(child => child.type.name === route);
-    return React.cloneElement(component, { setRoute: hideAnim });
+    return React.cloneElement(component, { ...arg, setRoute: hideAnim });
   }
 
   function onBottomViewLayout(height) {
