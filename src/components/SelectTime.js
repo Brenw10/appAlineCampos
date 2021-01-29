@@ -15,7 +15,7 @@ function SelectTime(props) {
     const start = DateTime.Moment().set({ hours: TIME.START_TIME.HOUR, minutes: TIME.START_TIME.MINUTE });
     const end = DateTime.Moment().set({ hours: TIME.END_TIME.HOUR, minutes: TIME.END_TIME.MINUTE, });
     const diff = DateTime.Moment(end).diff(start, 'minute');
-    const times = diff / TIME.COUNTING_MINUTES;
+    const times = diff / TIME.COUNTING_MINUTES + 1;
     return [...Array(times).keys()].map(value =>
       DateTime.addDate(start, 'minute', value * TIME.COUNTING_MINUTES)
     );
