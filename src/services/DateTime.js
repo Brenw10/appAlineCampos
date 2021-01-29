@@ -14,6 +14,10 @@ function getHourFormat(date) {
   return Moment(date).format('HH:mm');
 }
 
+function getDateTimeFormat(date) {
+  return Moment(date).format('DD/MM/YYYY HH:mm');
+}
+
 function addDate(date, field, value) {
   return new Date(Moment(date).add(value, field));
 }
@@ -24,6 +28,7 @@ const service = {
   addDate,
   getDefaultDateFormat,
   getHourFormat,
+  getDateTimeFormat,
 };
 
 export default service;

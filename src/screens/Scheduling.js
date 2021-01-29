@@ -42,6 +42,21 @@ function Scheduling({ setRoute }) {
     setIsFirstTime(firstTime);
   }
 
+  function goToResults() {
+    const datetimeString = DateTime.getDefaultDateFormat(date) + ' ' + DateTime.getHourFormat(time);
+    const datetime = DateTime.Moment(datetimeString);
+    setRoute('SchedulingResult', {
+      treatments: treatments.filter(value => value.checked),
+      datetime,
+    });
+  }
+
+  function isValidToResults() {
+    return isFirstTime &&
+      treatments.find(value => value.checked) &&
+      date && time;
+  }
+
   return (
     <>
       <PrimaryButton style={styles.back}
@@ -49,12 +64,17 @@ function Scheduling({ setRoute }) {
         onClick={() => setRoute('Actions')}
       />
       <ScrollView>
-        <Section title='É sua primeira consulta?' />
-        <ButtonGroup
-          onPress={index => onButtonGroupPress(Object.values(FIRST_TIME)[index])}
-          selectedIndex={Object.values(FIRST_TIME).findIndex(value => value === isFirstTime)}
-          buttons={Object.values(FIRST_TIME).map(value => value)}
-        />
+        {
+          !isFirstTime &&
+          <>
+            <Section title='É sua primeira consulta?' />
+            <ButtonGroup
+              onPress={index => onButtonGroupPress(Object.values(FIRST_TIME)[index])}
+              selectedIndex={Object.values(FIRST_TIME).findIndex(value => value === isFirstTime)}
+              buttons={Object.values(FIRST_TIME).map(value => value)}
+            />
+          </>
+        }
 
         {
           isFirstTime &&
@@ -65,6 +85,7 @@ function Scheduling({ setRoute }) {
               treatments={treatments}
               isFirstTime={isFirstTime === FIRST_TIME.YES}
             />
+
             <Section title='Data da Consulta' />
             <View style={styles.centered}>
               <SelectDate date={date}
@@ -74,8 +95,15 @@ function Scheduling({ setRoute }) {
                 minimumDate={DateTime.addDate(new Date(), 'day', 1)}
               />
             </View>
+
             <Section title='Horário da Consulta' />
             <SelectTime onSelectItem={setTime} />
+
+            <PrimaryButton style={styles.nextButton}
+              disabled={!isValidToResults()}
+              icon='angle-right' text='Avançar'
+              onClick={goToResults}
+            />
           </>
         }
       </ScrollView>
@@ -89,6 +117,9 @@ const styles = StyleSheet.create({
   },
   centered: {
     alignItems: 'center',
+  },
+  nextButton: {
+    marginTop: 20,
   },
 });
 
