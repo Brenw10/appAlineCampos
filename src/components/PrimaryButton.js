@@ -3,7 +3,7 @@ import { StyleSheet, Text, TouchableHighlight, View } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 function PrimaryButton(props) {
-  const { text, icon, onClick, isLeft, disabled } = props;
+  const { text, icon, onClick, isLeft, disabled, relativeIcon } = props;
 
   return (
     <TouchableHighlight
@@ -13,9 +13,22 @@ function PrimaryButton(props) {
       disabled={disabled}
     >
       <View style={styles.container}>
-        {icon && isLeft && <Icon name={icon} size={18} color='#FFF' style={styles.iconLeft} />}
+        {
+          icon && isLeft &&
+          <Icon name={icon}
+            size={18}
+            color='#FFF'
+            style={{ ...styles.iconLeft, position: relativeIcon ? 'relative' : 'absolute' }} />
+        }
         <Text style={styles.text}>{text.toUpperCase()}</Text>
-        {icon && !isLeft && <Icon name={icon} size={18} color='#FFF' style={styles.iconRight} />}
+        {
+          icon && !isLeft &&
+          <Icon name={icon}
+            size={18}
+            color='#FFF'
+            style={styles.iconRight}
+            style={{ ...styles.iconRight, position: relativeIcon ? 'relative' : 'absolute' }} />
+        }
       </View>
     </TouchableHighlight>
   );
@@ -47,11 +60,9 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   iconLeft: {
-    position: 'absolute',
     left: 10,
   },
   iconRight: {
-    position: 'absolute',
     right: 10,
   },
 });
