@@ -12,7 +12,7 @@ function Login() {
       <Navigation
         duration={500}
         initial='WelcomeLogin'
-        image={require('../assets/logo.png')}>
+        image={require('../assets/images/logo.png')}>
         <WelcomeLogin />
         <UserLogin />
         <Actions />
