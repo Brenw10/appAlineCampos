@@ -6,6 +6,7 @@ import Actions from './Actions';
 import Schedule from './Schedule';
 import Scheduling from './Scheduling';
 import SchedulingResult from './SchedulingResult';
+import Successful from './Successful';
 
 function Login() {
   return (
@@ -20,6 +21,7 @@ function Login() {
         <Schedule />
         <Scheduling />
         <SchedulingResult />
+        <Successful />
       </Navigation>
     </>
   )

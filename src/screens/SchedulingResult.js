@@ -22,8 +22,9 @@ function SchedulingResult({ setRoute, treatments, datetime }) {
       datetime,
       treatments: treatments.map(value => value._id),
     };
+    const description = 'Sua consulta foi enviada para avaliação, em breve, estará disponível uma atualização...';
     return Appointment.create(obj)
-      .then(() => setRoute('Actions'));
+      .then(() => setRoute('Successful', { description }));
   }
 
   return (
