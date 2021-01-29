@@ -5,10 +5,16 @@ const CONFIG = {
   MARGIN: 40,
 };
 
+const STATUS = {
+  RESET: 'RESET',
+  HIDE: 'HIDE',
+  SHOW: 'SHOW',
+};
+
 function Navigation(props) {
   const [route, setRoute] = useState(props.initial);
   const [arg, setArg] = useState();
-  const [dummy, setDummy] = useState();
+  const [status, setStatus] = useState(STATUS.SHOW);
   const [bottomViewHeight, setBottomViewHeight] = useState();
   const bottomViewTranslateY = useRef(new Animated.Value(0)).current;
   const bottomViewOpacity = useRef(new Animated.Value(1)).current;
@@ -27,13 +33,13 @@ function Navigation(props) {
         useNativeDriver: true,
       }),
     ]).start(() => {
-      setDummy(true);
+      setStatus(STATUS.RESET);
       setRoute(route);
     });
   }
 
   function showAnim(height) {
-    setDummy(false);
+    setStatus(STATUS.SHOW);
     Animated.sequence([
       Animated.timing(bottomViewTranslateY, {
         toValue: height - CONFIG.MARGIN,
@@ -62,7 +68,8 @@ function Navigation(props) {
   }
 
   function onBottomViewLayout(height) {
-    if (dummy) showAnim(height);
+    if (status === STATUS.HIDE) showAnim(height);
+    if (status === STATUS.RESET) setStatus(STATUS.HIDE);
     setBottomViewHeight(height);
   }
 
@@ -78,15 +85,15 @@ function Navigation(props) {
         style={{
           ...styles.bottomContainer,
           transform: [{ translateY: bottomViewTranslateY }],
-          opacity: dummy ? 0 : 1,
+          opacity: status === STATUS.HIDE ? 0 : 1,
         }}
         onLayout={event => onBottomViewLayout(event.nativeEvent.layout.height)}>
         <Animated.View style={{ opacity: bottomViewOpacity }}>
-          {getComponent()}
+          {status !== STATUS.RESET && getComponent()}
         </Animated.View>
       </Animated.View>
 
-      {dummy && <View style={styles.dummy} />}
+      {[STATUS.RESET, STATUS.HIDE].includes(status) && <View style={styles.dummy} />}
     </View>
   )
 };
