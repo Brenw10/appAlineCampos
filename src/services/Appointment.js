@@ -9,8 +9,16 @@ async function getAll() {
   );
 }
 
+async function create(appointment) {
+  const { accessToken } = await GoogleSignin.getTokens();
+  return Axios.post(`${API}/appointment`, { appointment },
+    { headers: { 'Cache-Control': 'no-cache', Authorization: accessToken } }
+  );
+}
+
 const service = {
   getAll,
+  create,
 };
 
 export default service;

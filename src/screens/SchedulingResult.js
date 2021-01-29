@@ -5,6 +5,7 @@ import PrimaryButton from '../components/PrimaryButton';
 import CancelButton from '../components/CancelButton';
 import DateTime from '../services/DateTime';
 import Section from '../components/Section';
+import Appointment from '../services/Appointment';
 
 function SchedulingResult({ setRoute, treatments, datetime }) {
   function getEndDateTime() {
@@ -14,6 +15,15 @@ function SchedulingResult({ setRoute, treatments, datetime }) {
 
   function getTreatmentTotalPrice() {
     return treatments.reduce((sum, value) => sum + value.price, 0);
+  }
+
+  function createAppointment() {
+    const obj = {
+      datetime,
+      treatments: treatments.map(value => value._id),
+    };
+    return Appointment.create(obj)
+      .then(() => setRoute('Actions'));
   }
 
   return (
@@ -55,6 +65,7 @@ function SchedulingResult({ setRoute, treatments, datetime }) {
         />
         <PrimaryButton style={styles.confirmButton} relativeIcon={true}
           icon='check' text='Confirmar'
+          onClick={() => createAppointment()}
         />
       </View>
     </ScrollView>
