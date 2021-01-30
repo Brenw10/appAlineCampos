@@ -9,7 +9,7 @@ import AppointmentItem from '../components/AppointmentItem';
 import DefaultButton from '../components/DefaultButton';
 import DefaultModal from '../components/DefaultModal';
 import Section from '../components/Section';
-import { StyleSheet, View } from 'react-native';
+import { Image, ScrollView, StyleSheet, Text, View } from 'react-native';
 
 LocaleConfig.defaultLocale = 'pt-BR';
 
@@ -69,16 +69,51 @@ function Schedule({ setRoute }) {
           }
         />
       </View>
-      <DefaultModal
+      <DefaultModal align='flex-end' margin={0}
         isModalVisible={!!appointment}
         setIsModalVisible={setAppointment}>
         {
           appointment &&
-          <>
+          <ScrollView>
             <Section
-              title='Aprovamento de consulta'
-              description={appointment._id}
+              title={'Pedido de consulta de: ' + appointment.client.name}
             />
+            <View style={styles.centered}>
+              <Image
+                style={styles.image}
+                resizeMode='contain'
+                source={{
+                  uri: appointment.client.photo,
+                }}
+              />
+              <Section
+                title="Horário da consulta"
+              />
+              <Text>{`${DateTime.getDateFormat(appointment.datetime)}`}</Text>
+              <Text style={styles.underline}>
+                {'De: ' + DateTime.getHourFormat(appointment.datetime)}
+                {' - '}
+                {'Até: ' +
+                  DateTime.getHourFormat(
+                    Appointment.getEndDateTime(appointment.datetime, appointment.treatments)
+                  )
+                }
+              </Text>
+            </View>
+            <Section
+              title="Tratamentos escolhidos"
+              description={
+                appointment.treatments
+                  .map(value => ` - ${value.name}`)
+                  .join('\n')
+              }
+            />
+            <Section
+              title="Valor total da consulta"
+            />
+            <View style={styles.centered}>
+              <Text style={styles.price}>R$ {Appointment.getTreatmentTotalPrice(appointment.treatments)}</Text>
+            </View>
             <View style={styles.buttonsContainer}>
               <DefaultButton style={styles.rejectButton} relativeIcon={true}
                 icon='close' text='Rejeitar' isLeft={true}
@@ -89,7 +124,7 @@ function Schedule({ setRoute }) {
                 onClick={() => createAppointment()}
               />
             </View>
-          </>
+          </ScrollView>
         }
       </DefaultModal>
     </>
@@ -103,9 +138,13 @@ const styles = StyleSheet.create({
   container: {
     height: '100%',
   },
+  centered: {
+    alignItems: 'center',
+  },
   buttonsContainer: {
     flexDirection: 'row',
     alignSelf: 'center',
+    marginTop: 20,
   },
   rejectButton: {
     flex: 0.5,
@@ -115,6 +154,19 @@ const styles = StyleSheet.create({
   acceptButton: {
     flex: 0.5,
     marginLeft: 10,
+  },
+  underline: {
+    textDecorationLine: 'underline',
+  },
+  image: {
+    width: 70,
+    height: 70,
+    borderRadius: 100,
+    marginBottom: 20,
+  },
+  price: {
+    fontSize: 18,
+    fontWeight: 'bold',
   },
 });
 
