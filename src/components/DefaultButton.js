@@ -3,7 +3,7 @@ import { StyleSheet, Text, TouchableHighlight, View } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 function DefaultButton(props) {
-  const { text, icon, onClick, isLeft, disabled, relativeIcon } = props;
+  const { text, icon, onClick, isLeft, disabled, relativeIcon, color } = props;
 
   return (
     <TouchableHighlight
@@ -17,15 +17,17 @@ function DefaultButton(props) {
           icon && isLeft &&
           <Icon name={icon}
             size={18}
-            color='#FFF'
+            color={color ? color : '#FFF'}
             style={{ ...styles.iconLeft, position: relativeIcon ? 'relative' : 'absolute' }} />
         }
-        <Text style={styles.text}>{text.toUpperCase()}</Text>
+        <Text style={{ ...styles.text, color: color ? color : '#FFF' }}>
+          {text.toUpperCase()}
+        </Text>
         {
           icon && !isLeft &&
           <Icon name={icon}
             size={18}
-            color='#FFF'
+            color={color ? color : '#FFF'}
             style={styles.iconRight}
             style={{ ...styles.iconRight, position: relativeIcon ? 'relative' : 'absolute' }} />
         }
@@ -54,7 +56,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   text: {
-    color: '#FFF',
     fontWeight: '700',
     flex: 1,
     textAlign: 'center',

@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet } from 'react-native';
 import Logo from '../components/Logo';
-import PrimaryButton from '../components/PrimaryButton';
+import DefaultButton from '../components/DefaultButton';
 
 function WelcomeLogin({ setRoute }) {
   return (
@@ -10,7 +10,7 @@ function WelcomeLogin({ setRoute }) {
         title="Um jeito fácil de manter regular sua saúde!"
         description="Faça um breve login"
       />
-      <PrimaryButton style={styles.button}
+      <DefaultButton style={styles.button}
         text="Iniciar" icon='rocket' onClick={() => setRoute('UserLogin')}
       />
     </>

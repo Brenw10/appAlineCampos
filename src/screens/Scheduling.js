@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import PrimaryButton from "../components/PrimaryButton";
+import DefaultButton from "../components/DefaultButton";
 import { ScrollView, StyleSheet, View } from 'react-native';
 import { ButtonGroup } from 'react-native-elements';
 import SelectDate from '../components/SelectDate';
@@ -59,7 +59,7 @@ function Scheduling({ setRoute }) {
 
   return (
     <>
-      <PrimaryButton style={styles.back}
+      <DefaultButton style={styles.back}
         icon='angle-left' text='Voltar' isLeft={true}
         onClick={() => setRoute('Actions')}
       />
@@ -99,7 +99,7 @@ function Scheduling({ setRoute }) {
             <Section title='Horário da Consulta' />
             <SelectTime onSelectItem={setTime} />
 
-            <PrimaryButton style={styles.nextButton}
+            <DefaultButton style={styles.nextButton}
               disabled={!isValidToResults()}
               icon='angle-right' text='Avançar'
               onClick={goToResults}

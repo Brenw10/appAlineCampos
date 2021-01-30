@@ -1,8 +1,7 @@
 import React from 'react';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import Logo from '../components/Logo';
-import PrimaryButton from '../components/PrimaryButton';
-import CancelButton from '../components/CancelButton';
+import DefaultButton from '../components/DefaultButton';
 import DateTime from '../services/DateTime';
 import Section from '../components/Section';
 import Appointment from '../services/Appointment';
@@ -60,11 +59,12 @@ function SchedulingResult({ setRoute, treatments, datetime }) {
         </View>
       </View>
       <View style={styles.buttonsView}>
-        <CancelButton style={styles.cancelButton} relativeIcon={true}
+        <DefaultButton style={styles.cancelButton} relativeIcon={true}
+          color='#787878'
           icon='close' text='Cancelar' isLeft={true}
           onClick={() => setRoute('Actions')}
         />
-        <PrimaryButton style={styles.confirmButton} relativeIcon={true}
+        <DefaultButton style={styles.confirmButton} relativeIcon={true}
           icon='check' text='Confirmar'
           onClick={() => createAppointment()}
         />
@@ -106,6 +106,7 @@ const styles = StyleSheet.create({
   cancelButton: {
     flex: 0.5,
     margin: 10,
+    backgroundColor: '#FFF',
   },
   confirmButton: {
     flex: 0.5,

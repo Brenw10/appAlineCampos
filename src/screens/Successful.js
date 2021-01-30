@@ -1,12 +1,12 @@
 import React from 'react';
 import Logo from '../components/Logo';
-import PrimaryButton from '../components/PrimaryButton';
+import DefaultButton from '../components/DefaultButton';
 
 function Successful({ setRoute, description }) {
   return (
     <>
       <Logo title='Realizado com Sucesso!' description={description} />
-      <PrimaryButton
+      <DefaultButton
         icon='angle-left' text='Voltar ao Menu' isLeft={true}
         onClick={() => setRoute('Actions')}
       />

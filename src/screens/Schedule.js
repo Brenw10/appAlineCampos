@@ -6,11 +6,10 @@ import DateTime from '../services/DateTime';
 import Appointment from '../services/Appointment';
 import User from '../services/User';
 import AppointmentItem from '../components/AppointmentItem';
-import PrimaryButton from '../components/PrimaryButton';
+import DefaultButton from '../components/DefaultButton';
 import DefaultModal from '../components/DefaultModal';
 import Section from '../components/Section';
 import { StyleSheet, View } from 'react-native';
-import DefaultButton from '../components/DefaultButton';
 
 LocaleConfig.defaultLocale = 'pt-BR';
 
@@ -55,7 +54,7 @@ function Schedule({ setRoute }) {
 
   return (
     <>
-      <PrimaryButton style={styles.back}
+      <DefaultButton style={styles.back}
         icon='angle-left' text='Voltar' isLeft={true}
         onClick={() => setRoute('Actions')} />
       <View style={styles.container}>
