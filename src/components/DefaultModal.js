@@ -48,7 +48,7 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   contentView: {
-    padding: 20,
+    padding: 25,
     paddingTop: 0,
   },
   image: {
