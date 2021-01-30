@@ -11,7 +11,7 @@ const BUTTONS = [
     SCREEN: 'Scheduling',
   },
   {
-    TITLE: 'Ver Consultas',
+    TITLE: 'Ver Minhas Consultas',
     ICON: 'bookmark',
     SCREEN: 'Schedule',
   },
