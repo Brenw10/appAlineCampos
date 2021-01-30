@@ -2,15 +2,15 @@ import React from 'react';
 import { StyleSheet, View, Modal, TouchableOpacity, Image, ScrollView } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-function DefaultModal({ children, isModalVisible, setIsModalVisible, image }) {
+function DefaultModal({ children, isModalVisible, setIsModalVisible, image, align, margin }) {
   return (
     <Modal
       animationType="slide"
       transparent={true}
       visible={isModalVisible}
     >
-      <View style={styles.container}>
-        <View style={styles.modalView}>
+      <View style={{ ...styles.container, justifyContent: align ? align : 'center' }}>
+        <View style={{ ...styles.modalView, margin: margin >= 0 ? margin : 30 }}>
           <ScrollView>
             {image && <Image source={image} style={styles.image} resizeMode='stretch' />}
 
@@ -33,11 +33,9 @@ function DefaultModal({ children, isModalVisible, setIsModalVisible, image }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
   },
   modalView: {
     backgroundColor: "white",
-    margin: 30,
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
