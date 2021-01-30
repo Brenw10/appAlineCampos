@@ -7,15 +7,6 @@ import Section from '../components/Section';
 import Appointment from '../services/Appointment';
 
 function SchedulingResult({ setRoute, treatments, datetime }) {
-  function getEndDateTime() {
-    const duration = treatments.reduce((sum, value) => sum + value.duration, 0);
-    return DateTime.addDate(datetime, 'minute', duration);
-  }
-
-  function getTreatmentTotalPrice() {
-    return treatments.reduce((sum, value) => sum + value.price, 0);
-  }
-
   function createAppointment() {
     const obj = {
       datetime,
@@ -40,7 +31,7 @@ function SchedulingResult({ setRoute, treatments, datetime }) {
           <Text style={styles.underline}>
             {'De: ' + DateTime.getHourFormat(datetime)}
             {' - '}
-            {'Até: ' + DateTime.getHourFormat(getEndDateTime())}
+            {'Até: ' + DateTime.getHourFormat(Appointment.getEndDateTime(datetime, treatments))}
           </Text>
         </View>
         <Section
@@ -55,7 +46,7 @@ function SchedulingResult({ setRoute, treatments, datetime }) {
           title="Valor total da consulta"
         />
         <View style={styles.centered}>
-          <Text style={styles.price}>R$ {getTreatmentTotalPrice()}</Text>
+          <Text style={styles.price}>R$ {Appointment.getTreatmentTotalPrice(treatments)}</Text>
         </View>
       </View>
       <View style={styles.buttonsView}>
