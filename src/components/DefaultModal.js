@@ -14,7 +14,7 @@ function DefaultModal({ children, isModalVisible, setIsModalVisible, image }) {
           <ScrollView>
             {image && <Image source={image} style={styles.image} resizeMode='stretch' />}
 
-            <View style={{ ...styles.contentView, paddingTop: image ? 0 : 20 }}>
+            <View style={styles.contentView}>
               {children}
             </View>
           </ScrollView>
@@ -49,6 +49,7 @@ const styles = StyleSheet.create({
   },
   contentView: {
     padding: 20,
+    paddingTop: 0,
   },
   image: {
     width: '100%',
