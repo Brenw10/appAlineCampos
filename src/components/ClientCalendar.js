@@ -4,23 +4,31 @@ import { LocaleConfig } from 'react-native-calendars';
 import { CALENDAR } from '../constants/Calendar';
 import DateTime from '../services/DateTime';
 import Appointment from '../services/Appointment';
+import User from '../services/User';
 import AppointmentItem from './AppointmentItem';
 
 LocaleConfig.defaultLocale = 'pt-BR';
 
 function ClientCalendar() {
+	const [user, setUser] = useState();
 	const [items, setItems] = useState({});
 
 	useEffect(() => {
-		loadItems();
+		load();
 	}, []);
 
-	async function loadItems() {
-		const { data } = await Appointment.getAll();
+	async function load() {
+		const currentUser = await User.get();
+		const appointments = await Appointment.getAll();
+		const newItems = getItems(appointments.data);
+		setUser(currentUser.data);
+		setItems(newItems);
+	}
+
+	function getItems(data) {
 		const dates = getUniqueDates(data);
 		const datesPopulated = getDatesPopulated(dates, data);
-		const newItems = getDatesItemFormat(datesPopulated);
-		setItems(newItems);
+		return getDatesItemFormat(datesPopulated);
 	}
 
 	function getUniqueDates(data) {
@@ -39,13 +47,19 @@ function ClientCalendar() {
 		return data.reduce((obj, value) => Object.assign(obj, value), {});
 	}
 
+	function showModal() {
+		console.log('Modal Here');
+	}
+
 	return (
 		<>
 			<Agenda
 				items={items}
 				pastScrollRange={0}
 				futureScrollRange={CALENDAR.MAX_MONTH}
-				renderItem={item => <AppointmentItem item={item} />}
+				renderItem={item =>
+					<AppointmentItem item={item} disabled={!user.admin} onPress={() => showModal()} />
+				}
 			/>
 		</>
 	)

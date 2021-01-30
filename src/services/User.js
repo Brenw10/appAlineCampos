@@ -9,8 +9,16 @@ async function set(user) {
   );
 }
 
+async function get() {
+  const { accessToken } = await GoogleSignin.getTokens();
+  return Axios.get(`${API}/user`,
+    { headers: { 'Cache-Control': 'no-cache', Authorization: accessToken } }
+  );
+}
+
 const service = {
   set,
+  get,
 };
 
 export default service;
