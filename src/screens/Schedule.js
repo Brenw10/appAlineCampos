@@ -9,8 +9,9 @@ import AppointmentItem from '../components/AppointmentItem';
 import DefaultButton from '../components/DefaultButton';
 import DefaultModal from '../components/DefaultModal';
 import Section from '../components/Section';
-import { Image, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Image, ScrollView, StyleSheet, View } from 'react-native';
 import AppointmentDetail from '../components/AppointmentDetail';
+import { APPOINTMENT } from '../constants/Appointment';
 
 LocaleConfig.defaultLocale = 'pt-BR';
 
@@ -53,6 +54,12 @@ function Schedule({ setRoute }) {
     return data.reduce((obj, value) => Object.assign(obj, value), {});
   }
 
+  async function setAppointmentStatus(status) {
+    await Appointment.setStatus(appointment._id, status.NAME);
+    setAppointment();
+    load();
+  }
+
   return (
     <>
       <DefaultButton style={styles.back}
@@ -92,11 +99,11 @@ function Schedule({ setRoute }) {
             <View style={styles.buttonsContainer}>
               <DefaultButton style={styles.rejectButton} relativeIcon={true}
                 icon='close' text='Rejeitar' isLeft={true}
-                onClick={() => setRoute('Actions')}
+                onClick={() => setAppointmentStatus(APPOINTMENT.REJECTED)}
               />
               <DefaultButton style={styles.acceptButton} relativeIcon={true}
                 icon='check' text='Aceitar'
-                onClick={() => createAppointment()}
+                onClick={() => setAppointmentStatus(APPOINTMENT.ACCEPTED)}
               />
             </View>
           </ScrollView>

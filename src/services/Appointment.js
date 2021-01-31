@@ -17,6 +17,13 @@ async function create(appointment) {
   );
 }
 
+async function setStatus(id, status) {
+  const { accessToken } = await GoogleSignin.getTokens();
+  return Axios.put(`${API}/appointment/${id}/status`, { status },
+    { headers: { 'Cache-Control': 'no-cache', Authorization: accessToken } }
+  );
+}
+
 function getEndDateTime(datetime, treatments) {
   const duration = treatments.reduce((sum, value) => sum + value.duration, 0);
   return DateTime.addDate(datetime, 'minute', duration);
@@ -31,6 +38,7 @@ const service = {
   create,
   getEndDateTime,
   getTreatmentTotalPrice,
+  setStatus,
 };
 
 export default service;
