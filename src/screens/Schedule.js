@@ -130,9 +130,6 @@ const styles = StyleSheet.create({
     flex: 0.5,
     marginLeft: 10,
   },
-  underline: {
-    textDecorationLine: 'underline',
-  },
   image: {
     width: 70,
     height: 70,

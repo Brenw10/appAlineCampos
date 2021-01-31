@@ -1,9 +1,8 @@
 import React from 'react';
-import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import { ScrollView, StyleSheet, View } from 'react-native';
 import Logo from '../components/Logo';
 import DefaultButton from '../components/DefaultButton';
-import DateTime from '../services/DateTime';
-import Section from '../components/Section';
+import AppointmentDetail from '../components/AppointmentDetail';
 import Appointment from '../services/Appointment';
 
 function SchedulingResult({ setRoute, treatments, datetime }) {
@@ -23,31 +22,7 @@ function SchedulingResult({ setRoute, treatments, datetime }) {
         title='Agendamento de Consulta'
         description='Confime os dados e envie o pedido de consulta para aprovação' />
       <View style={styles.resultsContainer}>
-        <Section
-          title="Horário da consulta"
-        />
-        <View style={styles.centered}>
-          <Text>{`${DateTime.getDateFormat(datetime)}`}</Text>
-          <Text style={styles.underline}>
-            {'De: ' + DateTime.getHourFormat(datetime)}
-            {' - '}
-            {'Até: ' + DateTime.getHourFormat(Appointment.getEndDateTime(datetime, treatments))}
-          </Text>
-        </View>
-        <Section
-          title="Tratamentos escolhidos"
-          description={
-            treatments
-              .map(value => ` - ${value.name}`)
-              .join('\n')
-          }
-        />
-        <Section
-          title="Valor total da consulta"
-        />
-        <View style={styles.centered}>
-          <Text style={styles.price}>R$ {Appointment.getTreatmentTotalPrice(treatments)}</Text>
-        </View>
+        <AppointmentDetail appointment={{ datetime, treatments }} />
       </View>
       <View style={styles.buttonsView}>
         <DefaultButton style={styles.cancelButton} relativeIcon={true}
@@ -65,9 +40,6 @@ function SchedulingResult({ setRoute, treatments, datetime }) {
 }
 
 const styles = StyleSheet.create({
-  centered: {
-    alignItems: 'center',
-  },
   buttonsView: {
     marginTop: 15,
     flexDirection: 'row',
@@ -86,13 +58,6 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.18,
     shadowRadius: 1.00,
     elevation: 1,
-  },
-  price: {
-    fontSize: 18,
-    fontWeight: 'bold',
-  },
-  underline: {
-    textDecorationLine: 'underline',
   },
   cancelButton: {
     flex: 0.5,
