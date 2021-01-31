@@ -10,6 +10,7 @@ import DefaultButton from '../components/DefaultButton';
 import DefaultModal from '../components/DefaultModal';
 import Section from '../components/Section';
 import { Image, ScrollView, StyleSheet, Text, View } from 'react-native';
+import AppointmentDetail from '../components/AppointmentDetail';
 
 LocaleConfig.defaultLocale = 'pt-BR';
 
@@ -86,34 +87,8 @@ function Schedule({ setRoute }) {
                   uri: appointment.client.photo,
                 }}
               />
-              <Section
-                title="Horário da consulta"
-              />
-              <Text>{`${DateTime.getDateFormat(appointment.datetime)}`}</Text>
-              <Text style={styles.underline}>
-                {'De: ' + DateTime.getHourFormat(appointment.datetime)}
-                {' - '}
-                {'Até: ' +
-                  DateTime.getHourFormat(
-                    Appointment.getEndDateTime(appointment.datetime, appointment.treatments)
-                  )
-                }
-              </Text>
             </View>
-            <Section
-              title="Tratamentos escolhidos"
-              description={
-                appointment.treatments
-                  .map(value => ` - ${value.name}`)
-                  .join('\n')
-              }
-            />
-            <Section
-              title="Valor total da consulta"
-            />
-            <View style={styles.centered}>
-              <Text style={styles.price}>R$ {Appointment.getTreatmentTotalPrice(appointment.treatments)}</Text>
-            </View>
+            <AppointmentDetail appointment={appointment} />
             <View style={styles.buttonsContainer}>
               <DefaultButton style={styles.rejectButton} relativeIcon={true}
                 icon='close' text='Rejeitar' isLeft={true}
@@ -163,10 +138,6 @@ const styles = StyleSheet.create({
     height: 70,
     borderRadius: 100,
     marginBottom: 20,
-  },
-  price: {
-    fontSize: 18,
-    fontWeight: 'bold',
   },
 });
 
