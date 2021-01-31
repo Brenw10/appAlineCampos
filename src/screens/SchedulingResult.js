@@ -21,9 +21,7 @@ function SchedulingResult({ setRoute, treatments, datetime }) {
       <Logo
         title='Agendamento de Consulta'
         description='Confime os dados e envie o pedido de consulta para aprovação' />
-      <View style={styles.resultsContainer}>
-        <AppointmentDetail appointment={{ datetime, treatments }} />
-      </View>
+      <AppointmentDetail appointment={{ datetime, treatments }} />
       <View style={styles.buttonsView}>
         <DefaultButton style={styles.cancelButton} relativeIcon={true}
           color='#787878'
@@ -43,21 +41,6 @@ const styles = StyleSheet.create({
   buttonsView: {
     marginTop: 15,
     flexDirection: 'row',
-  },
-  resultsContainer: {
-    backgroundColor: '#fafafa',
-    borderWidth: 1,
-    borderColor: '#e3e3e3',
-    padding: 20,
-    paddingTop: 0,
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 1,
-    },
-    shadowOpacity: 0.18,
-    shadowRadius: 1.00,
-    elevation: 1,
   },
   cancelButton: {
     flex: 0.5,
