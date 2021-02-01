@@ -10,15 +10,9 @@ import Treatments from '../components/Treatments';
 import Section from '../components/Section';
 import SelectTime from '../components/SelectTime';
 
-const FIRST_TIME = {
-  YES: 'Sim',
-  NO: 'Não',
-}
-
 function Scheduling({ setRoute }) {
   const [date, setDate] = useState();
   const [treatments, setTreatments] = useState([]);
-  const [isFirstTime, setIsFirstTime] = useState();
   const [time, setTime] = useState();
 
   useEffect(() => {
@@ -35,13 +29,6 @@ function Scheduling({ setRoute }) {
     setTreatments([...Object.assign(treatments, newValue)]);
   }
 
-  function onButtonGroupPress(firstTime) {
-    const checkedValue = value => ({ checked: firstTime === FIRST_TIME.YES ? value.isFirstType : false });
-    const newTreatments = [...treatments].map(value => Object.assign(value, checkedValue(value)));
-    setTreatments(newTreatments);
-    setIsFirstTime(firstTime);
-  }
-
   function goToResults() {
     const datetimeString = DateTime.getDefaultDateFormat(date) + ' ' + DateTime.getHourFormat(time);
     const datetime = DateTime.Moment(datetimeString);
@@ -52,9 +39,7 @@ function Scheduling({ setRoute }) {
   }
 
   function isValidToResults() {
-    return isFirstTime &&
-      treatments.find(value => value.checked) &&
-      date && time;
+    return treatments.find(value => value.checked) && date && time;
   }
 
   return (
@@ -65,25 +50,11 @@ function Scheduling({ setRoute }) {
       />
       <ScrollView>
         {
-          !isFirstTime &&
-          <>
-            <Section title='É sua primeira consulta?' />
-            <ButtonGroup
-              onPress={index => onButtonGroupPress(Object.values(FIRST_TIME)[index])}
-              selectedIndex={Object.values(FIRST_TIME).findIndex(value => value === isFirstTime)}
-              buttons={Object.values(FIRST_TIME).map(value => value)}
-            />
-          </>
-        }
-
-        {
-          isFirstTime &&
           <>
             <Section title='Tratamentos' />
             <Treatments
               onToggleTreatment={onToggleTreatment}
               treatments={treatments}
-              isFirstTime={isFirstTime === FIRST_TIME.YES}
             />
 
             <Section title='Data da Consulta' />

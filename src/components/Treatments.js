@@ -5,7 +5,7 @@ import DefaultModal from './DefaultModal';
 import { Buffer } from 'buffer';
 import Section from './Section';
 
-function Treatments({ treatments, onToggleTreatment, isFirstTime }) {
+function Treatments({ treatments, onToggleTreatment }) {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [selectedSeeMore, setSelectedSeeMore] = useState();
 
@@ -16,14 +16,12 @@ function Treatments({ treatments, onToggleTreatment, isFirstTime }) {
 
   function renderTreatments() {
     return treatments
-      .filter(value => isFirstTime ? value.isFirstType : !value.isFirstType)
       .map((value, i) =>
         <View style={styles.container} key={i}>
           <CheckBox
             containerStyle={styles.checkbox}
             title={value.name}
             checked={value.checked}
-            disabled={isFirstTime}
             onPress={() => onToggleTreatment(value)}
           />
           <TouchableOpacity style={styles.more} onPress={() => onClickSeeMore(value)}>
