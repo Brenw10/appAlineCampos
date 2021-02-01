@@ -51,7 +51,6 @@ function Scheduling({ setRoute }) {
       <ScrollView>
         {
           <>
-            <Section title='Tratamentos' />
             <Treatments
               onToggleTreatment={onToggleTreatment}
               treatments={treatments}

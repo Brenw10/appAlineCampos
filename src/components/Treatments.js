@@ -14,8 +14,29 @@ function Treatments({ treatments, onToggleTreatment }) {
     setIsModalVisible(!isModalVisible);
   }
 
+  function renderIsFirstTypeTreatments() {
+    return treatments
+      .filter(value => value.isFirstType)
+      .map((value, i) =>
+        <View style={styles.container} key={i}>
+          <CheckBox
+            containerStyle={styles.checkbox}
+            title={value.name}
+            checked={value.checked}
+            onPress={() => onToggleTreatment(value)}
+          />
+          <TouchableOpacity style={styles.more} onPress={() => onClickSeeMore(value)}>
+            <Text style={styles.moreText}>
+              Saiba mais
+            </Text>
+          </TouchableOpacity>
+        </View>
+      );
+  };
+
   function renderTreatments() {
     return treatments
+      .filter(value => !value.isFirstType)
       .map((value, i) =>
         <View style={styles.container} key={i}>
           <CheckBox
@@ -53,6 +74,11 @@ function Treatments({ treatments, onToggleTreatment }) {
 
   return (
     <>
+      <Section title='Primeiro Acesso' />
+      <View style={styles.isFirstTypeContainer}>
+        {renderIsFirstTypeTreatments()}
+      </View>
+      <Section title='Tratamentos' />
       {renderTreatments()}
       {selectedSeeMore && renderModal()}
     </>
@@ -73,6 +99,9 @@ const styles = StyleSheet.create({
   },
   moreText: {
     color: '#01877c',
+  },
+  isFirstTypeContainer: {
+    // marginBottom: 30,
   },
 });
 
