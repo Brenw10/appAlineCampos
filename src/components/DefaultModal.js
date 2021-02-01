@@ -12,7 +12,7 @@ function DefaultModal({ children, isModalVisible, setIsModalVisible, image, alig
       <View style={{ ...styles.container, justifyContent: align ? align : 'center' }}>
         <View style={{ ...styles.modalView, margin: margin >= 0 ? margin : 30 }}>
           <ScrollView>
-            {image && <Image source={image} style={styles.image} resizeMode='stretch' />}
+            {image && <Image source={image} style={styles.image} resizeMode='cover' />}
 
             <View style={styles.contentView}>
               {children}
