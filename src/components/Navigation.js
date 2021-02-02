@@ -63,7 +63,7 @@ function Navigation(props) {
 
   function getComponent() {
     const array = React.Children.toArray(props.children);
-    const component = array.find(child => child.type.name === route);
+    const component = array.find(child => child.props.route === route);
     return React.cloneElement(component, { ...arg, setRoute: hideAnim });
   }
 

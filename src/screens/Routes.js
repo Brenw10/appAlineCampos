@@ -15,13 +15,13 @@ function Login() {
         duration={500}
         initial='WelcomeLogin'
         image={require('../assets/images/logo.png')}>
-        <WelcomeLogin />
-        <UserLogin />
-        <Actions />
-        <Schedule />
-        <Scheduling />
-        <SchedulingResult />
-        <Successful />
+        <WelcomeLogin route='WelcomeLogin' />
+        <UserLogin route='UserLogin' />
+        <Actions route='Actions' />
+        <Schedule route='Schedule' />
+        <Scheduling route='Scheduling' />
+        <SchedulingResult route='SchedulingResult' />
+        <Successful route='Successful' />
       </Navigation>
     </>
   )
