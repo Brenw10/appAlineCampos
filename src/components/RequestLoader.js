@@ -10,7 +10,7 @@ function RequestLoader() {
   useEffect(() => {
     interceptor();
   }, []);
-  
+
   function interceptor() {
     Axios.interceptors.request.use(
       results => {
@@ -32,17 +32,14 @@ function RequestLoader() {
 
   return (
     <>
-      {
-        loading > 0 &&
-        <View style={styles.container}>
-          <Bar indeterminate={true}
-            width={null}
-            color="#1c4799"
-            useNativeDriver={true}
-            height={3}
-            borderWidth={0} />
-        </View >
-      }
+      <View style={{ ...styles.container, opacity: loading ? 1 : 0 }}>
+        <Bar indeterminate={true}
+          width={null}
+          color="#1c4799"
+          useNativeDriver={true}
+          height={3}
+          borderWidth={0} />
+      </View >
     </>
   );
 }
