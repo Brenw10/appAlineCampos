@@ -59,7 +59,7 @@ function Schedule({ setRoute }) {
   }
 
   async function setAppointmentStatus(status) {
-    await Appointment.setStatus(appointment._id, status.NAME);
+    await Appointment.setStatus(token, appointment._id, status.NAME);
     setAppointment();
     load();
   }
