@@ -27,10 +27,12 @@ function Schedule({ setRoute }) {
   }, []);
 
   async function load() {
-    const currentUser = await User.get(token);
-    const appointments = await Appointment.getAll(token);
-    const newItems = getItems(appointments.data);
-    setUser(currentUser.data);
+    const results = await Promise.all([
+      User.get(token),
+      Appointment.getAll(token),
+    ]);
+    const newItems = getItems(results[1].data);
+    setUser(results[0].data);
     setItems(newItems);
   }
 
