@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { ActivityIndicator, StyleSheet, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import Axios from 'axios';
+import { Bar } from 'react-native-progress';
 
 function RequestLoader() {
   const [loading, setLoading] = useState();
@@ -31,7 +32,12 @@ function RequestLoader() {
       {
         loading &&
         <View style={styles.container}>
-          <ActivityIndicator size="large" color="#1c4799" />
+          <Bar indeterminate={true}
+            width={null}
+            color="#1c4799"
+            useNativeDriver={true}
+            height={3}
+            borderWidth={0} />
         </View >
       }
     </>
@@ -40,11 +46,8 @@ function RequestLoader() {
 
 const styles = StyleSheet.create({
   container: {
-    width: '100%',
-    height: '100%',
-    justifyContent: "center",
     position: 'absolute',
-    backgroundColor: "rgba(0,0,0,0.5)"
+    width: '100%',
   },
 });
 
