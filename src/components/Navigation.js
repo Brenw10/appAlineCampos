@@ -1,5 +1,6 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { StyleSheet, View, Animated, Image } from 'react-native';
+import Axios from 'axios';
 
 const CONFIG = {
   MARGIN: 40,
@@ -18,6 +19,35 @@ function Navigation(props) {
   const [bottomViewHeight, setBottomViewHeight] = useState();
   const bottomViewTranslateY = useRef(new Animated.Value(0)).current;
   const bottomViewOpacity = useRef(new Animated.Value(1)).current;
+  const count = useRef(0);
+  const [loading, setLoading] = useState(0);
+
+  useEffect(() => {
+    interceptor();
+  }, []);
+
+  useEffect(() => {
+    if (status === STATUS.HIDE && !loading) showAnim(bottomViewHeight);
+  }, [loading]);
+
+  function interceptor() {
+    Axios.interceptors.request.use(
+      results => {
+        count.current++;
+        setLoading(count.current);
+        return results;
+      },
+      error => Promise.reject(error)
+    );
+    Axios.interceptors.response.use(
+      results => {
+        count.current--;
+        setLoading(count.current);
+        return results;
+      },
+      error => Promise.reject(error)
+    );
+  }
 
   function hideAnim(route, arg) {
     Animated.parallel([
@@ -68,7 +98,7 @@ function Navigation(props) {
   }
 
   function onBottomViewLayout(height) {
-    if (status === STATUS.HIDE) showAnim(height);
+    if (status === STATUS.HIDE && !loading) showAnim(height);
     if (status === STATUS.RESET) setStatus(STATUS.HIDE);
     setBottomViewHeight(height);
   }
