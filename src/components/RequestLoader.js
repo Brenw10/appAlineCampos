@@ -1,26 +1,29 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import Axios from 'axios';
 import { Bar } from 'react-native-progress';
 
 function RequestLoader() {
-  const [loading, setLoading] = useState();
+  const count = useRef(0);
+  const [loading, setLoading] = useState(0);
 
   useEffect(() => {
     interceptor();
   }, []);
-
+  
   function interceptor() {
     Axios.interceptors.request.use(
       results => {
-        setLoading(true);
+        count.current++;
+        setLoading(count.current);
         return results;
       },
       error => Promise.reject(error)
     );
     Axios.interceptors.response.use(
       results => {
-        setLoading(false);
+        count.current--;
+        setLoading(count.current);
         return results;
       },
       error => Promise.reject(error)
@@ -30,7 +33,7 @@ function RequestLoader() {
   return (
     <>
       {
-        loading &&
+        loading > 0 &&
         <View style={styles.container}>
           <Bar indeterminate={true}
             width={null}
