@@ -4,8 +4,10 @@ import Logo from '../components/Logo';
 import { GoogleSignin, GoogleSigninButton } from '@react-native-community/google-signin';
 import '../services/GoogleAuth';
 import UserService from '../services/User';
+import { useAuth } from '../contexts/Auth';
 
 function UserLogin({ setRoute }) {
+  const { setToken } = useAuth();
 
   async function googleSignIn() {
     if (await GoogleSignin.isSignedIn()) {
@@ -13,7 +15,9 @@ function UserLogin({ setRoute }) {
       await GoogleSignin.clearCachedAccessToken(accessToken);
     }
     const { user } = await GoogleSignin.signIn();
-    await UserService.set(user);
+    const { accessToken } = await GoogleSignin.getTokens();
+    setToken(accessToken);
+    await UserService.set(accessToken, user);
     setRoute('Actions');
   }
 

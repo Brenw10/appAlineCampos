@@ -12,6 +12,7 @@ import Section from '../components/Section';
 import { Image, ScrollView, StyleSheet, View } from 'react-native';
 import AppointmentDetail from '../components/AppointmentDetail';
 import { APPOINTMENT } from '../constants/Appointment';
+import { useAuth } from '../contexts/Auth';
 
 LocaleConfig.defaultLocale = 'pt-BR';
 
@@ -19,14 +20,15 @@ function Schedule({ setRoute }) {
   const [user, setUser] = useState();
   const [items, setItems] = useState({});
   const [appointment, setAppointment] = useState();
+  const { token } = useAuth();
 
   useEffect(() => {
     load();
   }, []);
 
   async function load() {
-    const currentUser = await User.get();
-    const appointments = await Appointment.getAll();
+    const currentUser = await User.get(token);
+    const appointments = await Appointment.getAll(token);
     const newItems = getItems(appointments.data);
     setUser(currentUser.data);
     setItems(newItems);

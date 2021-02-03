@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import DefaultButton from "../components/DefaultButton";
 import { ScrollView, StyleSheet, View } from 'react-native';
-import { ButtonGroup } from 'react-native-elements';
 import SelectDate from '../components/SelectDate';
 import DateTime from '../services/DateTime';
 import { CALENDAR } from '../constants/Calendar';
@@ -9,18 +8,20 @@ import Treatment from '../services/Treatment';
 import Treatments from '../components/Treatments';
 import Section from '../components/Section';
 import SelectTime from '../components/SelectTime';
+import { useAuth } from '../contexts/Auth';
 
 function Scheduling({ setRoute }) {
   const [date, setDate] = useState();
   const [treatments, setTreatments] = useState([]);
   const [time, setTime] = useState();
+  const { token } = useAuth();
 
   useEffect(() => {
     loadTreatments();
   }, []);
 
   async function loadTreatments() {
-    const { data } = await Treatment.getAll();
+    const { data } = await Treatment.getAll(token);
     setTreatments(data);
   }
 

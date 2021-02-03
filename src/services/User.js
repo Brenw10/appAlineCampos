@@ -1,16 +1,13 @@
 import Axios from 'axios';
 import { API } from '../config/api';
-import { GoogleSignin } from '@react-native-community/google-signin';
 
-async function set(user) {
-  const { accessToken } = await GoogleSignin.getTokens();
+function set(accessToken, user) {
   return Axios.post(`${API}/user`, { user },
     { headers: { 'Cache-Control': 'no-cache', Authorization: accessToken } }
   );
 }
 
-async function get() {
-  const { accessToken } = await GoogleSignin.getTokens();
+function get(accessToken) {
   return Axios.get(`${API}/user`,
     { headers: { 'Cache-Control': 'no-cache', Authorization: accessToken } }
   );

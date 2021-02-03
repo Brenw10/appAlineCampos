@@ -1,24 +1,20 @@
 import Axios from 'axios';
 import { API } from '../config/api';
-import { GoogleSignin } from '@react-native-community/google-signin';
 import DateTime from './DateTime';
 
-async function getAll() {
-  const { accessToken } = await GoogleSignin.getTokens();
+function getAll(accessToken) {
   return Axios.get(`${API}/appointment`,
     { headers: { 'Cache-Control': 'no-cache', Authorization: accessToken } }
   );
 }
 
-async function create(appointment) {
-  const { accessToken } = await GoogleSignin.getTokens();
+function create(accessToken, appointment) {
   return Axios.post(`${API}/appointment`, { appointment },
     { headers: { 'Cache-Control': 'no-cache', Authorization: accessToken } }
   );
 }
 
-async function setStatus(id, status) {
-  const { accessToken } = await GoogleSignin.getTokens();
+function setStatus(accessToken, id, status) {
   return Axios.put(`${API}/appointment/${id}/status`, { status },
     { headers: { 'Cache-Control': 'no-cache', Authorization: accessToken } }
   );
