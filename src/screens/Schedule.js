@@ -76,7 +76,7 @@ function Schedule({ setRoute }) {
           futureScrollRange={CALENDAR.MAX_MONTH}
           renderItem={item =>
             <AppointmentItem
-              item={item} disabled={!user.admin}
+              item={item} disabled={!user.admin || item.status !== APPOINTMENT.CREATED.NAME }
               onPress={() => setAppointment(item)} />
           }
         />

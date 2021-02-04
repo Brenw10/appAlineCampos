@@ -31,11 +31,9 @@ function Scheduling({ setRoute }) {
   }
 
   function goToResults() {
-    const datetimeString = DateTime.getDefaultDateFormat(date) + ' ' + time;
-    const datetime = DateTime.Moment(datetimeString);
     setRoute('SchedulingResult', {
       treatments: treatments.filter(value => value.checked),
-      datetime,
+      datetime: DateTime.Moment(time),
     });
   }
 
@@ -66,7 +64,7 @@ function Scheduling({ setRoute }) {
         </View>
 
         <Section title='Horário da Consulta' />
-        <SelectTime onSelectItem={setTime} />
+        <SelectTime onSelectItem={setTime} date={date} />
 
         <DefaultButton style={styles.nextButton}
           disabled={!isValidToResults()}

@@ -20,6 +20,15 @@ function setStatus(accessToken, id, status) {
   );
 }
 
+function getFreeTime(accessToken, date) {
+  return Axios.get(`${API}/appointment/freetime`,
+    {
+      params: { date },
+      headers: { 'Cache-Control': 'no-cache', Authorization: accessToken }
+    }
+  );
+}
+
 function getEndDateTime(datetime, treatments) {
   const duration = treatments.reduce((sum, value) => sum + value.duration, 0);
   return DateTime.addDate(datetime, 'minute', duration);
@@ -35,6 +44,7 @@ const service = {
   getEndDateTime,
   getTreatmentTotalPrice,
   setStatus,
+  getFreeTime,
 };
 
 export default service;
