@@ -50,33 +50,29 @@ function Scheduling({ setRoute }) {
         onClick={() => setRoute('Actions')}
       />
       <ScrollView>
-        {
-          <>
-            <Treatments
-              onToggleTreatment={onToggleTreatment}
-              treatments={treatments}
-            />
+        <Treatments
+          onToggleTreatment={onToggleTreatment}
+          treatments={treatments}
+        />
 
-            <Section title='Data da Consulta' />
-            <View style={styles.centered}>
-              <SelectDate date={date}
-                setDate={date => setDate(date)}
-                message={'Selecione a Data Atendimento'}
-                maximumDate={DateTime.addDate(new Date(), 'months', CALENDAR.MAX_MONTH)}
-                minimumDate={DateTime.addDate(new Date(), 'day', 1)}
-              />
-            </View>
+        <Section title='Data da Consulta' />
+        <View style={styles.centered}>
+          <SelectDate date={date}
+            setDate={date => setDate(date)}
+            message={'Selecione a Data Atendimento'}
+            maximumDate={DateTime.addDate(new Date(), 'months', CALENDAR.MAX_MONTH)}
+            minimumDate={DateTime.addDate(new Date(), 'day', 1)}
+          />
+        </View>
 
-            <Section title='Horário da Consulta' />
-            <SelectTime onSelectItem={setTime} />
+        <Section title='Horário da Consulta' />
+        <SelectTime onSelectItem={setTime} />
 
-            <DefaultButton style={styles.nextButton}
-              disabled={!isValidToResults()}
-              icon='angle-right' text='Avançar'
-              onClick={goToResults}
-            />
-          </>
-        }
+        <DefaultButton style={styles.nextButton}
+          disabled={!isValidToResults()}
+          icon='angle-right' text='Avançar'
+          onClick={goToResults}
+        />
       </ScrollView>
     </>
   )

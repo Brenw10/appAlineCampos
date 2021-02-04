@@ -1,24 +1,20 @@
 import React, { useEffect, useState } from 'react';
-import { TIME } from '../constants/SelectTime';
-import DateTime from '../services/DateTime';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import Worktime from '../services/Worktime';
+import { useAuth } from '../contexts/Auth';
 
 function SelectTime(props) {
   const [time, setTime] = useState([]);
   const [index, setIndex] = useState();
+  const { token } = useAuth();
 
   useEffect(() => {
-    setTime(getTime());
+    load();
   }, []);
 
-  function getTime() {
-    const start = DateTime.Moment().set({ hours: TIME.START_TIME.HOUR, minutes: TIME.START_TIME.MINUTE });
-    const end = DateTime.Moment().set({ hours: TIME.END_TIME.HOUR, minutes: TIME.END_TIME.MINUTE, });
-    const diff = DateTime.Moment(end).diff(start, 'minute');
-    const times = diff / TIME.COUNTING_MINUTES + 1;
-    return [...Array(times).keys()].map(value =>
-      DateTime.addDate(start, 'minute', value * TIME.COUNTING_MINUTES)
-    );
+  async function load() {
+    const { data } = await Worktime.getAll(token);
+    setTime(data);
   }
 
   function onToggleItem(i) {
@@ -28,10 +24,10 @@ function SelectTime(props) {
 
   function renderItems() {
     return time.map((value, i) =>
-      <TouchableOpacity key={i} onPress={() => onToggleItem(i)}
+      <TouchableOpacity key={value._id} onPress={() => onToggleItem(i)}
         style={{ ...styles.item, backgroundColor: i === index ? '#d8d8d8' : '#fafafa' }}>
         <Text style={styles.hour}>
-          {DateTime.getHourFormat(value)}
+          {value.time}
         </Text>
       </TouchableOpacity>
     );
