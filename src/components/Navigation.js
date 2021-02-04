@@ -37,7 +37,7 @@ function Navigation(props) {
 
   useEffect(() => {
     if (status === STATUS.START) {
-      imageAnim(windowHeight - CONFIG.MARGIN);
+      imageAnim(windowHeight - CONFIG.MARGIN * 2);
     } else if (status === STATUS.SHOW) {
       imageAnim(topViewHeight);
     }
