@@ -31,7 +31,7 @@ function Scheduling({ setRoute }) {
   }
 
   function goToResults() {
-    const datetimeString = DateTime.getDefaultDateFormat(date) + ' ' + DateTime.getHourFormat(time);
+    const datetimeString = DateTime.getDefaultDateFormat(date) + ' ' + time;
     const datetime = DateTime.Moment(datetimeString);
     setRoute('SchedulingResult', {
       treatments: treatments.filter(value => value.checked),

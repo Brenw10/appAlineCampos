@@ -19,7 +19,7 @@ function SelectTime(props) {
 
   function onToggleItem(i) {
     setIndex(i);
-    props.onSelectItem(time[i]);
+    props.onSelectItem(time[i].time);
   }
 
   function renderItems() {
