@@ -1,9 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { StyleSheet, View, Animated, Image } from 'react-native';
+import { StyleSheet, View, Animated, Image, Dimensions } from 'react-native';
 import Axios from 'axios';
 
 const CONFIG = {
   MARGIN: 40,
+  IMAGE_SIZE: 200,
 };
 
 const STATUS = {
@@ -16,9 +17,11 @@ function Navigation(props) {
   const [route, setRoute] = useState(props.initial);
   const [arg, setArg] = useState();
   const [status, setStatus] = useState(STATUS.SHOW);
-  const [bottomViewHeight, setBottomViewHeight] = useState();
+  const [topViewHeight, setTopViewHeight] = useState(0);
+  const [bottomViewHeight, setBottomViewHeight] = useState(0);
   const bottomViewTranslateY = useRef(new Animated.Value(0)).current;
   const bottomViewOpacity = useRef(new Animated.Value(1)).current;
+  const imageTranslateY = useRef(new Animated.Value(0)).current;
   const count = useRef(0);
   const [loading, setLoading] = useState(0);
 
@@ -29,6 +32,10 @@ function Navigation(props) {
   useEffect(() => {
     if (status === STATUS.HIDE && !loading) showAnim(bottomViewHeight);
   }, [loading]);
+
+  useEffect(() => {
+    if ([STATUS.RESET, STATUS.SHOW].includes(status)) imageAnim(topViewHeight);
+  }, [topViewHeight, status]);
 
   function interceptor() {
     Axios.interceptors.request.use(
@@ -91,6 +98,16 @@ function Navigation(props) {
     ]).start();
   }
 
+  function imageAnim(height) {
+    Animated.parallel([
+      Animated.timing(imageTranslateY, {
+        toValue: height / 2 - CONFIG.IMAGE_SIZE / 2,
+        duration: props.duration,
+        useNativeDriver: true,
+      }),
+    ]).start();
+  }
+
   function getComponent() {
     const array = React.Children.toArray(props.children);
     const component = array.find(child => child.props.route === route);
@@ -105,9 +122,14 @@ function Navigation(props) {
 
   return (
     <View style={styles.container}>
-      <View style={styles.topContainer}>
-        <Image
-          style={styles.image}
+      <View
+        style={styles.topContainer}
+        onLayout={event => setTopViewHeight(event.nativeEvent.layout.height)}>
+        <Animated.Image
+          style={{
+            ...styles.image,
+            transform: [{ translateY: imageTranslateY }],
+          }}
           source={props.image} resizeMode='contain' />
       </View>
 
@@ -135,12 +157,11 @@ const styles = StyleSheet.create({
   },
   topContainer: {
     flex: 1,
-    justifyContent: 'center',
   },
   image: {
     width: '100%',
-    height: '100%',
-    maxHeight: 200,
+    height: CONFIG.IMAGE_SIZE,
+    maxHeight: CONFIG.IMAGE_SIZE,
   },
   bottomContainer: {
     backgroundColor: '#FFF',
