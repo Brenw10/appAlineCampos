@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { StyleSheet, View, Animated, Image, Dimensions } from 'react-native';
+import { StyleSheet, View, Animated, Dimensions } from 'react-native';
 import Axios from 'axios';
 
 const CONFIG = {
@@ -8,6 +8,7 @@ const CONFIG = {
 };
 
 const STATUS = {
+  START: 'START',
   RESET: 'RESET',
   HIDE: 'HIDE',
   SHOW: 'SHOW',
@@ -24,6 +25,7 @@ function Navigation(props) {
   const imageTranslateY = useRef(new Animated.Value(0)).current;
   const count = useRef(0);
   const [loading, setLoading] = useState(0);
+  const windowHeight = Dimensions.get('window').height;
 
   useEffect(() => {
     interceptor();
@@ -34,7 +36,11 @@ function Navigation(props) {
   }, [loading]);
 
   useEffect(() => {
-    if ([STATUS.RESET, STATUS.SHOW].includes(status)) imageAnim(topViewHeight);
+    if (status === STATUS.START) {
+      imageAnim(windowHeight - CONFIG.MARGIN);
+    } else if (status === STATUS.SHOW) {
+      imageAnim(topViewHeight);
+    }
   }, [topViewHeight, status]);
 
   function interceptor() {
@@ -57,6 +63,7 @@ function Navigation(props) {
   }
 
   function hideAnim(route, arg) {
+    setStatus(STATUS.START);
     Animated.parallel([
       Animated.timing(bottomViewTranslateY, {
         toValue: bottomViewHeight - CONFIG.MARGIN,
