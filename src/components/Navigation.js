@@ -23,6 +23,7 @@ function Navigation(props) {
   const bottomViewTranslateY = useRef(new Animated.Value(0)).current;
   const bottomViewOpacity = useRef(new Animated.Value(1)).current;
   const imageTranslateY = useRef(new Animated.Value(0)).current;
+  const imageScale = useRef(new Animated.Value(1)).current;
   const count = useRef(0);
   const [loading, setLoading] = useState(0);
   const windowHeight = Dimensions.get('window').height;
@@ -106,9 +107,15 @@ function Navigation(props) {
   }
 
   function imageAnim(height) {
+    const scale = height / CONFIG.IMAGE_SIZE;
     Animated.parallel([
       Animated.timing(imageTranslateY, {
         toValue: height / 2 - CONFIG.IMAGE_SIZE / 2,
+        duration: props.duration,
+        useNativeDriver: true,
+      }),
+      Animated.timing(imageScale, {
+        toValue: scale < 1 ? scale : 1,
         duration: props.duration,
         useNativeDriver: true,
       }),
@@ -135,7 +142,11 @@ function Navigation(props) {
         <Animated.Image
           style={{
             ...styles.image,
-            transform: [{ translateY: imageTranslateY }],
+            transform: [{
+              translateY: imageTranslateY,
+            }, {
+              scale: imageScale
+            }],
           }}
           source={props.image} resizeMode='contain' />
       </View>
