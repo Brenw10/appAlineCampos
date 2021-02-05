@@ -76,7 +76,8 @@ function Schedule({ setRoute }) {
           futureScrollRange={CALENDAR.MAX_MONTH}
           renderItem={item =>
             <AppointmentItem
-              item={item} disabled={!user.admin || item.status !== APPOINTMENT.CREATED.NAME }
+              item={item}
+              disabled={item.status === APPOINTMENT.REJECTED.NAME}
               onPress={() => setAppointment(item)} />
           }
         />
@@ -105,10 +106,13 @@ function Schedule({ setRoute }) {
                 icon='close' text='Rejeitar' isLeft={true}
                 onClick={() => setAppointmentStatus(APPOINTMENT.REJECTED)}
               />
-              <DefaultButton style={styles.acceptButton} relativeIcon={true}
-                icon='check' text='Aceitar'
-                onClick={() => setAppointmentStatus(APPOINTMENT.ACCEPTED)}
-              />
+              {
+                user.admin && appointment.status !== APPOINTMENT.ACCEPTED.NAME &&
+                <DefaultButton style={styles.acceptButton} relativeIcon={true}
+                  icon='check' text='Aceitar'
+                  onClick={() => setAppointmentStatus(APPOINTMENT.ACCEPTED)}
+                />
+              }
             </View>
           </ScrollView>
         }
