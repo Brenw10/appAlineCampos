@@ -77,7 +77,6 @@ function Schedule({ setRoute }) {
           renderItem={item =>
             <AppointmentItem
               item={item}
-              disabled={item.status === APPOINTMENT.REJECTED.NAME}
               onPress={() => setAppointment(item)} />
           }
         />
@@ -102,16 +101,21 @@ function Schedule({ setRoute }) {
             </View>
             <AppointmentDetail appointment={appointment} />
             <View style={styles.buttonsContainer}>
-              <DefaultButton style={styles.rejectButton} relativeIcon={true}
-                icon='close' text='Rejeitar' isLeft={true}
-                onClick={() => setAppointmentStatus(APPOINTMENT.REJECTED)}
-              />
               {
-                user.admin && appointment.status !== APPOINTMENT.ACCEPTED.NAME &&
-                <DefaultButton style={styles.acceptButton} relativeIcon={true}
-                  icon='check' text='Aceitar'
-                  onClick={() => setAppointmentStatus(APPOINTMENT.ACCEPTED)}
-                />
+                appointment.status !== APPOINTMENT.REJECTED.NAME &&
+                <>
+                  <DefaultButton style={styles.rejectButton} relativeIcon={true}
+                    icon='close' text='Rejeitar' isLeft={true}
+                    onClick={() => setAppointmentStatus(APPOINTMENT.REJECTED)}
+                  />
+                  {
+                    user.admin && appointment.status !== APPOINTMENT.ACCEPTED.NAME &&
+                    <DefaultButton style={styles.acceptButton} relativeIcon={true}
+                      icon='check' text='Aceitar'
+                      onClick={() => setAppointmentStatus(APPOINTMENT.ACCEPTED)}
+                    />
+                  }
+                </>
               }
             </View>
           </ScrollView>
