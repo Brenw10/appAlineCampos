@@ -14,34 +14,13 @@ function Treatments({ treatments, onToggleTreatment }) {
     setIsModalVisible(!isModalVisible);
   }
 
-  function renderIsFirstTypeTreatments() {
-    return treatments
-      .filter(value => value.isFirstType)
+  function renderTreatments(values) {
+    return values
       .map((value, i) =>
         <View style={styles.container} key={i}>
           <CheckBox
             containerStyle={styles.checkbox}
-            title={value.name}
-            checked={value.checked}
-            onPress={() => onToggleTreatment(value)}
-          />
-          <TouchableOpacity style={styles.more} onPress={() => onClickSeeMore(value)}>
-            <Text style={styles.moreText}>
-              Saiba mais
-            </Text>
-          </TouchableOpacity>
-        </View>
-      );
-  };
-
-  function renderTreatments() {
-    return treatments
-      .filter(value => !value.isFirstType)
-      .map((value, i) =>
-        <View style={styles.container} key={i}>
-          <CheckBox
-            containerStyle={styles.checkbox}
-            title={value.name}
+            title={`${value.name} (${value.duration}min)`}
             checked={value.checked}
             onPress={() => onToggleTreatment(value)}
           />
@@ -68,6 +47,13 @@ function Treatments({ treatments, onToggleTreatment }) {
           title={selectedSeeMore.name}
           description={selectedSeeMore.description}
         />
+
+        <Section
+          title="Valor da Consulta"
+        />
+        <View style={styles.centered}>
+          <Text>R$ {selectedSeeMore.price}</Text>
+        </View>
       </DefaultModal>
     );
   }
@@ -75,11 +61,10 @@ function Treatments({ treatments, onToggleTreatment }) {
   return (
     <>
       <Section title='Primeiro Acesso' />
-      <View style={styles.isFirstTypeContainer}>
-        {renderIsFirstTypeTreatments()}
-      </View>
+      {renderTreatments(treatments.filter(value => value.isFirstType))}
+
       <Section title='Tratamentos' />
-      {renderTreatments()}
+      {renderTreatments(treatments.filter(value => !value.isFirstType))}
       {selectedSeeMore && renderModal()}
     </>
   )
@@ -100,8 +85,8 @@ const styles = StyleSheet.create({
   moreText: {
     color: '#01877c',
   },
-  isFirstTypeContainer: {
-    // marginBottom: 30,
+  centered: {
+    alignItems: 'center',
   },
 });
 
