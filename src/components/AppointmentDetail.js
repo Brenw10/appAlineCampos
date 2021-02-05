@@ -26,7 +26,7 @@ function AppointmentDetail({ appointment }) {
         title="Tratamentos escolhidos"
         description={
           appointment.treatments
-            .map(value => ` - ${value.name}`)
+            .map(value => ` - ${value.name} (${value.duration}min) - R$ ${value.price}`)
             .join('\n')
         }
       />
