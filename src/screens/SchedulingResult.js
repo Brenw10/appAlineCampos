@@ -5,6 +5,7 @@ import DefaultButton from '../components/DefaultButton';
 import AppointmentDetail from '../components/AppointmentDetail';
 import Appointment from '../services/Appointment';
 import { useAuth } from '../contexts/Auth';
+import { MESSAGE } from '../constants/Appointment';
 
 function SchedulingResult({ setRoute, treatments, datetime }) {
   const { token } = useAuth();
@@ -14,9 +15,8 @@ function SchedulingResult({ setRoute, treatments, datetime }) {
       datetime,
       treatments: treatments.map(value => value._id),
     };
-    const description = 'Sua consulta foi enviada para avaliação, em breve, estará disponível uma atualização...';
     return Appointment.create(token, obj)
-      .then(() => setRoute('Successful', { description }));
+      .then(() => setRoute('Successful', { description: MESSAGE.CREATED_APPOINTMENT }));
   }
 
   return (
