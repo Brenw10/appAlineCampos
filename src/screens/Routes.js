@@ -9,6 +9,7 @@ import SchedulingDate from './SchedulingDate';
 import SchedulingTime from './SchedulingTime';
 import SchedulingResult from './SchedulingResult';
 import Successful from './Successful';
+import Coupon from './Coupon';
 
 function Login() {
   return (
@@ -26,6 +27,7 @@ function Login() {
         <SchedulingTime route='SchedulingTime' />
         <SchedulingResult route='SchedulingResult' />
         <Successful route='Successful' />
+        <Coupon route='Coupon' />
       </Navigation>
     </>
   )

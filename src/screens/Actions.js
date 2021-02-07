@@ -3,6 +3,8 @@ import { ScrollView, View } from "react-native";
 import DefaultButton from "../components/DefaultButton";
 import { GoogleSignin } from '@react-native-community/google-signin';
 import Logo from "../components/Logo";
+import { useAuth } from '../contexts/Auth';
+import User from '../services/User';
 
 const BUTTONS = [
   {
@@ -16,6 +18,12 @@ const BUTTONS = [
     SCREEN: 'Schedule',
   },
   {
+    TITLE: 'Cupons de Desconto',
+    ICON: 'tags',
+    SCREEN: 'Coupon',
+    IS_ADMIN: true,
+  },
+  {
     TITLE: 'Sair da Conta',
     ICON: 'reply',
     SCREEN: 'WelcomeLogin',
@@ -27,15 +35,21 @@ const BUTTONS = [
 ];
 
 function Actions({ setRoute }) {
+  const [isAdmin, setIsAdmin] = useState();
   const [user, setUser] = useState();
+  const { token } = useAuth();
 
   useEffect(() => {
-    loadUser();
+    load();
   }, []);
 
-  async function loadUser() {
-    const { user } = await GoogleSignin.getCurrentUser();
-    setUser(user);
+  async function load() {
+    const results = await Promise.all([
+      GoogleSignin.getCurrentUser(),
+      User.get(token),
+    ]);
+    setUser(results[0].user);
+    setIsAdmin(results[1].data.admin);
   }
 
   async function onClickAction(value) {
@@ -48,11 +62,13 @@ function Actions({ setRoute }) {
       <Logo title={`Olá ${user ? user.name : ''}`} description='Selecione uma das opções abaixo' />
       <ScrollView>
         {
-          BUTTONS.map((value, i) =>
-            <DefaultButton key={i} text={value.TITLE} icon={value.ICON}
-              onClick={() => onClickAction(value)}
-            />
-          )
+          BUTTONS
+            .filter(value => isAdmin ? true : !value.IS_ADMIN)
+            .map((value, i) =>
+              <DefaultButton key={i} text={value.TITLE} icon={value.ICON}
+                onClick={() => onClickAction(value)}
+              />
+            )
         }
       </ScrollView>
     </View>
