@@ -13,9 +13,16 @@ function remove(accessToken, _id) {
   );
 }
 
+function create(accessToken, coupon) {
+  return Axios.post(`${API}/coupon`, { coupon },
+    { headers: { 'Cache-Control': 'no-cache', Authorization: accessToken } }
+  );
+}
+
 const service = {
   getAll,
   remove,
+  create,
 };
 
 export default service;

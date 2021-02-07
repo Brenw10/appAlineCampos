@@ -4,10 +4,12 @@ import Coupon from '../services/Coupon';
 import { useAuth } from '../contexts/Auth';
 import { ListItem } from 'react-native-elements'
 import DefaultButton from './DefaultButton';
+import CouponAdd from './CouponAdd';
 
 function CouponManager() {
   const [coupons, setCoupons] = useState([]);
   const [selected, setSelected] = useState();
+  const [isAdding, setIsAdding] = useState(false);
   const { token } = useAuth();
 
   useEffect(() => {
@@ -44,16 +46,18 @@ function CouponManager() {
       <ScrollView style={styles.container}>
         {coupons.map(renderCoupon)}
       </ScrollView>
-      <View style={styles.buttonsContainer}>
+      <View style={styles.rowContainer}>
         <DefaultButton style={styles.remove} relativeIcon={true}
-          icon='close' text='Remover' isLeft={true}
+          icon='minus' text='Remover' isLeft={true}
+          disabled={!selected}
           onClick={() => remove()}
         />
         <DefaultButton style={styles.add} relativeIcon={true}
-          icon='close' text='Adicionar' isLeft={true}
-          onClick={() => setAppointmentStatus(APPOINTMENT.REJECTED)}
+          icon='plus' text='Adicionar' isLeft={true}
+          onClick={() => setIsAdding(true)}
         />
       </View>
+      <CouponAdd isVisible={isAdding} setVisible={setIsAdding} />
     </>
   );
 }
@@ -63,7 +67,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
     marginBottom: 10,
   },
-  buttonsContainer: {
+  rowContainer: {
     flexDirection: 'row',
   },
   add: {
