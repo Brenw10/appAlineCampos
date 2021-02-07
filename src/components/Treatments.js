@@ -84,6 +84,7 @@ const styles = StyleSheet.create({
   },
   moreText: {
     color: '#01877c',
+    fontSize: 16,
   },
   centered: {
     alignItems: 'center',

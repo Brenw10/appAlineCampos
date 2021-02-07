@@ -74,6 +74,7 @@ function Schedule({ setRoute }) {
           items={items}
           pastScrollRange={0}
           futureScrollRange={CALENDAR.MAX_MONTH}
+          theme={{ agendaKnobColor: '#01877c' }}
           renderItem={item =>
             <AppointmentItem
               item={item}
