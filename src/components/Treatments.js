@@ -20,7 +20,7 @@ function Treatments({ treatments, onToggleTreatment }) {
         <View style={styles.container} key={i}>
           <CheckBox
             containerStyle={styles.checkbox}
-            title={`${value.name} (${value.duration}min)`}
+            title={value.name}
             checked={value.checked}
             onPress={() => onToggleTreatment(value)}
           />
@@ -38,7 +38,7 @@ function Treatments({ treatments, onToggleTreatment }) {
     const base64Image = image && Buffer(selectedSeeMore.image, 'binary').toString('base64');
     const imageProps = base64Image && { uri: `data:image/png;base64,${base64Image}` };
     return (
-      <DefaultModal
+      <DefaultModal margin={15}
         isModalVisible={isModalVisible}
         setIsModalVisible={setIsModalVisible}
         image={imageProps}

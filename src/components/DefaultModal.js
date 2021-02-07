@@ -22,7 +22,7 @@ function DefaultModal({ children, isModalVisible, setIsModalVisible, image, alig
           <TouchableOpacity
             style={styles.closeButton}
             onPress={() => setIsModalVisible(false)}>
-            <Icon name='close' color='grey' size={18} />
+            <Icon name='close' color='grey' size={22} />
           </TouchableOpacity>
         </View>
       </View>

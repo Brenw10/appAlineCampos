@@ -81,7 +81,7 @@ function Schedule({ setRoute }) {
           }
         />
       </View>
-      <DefaultModal align='flex-end' margin={0}
+      <DefaultModal margin={10}
         isModalVisible={!!appointment}
         setIsModalVisible={setAppointment}>
         {
