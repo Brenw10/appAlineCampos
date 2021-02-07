@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View } from 'react-native';
 import DefaultButton from './DefaultButton';
 import { Input } from 'react-native-elements';
@@ -12,8 +12,13 @@ function CouponAdd({ isVisible, setVisible, isCreatedDone }) {
   const [value, setValue] = useState();
   const { token } = useAuth();
 
-  function create() {
-    Coupon.create(token, { name, value });
+  useEffect(() => {
+    setName();
+    setValue();
+  }, [isVisible]);
+
+  async function create() {
+    await Coupon.create(token, { name, value });
     isCreatedDone();
     setVisible(false);
   }

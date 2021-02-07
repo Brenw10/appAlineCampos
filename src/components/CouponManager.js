@@ -57,7 +57,7 @@ function CouponManager() {
           onClick={() => setIsAdding(true)}
         />
       </View>
-      <CouponAdd isVisible={isAdding} setVisible={setIsAdding} />
+      <CouponAdd isVisible={isAdding} setVisible={setIsAdding} isCreatedDone={loadCoupons} />
     </>
   );
 }
