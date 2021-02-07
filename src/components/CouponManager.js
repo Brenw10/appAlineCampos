@@ -23,6 +23,7 @@ function CouponManager() {
 
   async function remove() {
     await Coupon.remove(token, selected._id);
+    setSelected();
     loadCoupons();
   }
 

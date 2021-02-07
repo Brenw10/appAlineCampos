@@ -4,10 +4,15 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 
 function DefaultButton(props) {
   const { text, icon, onClick, isLeft, disabled, relativeIcon, color } = props;
+  const backgroundColor = props.style && props.style.backgroundColor;
 
   return (
     <TouchableHighlight
-      style={{ ...styles.button, backgroundColor: disabled ? 'grey' : '#01877c', ...props.style }}
+      style={{
+        ...styles.button,
+        ...props.style,
+        backgroundColor: disabled ? 'grey' : backgroundColor ? backgroundColor : '#01877c',
+      }}
       onPress={() => onClick()}
       underlayColor='#003834'
       disabled={disabled}
