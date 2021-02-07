@@ -6,7 +6,7 @@ import '../services/GoogleAuth';
 import UserService from '../services/User';
 import { useAuth } from '../contexts/Auth';
 
-function UserLogin({ setRoute }) {
+function UserLogin({ setRoute, failed }) {
   const { setToken } = useAuth();
 
   async function googleSignIn() {
@@ -21,14 +21,14 @@ function UserLogin({ setRoute }) {
       await UserService.set(accessToken, user);
       setRoute('Actions');
     } catch {
-      setRoute('UserLogin');
+      setRoute('UserLogin', { failed: true });
     }
   }
 
   return (
     <View>
       <Logo
-        title="Area de acesso ao usuário"
+        title={failed ? "Ocorreu um erro, tente novamente" : "Area de acesso ao usuário"}
         description="Entre com sua conta Google"
       />
 
