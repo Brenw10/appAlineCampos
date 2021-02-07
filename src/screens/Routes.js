@@ -4,7 +4,9 @@ import WelcomeLogin from './WelcomeLogin';
 import UserLogin from './UserLogin';
 import Actions from './Actions';
 import Schedule from './Schedule';
-import Scheduling from './Scheduling';
+import SchedulingTreatment from './SchedulingTreatment';
+import SchedulingDate from './SchedulingDate';
+import SchedulingTime from './SchedulingTime';
 import SchedulingResult from './SchedulingResult';
 import Successful from './Successful';
 
@@ -19,7 +21,9 @@ function Login() {
         <UserLogin route='UserLogin' />
         <Actions route='Actions' />
         <Schedule route='Schedule' />
-        <Scheduling route='Scheduling' />
+        <SchedulingTreatment route='SchedulingTreatment' />
+        <SchedulingDate route='SchedulingDate' />
+        <SchedulingTime route='SchedulingTime' />
         <SchedulingResult route='SchedulingResult' />
         <Successful route='Successful' />
       </Navigation>

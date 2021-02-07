@@ -8,7 +8,7 @@ const BUTTONS = [
   {
     TITLE: 'Agendar Consulta',
     ICON: 'calendar',
-    SCREEN: 'Scheduling',
+    SCREEN: 'SchedulingTreatment',
   },
   {
     TITLE: 'Ver Minhas Consultas',
