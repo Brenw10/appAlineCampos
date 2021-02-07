@@ -19,6 +19,11 @@ function CouponManager() {
     setCoupons(data);
   }
 
+  async function remove() {
+    await Coupon.remove(token, selected._id);
+    loadCoupons();
+  }
+
   function renderCoupon(value) {
     return (
       <ListItem key={value._id}>
@@ -42,7 +47,7 @@ function CouponManager() {
       <View style={styles.buttonsContainer}>
         <DefaultButton style={styles.remove} relativeIcon={true}
           icon='close' text='Remover' isLeft={true}
-          onClick={() => setAppointmentStatus(APPOINTMENT.REJECTED)}
+          onClick={() => remove()}
         />
         <DefaultButton style={styles.add} relativeIcon={true}
           icon='close' text='Adicionar' isLeft={true}

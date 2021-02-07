@@ -7,8 +7,15 @@ function getAll(accessToken) {
   );
 }
 
+function remove(accessToken, _id) {
+  return Axios.delete(`${API}/coupon/${_id}`,
+    { headers: { 'Cache-Control': 'no-cache', Authorization: accessToken } }
+  );
+}
+
 const service = {
   getAll,
+  remove,
 };
 
 export default service;
