@@ -10,15 +10,19 @@ function UserLogin({ setRoute }) {
   const { setToken } = useAuth();
 
   async function googleSignIn() {
-    if (await GoogleSignin.isSignedIn()) {
+    try {
+      if (await GoogleSignin.isSignedIn()) {
+        const { accessToken } = await GoogleSignin.getTokens();
+        await GoogleSignin.clearCachedAccessToken(accessToken);
+      }
+      const { user } = await GoogleSignin.signIn();
       const { accessToken } = await GoogleSignin.getTokens();
-      await GoogleSignin.clearCachedAccessToken(accessToken);
+      setToken(accessToken);
+      await UserService.set(accessToken, user);
+      setRoute('Actions');
+    } catch {
+      setRoute('UserLogin');
     }
-    const { user } = await GoogleSignin.signIn();
-    const { accessToken } = await GoogleSignin.getTokens();
-    setToken(accessToken);
-    await UserService.set(accessToken, user);
-    setRoute('Actions');
   }
 
   return (

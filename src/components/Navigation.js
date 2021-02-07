@@ -51,7 +51,7 @@ function Navigation(props) {
         setLoading(count.current);
         return results;
       },
-      error => Promise.reject(error)
+      error => Promise.reject(error),
     );
     Axios.interceptors.response.use(
       results => {
@@ -59,7 +59,11 @@ function Navigation(props) {
         setLoading(count.current);
         return results;
       },
-      error => Promise.reject(error)
+      error => {
+        count.current--;
+        setLoading(count.current);
+        return Promise.reject(error);
+      }
     );
   }
 
