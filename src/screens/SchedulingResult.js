@@ -35,7 +35,7 @@ function SchedulingResult({ setRoute, treatments, datetime }) {
       <Logo
         title='Agendamento de Consulta'
         description='Confime os dados e envie o pedido de consulta para aprovação' />
-      <AppointmentDetail appointment={{ datetime, treatments }} coupon={validCoupon} showDetail={true} />
+      <AppointmentDetail appointment={{ datetime, treatments }} coupon={validCoupon} />
       <View style={styles.rowContainer}>
         <Input containerStyle={styles.coupon}
           value={coupon} onChangeText={value => setCoupon(value)}

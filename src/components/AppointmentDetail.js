@@ -5,10 +5,6 @@ import DateTime from '../services/DateTime';
 import Appointment from '../services/Appointment';
 
 function AppointmentDetail({ appointment, coupon, showDetail }) {
-  function renderDetail(value) {
-    if (!showDetail) return '';
-    return `(${value.duration}min) - R$ ${value.price}`;
-  }
 
   return (
     <View style={styles.container}>
@@ -31,7 +27,7 @@ function AppointmentDetail({ appointment, coupon, showDetail }) {
         title="Tratamentos escolhidos"
         description={
           appointment.treatments
-            .map(value => ` - ${value.name} ${renderDetail(value)}`)
+            .map(value => ` - ${value.name} (${value.duration}min) - R$ ${value.price}`)
             .join('\n')
         }
       />
@@ -51,7 +47,12 @@ function AppointmentDetail({ appointment, coupon, showDetail }) {
       />
       <View style={styles.centered}>
         <Text style={styles.price}>
-          R$ {Appointment.getTreatmentTotalPrice(appointment.treatments) - (coupon ? coupon.value : 0)}
+          R$ {
+            Math.max(
+              0,
+              Appointment.getTreatmentTotalPrice(appointment.treatments) - (coupon ? coupon.value : 0)
+            )
+          }
         </Text>
       </View>
     </View>
