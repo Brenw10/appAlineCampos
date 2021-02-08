@@ -13,6 +13,7 @@ import Coupon from '../services/Coupon';
 function SchedulingResult({ setRoute, treatments, datetime }) {
   const [coupon, setCoupon] = useState();
   const [validCoupon, setValidCoupon] = useState();
+  const [isUsingCoupon, setIsUsingCoupon] = useState();
   const { token } = useAuth();
 
   function createAppointment() {
@@ -27,7 +28,8 @@ function SchedulingResult({ setRoute, treatments, datetime }) {
 
   async function getCoupon() {
     const { data } = await Coupon.getByName(token, coupon);
-    setValidCoupon(data || false);
+    if (data) setValidCoupon(data);
+    setIsUsingCoupon(true);
   }
 
   return (
@@ -41,7 +43,7 @@ function SchedulingResult({ setRoute, treatments, datetime }) {
           value={coupon} onChangeText={value => setCoupon(value)}
           placeholder='Digite o cupom' label="Cupom"
           leftIcon={{ type: 'font-awesome', name: 'tag', color: 'grey' }}
-          errorMessage={validCoupon !== undefined ? validCoupon ? 'Cupom Válido' : 'Cupom Inválido' : ''}
+          errorMessage={isUsingCoupon ? (validCoupon ? 'Cupom Válido' : 'Cupom Inválido') : ''}
           errorStyle={{ color: validCoupon ? 'green' : 'red' }}
         />
         <IconButton name='check' onPress={getCoupon} />

@@ -4,7 +4,7 @@ import Section from './Section';
 import DateTime from '../services/DateTime';
 import Appointment from '../services/Appointment';
 
-function AppointmentDetail({ appointment, coupon, showDetail }) {
+function AppointmentDetail({ appointment, coupon }) {
 
   return (
     <View style={styles.container}>
