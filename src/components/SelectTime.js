@@ -40,6 +40,10 @@ function SelectTime({ date, onSelectItem }) {
   return (
     <View style={styles.container}>
       {renderItems()}
+      {
+        !times.length &&
+        <Text>Nenhum horário disponível para este dia.</Text>
+      }
     </View>
   );
 }
