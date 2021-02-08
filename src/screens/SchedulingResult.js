@@ -19,7 +19,7 @@ function SchedulingResult({ setRoute, treatments, datetime }) {
     const obj = {
       datetime,
       treatments: treatments.map(value => value._id),
-      coupon: validCoupon.name,
+      coupon: validCoupon && validCoupon.name,
     };
     return Appointment.create(token, obj)
       .then(() => setRoute('Successful', { description: MESSAGE.CREATED_APPOINTMENT }));
