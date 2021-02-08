@@ -100,7 +100,7 @@ function Schedule({ setRoute }) {
                 }}
               />
             </View>
-            <AppointmentDetail appointment={appointment} />
+            <AppointmentDetail appointment={appointment} coupon={appointment.coupon} />
             <View style={styles.buttonsContainer}>
               {
                 appointment.status !== APPOINTMENT.REJECTED.NAME &&
