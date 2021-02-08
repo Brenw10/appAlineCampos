@@ -4,7 +4,12 @@ import Section from './Section';
 import DateTime from '../services/DateTime';
 import Appointment from '../services/Appointment';
 
-function AppointmentDetail({ appointment }) {
+function AppointmentDetail({ appointment, coupon, showDetail }) {
+  function renderDetail(value) {
+    if (!showDetail) return '';
+    return `(${value.duration}min) - R$ ${value.price}`;
+  }
+
   return (
     <View style={styles.container}>
       <View style={styles.centered}>
@@ -26,15 +31,28 @@ function AppointmentDetail({ appointment }) {
         title="Tratamentos escolhidos"
         description={
           appointment.treatments
-            .map(value => ` - ${value.name} (${value.duration}min) - R$ ${value.price}`)
+            .map(value => ` - ${value.name} ${renderDetail(value)}`)
             .join('\n')
         }
       />
+      {
+        coupon &&
+        <>
+          <Section
+            title="Desconto de Cupom"
+          />
+          <View style={styles.centered}>
+            <Text>R$ {coupon.value} - {coupon.name}</Text>
+          </View>
+        </>
+      }
       <Section
         title="Valor total da consulta"
       />
       <View style={styles.centered}>
-        <Text style={styles.price}>R$ {Appointment.getTreatmentTotalPrice(appointment.treatments)}</Text>
+        <Text style={styles.price}>
+          R$ {Appointment.getTreatmentTotalPrice(appointment.treatments) - (coupon ? coupon.value : 0)}
+        </Text>
       </View>
     </View>
   );

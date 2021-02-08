@@ -19,10 +19,17 @@ function create(accessToken, coupon) {
   );
 }
 
+function getByName(accessToken, name) {
+  return Axios.get(`${API}/coupon/${name}`,
+    { headers: { 'Cache-Control': 'no-cache', Authorization: accessToken } }
+  );
+}
+
 const service = {
   getAll,
   remove,
   create,
+  getByName,
 };
 
 export default service;
