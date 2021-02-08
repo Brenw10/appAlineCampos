@@ -24,6 +24,11 @@ const BUTTONS = [
     IS_ADMIN: true,
   },
   {
+    TITLE: 'Localização da Clínica',
+    ICON: 'map-marker',
+    SCREEN: 'Location',
+  },
+  {
     TITLE: 'Sair da Conta',
     ICON: 'reply',
     SCREEN: 'WelcomeLogin',
