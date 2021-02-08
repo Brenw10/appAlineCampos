@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useReducer, useState } from 'react';
 import { View } from 'react-native';
 import DefaultButton from './DefaultButton';
 import { Input } from 'react-native-elements';
@@ -6,15 +6,16 @@ import DefaultModal from './DefaultModal';
 import Section from './Section';
 import Coupon from '../services/Coupon';
 import { useAuth } from '../contexts/Auth';
+import OnlyNumber, { ACTIONS } from '../reducers/OnlyNumber';
 
 function CouponAdd({ isVisible, setVisible, isCreatedDone }) {
   const [name, setName] = useState();
-  const [value, setValue] = useState();
+  const [value, dispatchValue] = useReducer(OnlyNumber, "");
   const { token } = useAuth();
-
+  
   useEffect(() => {
     setName();
-    setValue();
+    dispatchValue({ type: ACTIONS.CLEAR });
   }, [isVisible]);
 
   async function create() {
@@ -34,7 +35,7 @@ function CouponAdd({ isVisible, setVisible, isCreatedDone }) {
             leftIcon={{ type: 'font-awesome', name: 'tag', color: 'grey' }}
           />
           <Input
-            value={value} onChangeText={val => setValue(val)}
+            value={value} onChangeText={value => dispatchValue({ type: ACTIONS.ADD, payload: { value } })}
             placeholder='Digite o valor do cupom' label="Valor"
             keyboardType='numeric'
             leftIcon={{ type: 'font-awesome', name: 'credit-card', color: 'grey' }}
