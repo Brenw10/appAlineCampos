@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native';
+import { Button, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import Coupon from '../services/Coupon';
 import { useAuth } from '../contexts/Auth';
 import { ListItem } from 'react-native-elements'
@@ -44,30 +44,26 @@ function CouponManager() {
 
   return (
     <>
-      <ScrollView style={styles.container}>
+      <ScrollView>
+        <View style={styles.rowContainer}>
+          <DefaultButton style={styles.remove} relativeIcon={true}
+            icon='minus' text='Remover' isLeft={true}
+            disabled={!selected}
+            onClick={() => remove()}
+          />
+          <DefaultButton style={styles.add} relativeIcon={true}
+            icon='plus' text='Adicionar' isLeft={true}
+            onClick={() => setIsAdding(true)}
+          />
+        </View>
         {coupons.map(renderCoupon)}
       </ScrollView>
-      <View style={styles.rowContainer}>
-        <DefaultButton style={styles.remove} relativeIcon={true}
-          icon='minus' text='Remover' isLeft={true}
-          disabled={!selected}
-          onClick={() => remove()}
-        />
-        <DefaultButton style={styles.add} relativeIcon={true}
-          icon='plus' text='Adicionar' isLeft={true}
-          onClick={() => setIsAdding(true)}
-        />
-      </View>
       <CouponAdd isVisible={isAdding} setVisible={setIsAdding} isCreatedDone={loadCoupons} />
     </>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    marginTop: 10,
-    marginBottom: 10,
-  },
   rowContainer: {
     flexDirection: 'row',
   },

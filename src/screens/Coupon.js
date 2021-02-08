@@ -1,5 +1,5 @@
 import React from 'react';
-import { ScrollView, StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native';
 import DefaultButton from '../components/DefaultButton';
 import CouponManager from '../components/CouponManager';
 
