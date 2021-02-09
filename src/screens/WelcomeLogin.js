@@ -7,7 +7,7 @@ function WelcomeLogin({ setRoute }) {
   return (
     <>
       <Logo
-        title="Um jeito fácil de manter regular sua saúde!"
+        title="Praticidade em manter sua saúde!"
         description="Faça um breve login"
       />
       <DefaultButton style={styles.button}
