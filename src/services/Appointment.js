@@ -45,7 +45,7 @@ function newAppointmentNotification(date) {
   PushNotification.localNotificationSchedule({
     ...CHANNEL,
     message: MESSAGE.ALERT_APPOINTMENT,
-    date: DateTime.subtractDate(date, 'day', 1),
+    date: new Date(DateTime.Moment(DateTime.subtractDate(date, 'day', 1)).startOf('day')),
   });
 }
 
