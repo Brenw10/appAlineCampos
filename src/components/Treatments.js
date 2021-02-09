@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { CheckBox } from 'react-native-elements';
 import DefaultModal from './DefaultModal';
-import { Buffer } from 'buffer';
 import Section from './Section';
+import { API } from "../config/api";
 
 function Treatments({ treatments, onToggleTreatment }) {
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -34,14 +34,11 @@ function Treatments({ treatments, onToggleTreatment }) {
   };
 
   function renderModal() {
-    const { image } = selectedSeeMore;
-    const base64Image = image && Buffer(selectedSeeMore.image, 'binary').toString('base64');
-    const imageProps = base64Image && { uri: `data:image/png;base64,${base64Image}` };
     return (
       <DefaultModal margin={15}
         isModalVisible={isModalVisible}
         setIsModalVisible={setIsModalVisible}
-        image={imageProps}
+        image={{ uri: `${API}/${selectedSeeMore.image}` }}
       >
         <Section
           title={selectedSeeMore.name}
