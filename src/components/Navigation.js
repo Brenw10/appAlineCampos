@@ -111,7 +111,6 @@ function Navigation(props) {
   }
 
   function imageAnim(height) {
-    const scale = height / CONFIG.IMAGE_SIZE;
     Animated.parallel([
       Animated.timing(imageTranslateY, {
         toValue: height / 2 - CONFIG.IMAGE_SIZE / 2,
@@ -119,7 +118,7 @@ function Navigation(props) {
         useNativeDriver: true,
       }),
       Animated.timing(imageScale, {
-        toValue: scale < 1 ? scale : 1,
+        toValue: Math.min(1, height / CONFIG.IMAGE_SIZE),
         duration: props.duration,
         useNativeDriver: true,
       }),
