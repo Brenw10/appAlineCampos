@@ -44,7 +44,7 @@ function UserLogin({ setRoute, failed }) {
 
 const styles = StyleSheet.create({
   google: {
-    marginTop: '30%',
+    marginTop: '20%',
     width: '100%',
   },
 });

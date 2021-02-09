@@ -19,7 +19,7 @@ function WelcomeLogin({ setRoute }) {
 
 const styles = StyleSheet.create({
   button: {
-    marginTop: '30%',
+    marginTop: '20%',
   },
 });
 
