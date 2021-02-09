@@ -1,5 +1,5 @@
 import Axios from 'axios';
-import { API } from '../config/api';
+import { API } from '../config/Api';
 import DateTime from './DateTime';
 import PushNotification from "react-native-push-notification";
 import { CHANNEL } from '../config/Notification';

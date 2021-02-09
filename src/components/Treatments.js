@@ -3,7 +3,7 @@ import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { CheckBox } from 'react-native-elements';
 import DefaultModal from './DefaultModal';
 import Section from './Section';
-import { API } from "../config/api";
+import { API } from "../config/Api";
 
 function Treatments({ treatments, onToggleTreatment }) {
   const [isModalVisible, setIsModalVisible] = useState(false);

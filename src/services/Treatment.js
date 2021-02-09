@@ -1,5 +1,5 @@
 import Axios from 'axios';
-import { API } from '../config/api';
+import { API } from '../config/Api';
 
 function getAll(accessToken) {
   return Axios.get(`${API}/treatment`,
