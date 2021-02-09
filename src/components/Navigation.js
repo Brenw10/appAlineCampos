@@ -15,8 +15,7 @@ const STATUS = {
 };
 
 function Navigation(props) {
-  const [route, setRoute] = useState(props.initial);
-  const [arg, setArg] = useState();
+  const [route, setRoute] = useState({ route: props.initial });
   const [status, setStatus] = useState(STATUS.SHOW);
   const [topViewHeight, setTopViewHeight] = useState(0);
   const [bottomViewHeight, setBottomViewHeight] = useState(0);
@@ -33,7 +32,7 @@ function Navigation(props) {
   }, []);
 
   useEffect(() => {
-    if (status === STATUS.HIDE && !loading) showAnim(bottomViewHeight);
+    if (status === STATUS.RESET && !loading) setStatus(STATUS.HIDE);
   }, [loading]);
 
   useEffect(() => {
@@ -82,8 +81,7 @@ function Navigation(props) {
       }),
     ]).start(() => {
       setStatus(STATUS.RESET);
-      setArg(arg);
-      setRoute(route);
+      setRoute({ route, arg });
     });
   }
 
@@ -127,13 +125,13 @@ function Navigation(props) {
 
   function getComponent() {
     const array = React.Children.toArray(props.children);
-    const component = array.find(child => child.props.route === route);
-    return React.cloneElement(component, { ...arg, setRoute: hideAnim });
+    const component = array.find(child => child.props.route === route.route);
+    return React.cloneElement(component, { ...route.arg, setRoute: hideAnim });
   }
 
   function onBottomViewLayout(height) {
-    if (status === STATUS.HIDE && !loading) showAnim(height);
-    if (status === STATUS.RESET) setStatus(STATUS.HIDE);
+    if (status === STATUS.HIDE) showAnim(height);
+    if (status === STATUS.RESET && !loading) setStatus(STATUS.HIDE);
     setBottomViewHeight(height);
   }
 
@@ -161,8 +159,11 @@ function Navigation(props) {
           opacity: status === STATUS.HIDE ? 0 : 1,
         }}
         onLayout={event => onBottomViewLayout(event.nativeEvent.layout.height)}>
-        <Animated.View style={{ opacity: bottomViewOpacity }}>
-          {status !== STATUS.RESET && getComponent()}
+        <Animated.View style={{
+          opacity: bottomViewOpacity,
+          position: status === STATUS.RESET ? 'absolute' : 'relative',
+        }}>
+          {getComponent()}
         </Animated.View>
       </Animated.View>
 
