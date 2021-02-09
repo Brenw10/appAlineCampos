@@ -23,6 +23,7 @@ function SchedulingResult({ setRoute, treatments, datetime }) {
       coupon: validCoupon && validCoupon.name,
     };
     return Appointment.create(token, obj)
+      .then(() => Appointment.newAppointmentNotification(datetime))
       .then(() => setRoute('Successful', { description: MESSAGE.CREATED_APPOINTMENT }));
   }
 

@@ -21,4 +21,5 @@ export const APPOINTMENT = {
 
 export const MESSAGE = {
   CREATED_APPOINTMENT: 'Sua consulta foi enviada para avaliação, em breve, estará disponível uma atualização...\nEm caso de desistência, 24 horas antes, cancele sua consulta em "Ver Minhas Consultas".',
+  ALERT_APPOINTMENT: 'Você marcou uma consulta para amanhã, confira se está aprovado e não perca sua consulta.',
 };

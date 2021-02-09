@@ -22,6 +22,10 @@ function addDate(date, field, value) {
   return new Date(Moment(date).add(value, field));
 }
 
+function subtractDate(date, field, value) {
+  return new Date(Moment(date).subtract(value, field));
+}
+
 const service = {
   Moment,
   getDateFormat,
@@ -29,6 +33,7 @@ const service = {
   getDefaultDateFormat,
   getHourFormat,
   getDateTimeFormat,
+  subtractDate,
 };
 
 export default service;
