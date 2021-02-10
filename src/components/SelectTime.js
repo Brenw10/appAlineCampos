@@ -14,7 +14,8 @@ function SelectTime({ date, onSelectItem }) {
   }, [date]);
 
   async function load() {
-    const { data } = await Appointment.getFreeTime(token, date);
+    const startOfDate = new Date(DateTime.Moment(date).startOf('day'));
+    const { data } = await Appointment.getFreeTime(token, startOfDate);
     setTimes(data);
     setIndex();
     onSelectItem();
