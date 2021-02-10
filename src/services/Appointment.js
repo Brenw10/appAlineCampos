@@ -1,9 +1,6 @@
 import Axios from 'axios';
 import { API } from '../config/Api';
 import DateTime from './DateTime';
-import PushNotification from "react-native-push-notification";
-import { CHANNEL } from '../config/Notification';
-import { MESSAGE } from '../constants/Appointment';
 
 function getAll(accessToken) {
   return Axios.get(`${API}/appointment`,
@@ -41,14 +38,6 @@ function getTreatmentTotalPrice(treatments) {
   return treatments.reduce((sum, value) => sum + value.price, 0);
 }
 
-function newAppointmentNotification(date) {
-  PushNotification.localNotificationSchedule({
-    ...CHANNEL,
-    message: MESSAGE.ALERT_APPOINTMENT,
-    date: new Date(DateTime.Moment(DateTime.subtractDate(date, 'day', 1)).startOf('day')),
-  });
-}
-
 const service = {
   getAll,
   create,
@@ -56,7 +45,6 @@ const service = {
   getTreatmentTotalPrice,
   setStatus,
   getFreeTime,
-  newAppointmentNotification,
 };
 
 export default service;

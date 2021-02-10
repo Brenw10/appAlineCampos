@@ -4,6 +4,7 @@ import Logo from '../components/Logo';
 import DefaultButton from '../components/DefaultButton';
 import AppointmentDetail from '../components/AppointmentDetail';
 import Appointment from '../services/Appointment';
+import AppointmentNotification from '../services/AppointmentNotification';
 import { useAuth } from '../contexts/Auth';
 import { MESSAGE } from '../constants/Appointment';
 import { Input } from 'react-native-elements';
@@ -23,7 +24,7 @@ function SchedulingResult({ setRoute, treatments, datetime }) {
       coupon: validCoupon && validCoupon.name,
     };
     return Appointment.create(token, obj)
-      .then(() => Appointment.newAppointmentNotification(datetime))
+      .then(() => AppointmentNotification.onCreation(datetime))
       .then(() => setRoute('Successful', { description: MESSAGE.CREATED_APPOINTMENT }));
   }
 
