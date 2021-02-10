@@ -1,6 +1,5 @@
 import Axios from 'axios';
 import { API } from '../config/Api';
-import DateTime from './DateTime';
 
 function getAll(accessToken) {
   return Axios.get(`${API}/appointment`,
@@ -29,20 +28,9 @@ function getFreeTime(accessToken, date) {
   );
 }
 
-function getEndDateTime(datetime, treatments) {
-  const duration = treatments.reduce((sum, value) => sum + value.duration, 0);
-  return DateTime.addDate(datetime, 'minute', duration);
-}
-
-function getTreatmentTotalPrice(treatments) {
-  return treatments.reduce((sum, value) => sum + value.price, 0);
-}
-
 const service = {
   getAll,
   create,
-  getEndDateTime,
-  getTreatmentTotalPrice,
   setStatus,
   getFreeTime,
 };

@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import Section from './Section';
 import DateTime from '../services/DateTime';
-import Appointment from '../services/Appointment';
+import AppointmentManager from '../services/AppointmentManager';
 
 function AppointmentDetail({ appointment, coupon }) {
 
@@ -18,7 +18,7 @@ function AppointmentDetail({ appointment, coupon }) {
           {' - '}
           {'Até: ' +
             DateTime.getHourFormat(
-              Appointment.getEndDateTime(appointment.datetime, appointment.treatments)
+              AppointmentManager.getEndDateTime(appointment.datetime, appointment.treatments)
             )
           }
         </Text>
@@ -50,7 +50,7 @@ function AppointmentDetail({ appointment, coupon }) {
           R$ {
             Math.max(
               0,
-              Appointment.getTreatmentTotalPrice(appointment.treatments) - (coupon ? coupon.value : 0)
+              AppointmentManager.getTreatmentTotalPrice(appointment.treatments) - (coupon ? coupon.value : 0)
             )
           }
         </Text>
