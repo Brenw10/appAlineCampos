@@ -11,6 +11,7 @@ import SchedulingResult from './SchedulingResult';
 import Successful from './Successful';
 import Coupon from './Coupon';
 import Location from './Location';
+import UserEdit from './UserEdit';
 
 function Login() {
   return (
@@ -30,6 +31,7 @@ function Login() {
         <Successful route='Successful' />
         <Coupon route='Coupon' />
         <Location route='Location' />
+        <UserEdit route='UserEdit' />
       </Navigation>
     </>
   )

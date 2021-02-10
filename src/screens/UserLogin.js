@@ -11,17 +11,26 @@ function UserLogin({ setRoute, failed }) {
 
   async function googleSignIn() {
     try {
-      if (await GoogleSignin.isSignedIn()) {
-        const { accessToken } = await GoogleSignin.getTokens();
-        await GoogleSignin.clearCachedAccessToken(accessToken);
-      }
+      await clearGoogleCache();
       const { user } = await GoogleSignin.signIn();
       const { accessToken } = await GoogleSignin.getTokens();
+      const { data } = await UserService.get(accessToken);
       setToken(accessToken);
-      await UserService.set(accessToken, user);
-      setRoute('Actions');
+      if (data.number) {
+        await UserService.set(accessToken, { ...user, number: data.number });
+        setRoute('Actions');
+      } else {
+        setRoute('UserEdit', { user });
+      }
     } catch {
       setRoute('UserLogin', { failed: true });
+    }
+  }
+
+  async function clearGoogleCache() {
+    if (await GoogleSignin.isSignedIn()) {
+      const { accessToken } = await GoogleSignin.getTokens();
+      await GoogleSignin.clearCachedAccessToken(accessToken);
     }
   }
 
