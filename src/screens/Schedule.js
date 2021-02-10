@@ -9,7 +9,7 @@ import AppointmentItem from '../components/AppointmentItem';
 import DefaultButton from '../components/DefaultButton';
 import DefaultModal from '../components/DefaultModal';
 import Section from '../components/Section';
-import { Image, ScrollView, StyleSheet, View } from 'react-native';
+import { Image, ScrollView, StyleSheet, Text, View } from 'react-native';
 import AppointmentDetail from '../components/AppointmentDetail';
 import { APPOINTMENT } from '../constants/Appointment';
 import { useAuth } from '../contexts/Auth';
@@ -99,6 +99,7 @@ function Schedule({ setRoute }) {
                   uri: appointment.client.photo,
                 }}
               />
+              <Text style={styles.phone}>Tel. Contato: {appointment.client.number}</Text>
             </View>
             <AppointmentDetail appointment={appointment} coupon={appointment.coupon} />
             <View style={styles.buttonsContainer}>
@@ -155,6 +156,9 @@ const styles = StyleSheet.create({
     height: 70,
     borderRadius: 100,
     marginBottom: 20,
+  },
+  phone: {
+    marginBottom: 10,
   },
 });
 
