@@ -47,24 +47,26 @@ function SchedulingResult({ setRoute, treatments, datetime }) {
   }
 
   return (
-    <ScrollView>
-      <Logo
-        title='Agendamento de Consulta'
-        description='Confime os dados e envie o pedido de consulta para aprovação' />
-      <AppointmentDetail
-        appointment={{ datetime, treatments }}
-        coupon={validCoupon}
-        isAdmin={user && user.admin} />
-      <View style={styles.rowContainer}>
-        <Input containerStyle={styles.coupon}
-          value={coupon} onChangeText={value => dispatchCoupon({ type: ACTIONS.ADD, payload: { value } })}
-          placeholder='Digite o cupom' label="Cupom"
-          leftIcon={{ type: 'font-awesome', name: 'tag', color: 'grey' }}
-          errorMessage={isUsingCoupon ? (validCoupon ? 'Cupom Válido' : 'Cupom Inválido') : ''}
-          errorStyle={{ color: validCoupon ? 'green' : 'red' }}
-        />
-        <IconButton name='check' onPress={getCoupon} />
-      </View>
+    <>
+      <ScrollView style={styles.scroll}>
+        <Logo
+          title='Agendamento de Consulta'
+          description='Confime os dados e envie o pedido de consulta para aprovação' />
+        <AppointmentDetail
+          appointment={{ datetime, treatments }}
+          coupon={validCoupon}
+          isAdmin={user && user.admin} />
+        <View style={styles.rowContainer}>
+          <Input containerStyle={styles.coupon}
+            value={coupon} onChangeText={value => dispatchCoupon({ type: ACTIONS.ADD, payload: { value } })}
+            placeholder='Digite o cupom' label="Cupom"
+            leftIcon={{ type: 'font-awesome', name: 'tag', color: 'grey' }}
+            errorMessage={isUsingCoupon ? (validCoupon ? 'Cupom Válido' : 'Cupom Inválido') : ''}
+            errorStyle={{ color: validCoupon ? 'green' : 'red' }}
+          />
+          <IconButton name='check' onPress={getCoupon} />
+        </View>
+      </ScrollView>
       <View style={styles.rowContainer}>
         <DefaultButton style={styles.cancelButton} relativeIcon={true}
           color='#787878'
@@ -76,7 +78,7 @@ function SchedulingResult({ setRoute, treatments, datetime }) {
           onClick={() => createAppointment()}
         />
       </View>
-    </ScrollView>
+    </>
   );
 }
 
@@ -97,6 +99,9 @@ const styles = StyleSheet.create({
   coupon: {
     marginTop: 15,
     flex: 1,
+  },
+  scroll: {
+    height: '95%',
   },
 });
 
