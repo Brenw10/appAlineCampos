@@ -1,4 +1,4 @@
-import React, { useEffect, useReducer } from 'react';
+import React, { useEffect, useReducer, useState } from 'react';
 import { View } from 'react-native';
 import DefaultButton from './DefaultButton';
 import { Input } from 'react-native-elements';
@@ -7,15 +7,14 @@ import Section from './Section';
 import Coupon from '../services/Coupon';
 import { useAuth } from '../contexts/Auth';
 import OnlyNumber, { ACTIONS as ONLYNUMBER } from '../reducers/OnlyNumber';
-import UpperCase, { ACTIONS as UPPERCASE } from '../reducers/UpperCase';
 
 function CouponAdd({ isVisible, setVisible, isCreatedDone }) {
-  const [name, dispatchName] = useReducer(UpperCase, "");
+  const [name, setName] = useState();
   const [value, dispatchValue] = useReducer(OnlyNumber, "");
   const { token } = useAuth();
 
   useEffect(() => {
-    dispatchName({ type: UPPERCASE.CLEAR });
+    setName();
     dispatchValue({ type: ONLYNUMBER.CLEAR });
   }, [isVisible]);
 
@@ -31,7 +30,9 @@ function CouponAdd({ isVisible, setVisible, isCreatedDone }) {
         <Section title='Novo Cupom' />
         <View>
           <Input
-            value={name} onChangeText={value => dispatchName({ type: UPPERCASE.ADD, payload: { value } })}
+            value={name}
+            onChangeText={value => setName(value)}
+            autoCapitalize='characters' autoCompleteType='off'
             placeholder='Digite o cupom' label="Cupom"
             leftIcon={{ type: 'font-awesome', name: 'tag', color: 'grey' }}
           />

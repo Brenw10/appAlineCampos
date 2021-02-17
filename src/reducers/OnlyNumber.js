@@ -3,7 +3,7 @@ export const ACTIONS = {
   CLEAR: 'CLEAR',
 };
 
-function OnlyNumber(value, action) {
+function OnlyNumber(state, action) {
   switch (action.type) {
     case ACTIONS.ADD: {
       return action.payload.value.replace(/[^0-9]/g, '');
@@ -12,7 +12,7 @@ function OnlyNumber(value, action) {
       return '';
     }
     default: {
-      return value;
+      return state;
     }
   }
 }
