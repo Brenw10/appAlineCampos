@@ -101,7 +101,10 @@ function Schedule({ setRoute }) {
               />
               <Text style={styles.phone}>Tel. Contato: {appointment.client.number}</Text>
             </View>
-            <AppointmentDetail appointment={appointment} coupon={appointment.coupon} />
+            <AppointmentDetail
+              appointment={appointment}
+              coupon={appointment.coupon}
+              isAdmin={user && user.admin} />
             <View style={styles.buttonsContainer}>
               {
                 appointment.status !== APPOINTMENT.REJECTED.NAME &&
