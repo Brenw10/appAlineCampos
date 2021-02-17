@@ -1,4 +1,4 @@
-import React, { useEffect, useReducer, useState } from 'react';
+import React, { useEffect, useReducer } from 'react';
 import { View } from 'react-native';
 import DefaultButton from './DefaultButton';
 import { Input } from 'react-native-elements';
@@ -6,16 +6,17 @@ import DefaultModal from './DefaultModal';
 import Section from './Section';
 import Coupon from '../services/Coupon';
 import { useAuth } from '../contexts/Auth';
-import OnlyNumber, { ACTIONS } from '../reducers/OnlyNumber';
+import OnlyNumber, { ACTIONS as ONLYNUMBER } from '../reducers/OnlyNumber';
+import UpperCase, { ACTIONS as UPPERCASE } from '../reducers/UpperCase';
 
 function CouponAdd({ isVisible, setVisible, isCreatedDone }) {
-  const [name, setName] = useState();
+  const [name, dispatchName] = useReducer(UpperCase, "");
   const [value, dispatchValue] = useReducer(OnlyNumber, "");
   const { token } = useAuth();
-  
+
   useEffect(() => {
-    setName();
-    dispatchValue({ type: ACTIONS.CLEAR });
+    dispatchName({ type: UPPERCASE.CLEAR });
+    dispatchValue({ type: ONLYNUMBER.CLEAR });
   }, [isVisible]);
 
   async function create() {
@@ -30,12 +31,12 @@ function CouponAdd({ isVisible, setVisible, isCreatedDone }) {
         <Section title='Novo Cupom' />
         <View>
           <Input
-            value={name} onChangeText={val => setName(val)}
+            value={name} onChangeText={value => dispatchName({ type: UPPERCASE.ADD, payload: { value } })}
             placeholder='Digite o cupom' label="Cupom"
             leftIcon={{ type: 'font-awesome', name: 'tag', color: 'grey' }}
           />
           <Input
-            value={value} onChangeText={value => dispatchValue({ type: ACTIONS.ADD, payload: { value } })}
+            value={value} onChangeText={value => dispatchValue({ type: ONLYNUMBER.ADD, payload: { value } })}
             placeholder='Digite o valor do cupom' label="Valor"
             keyboardType='numeric'
             leftIcon={{ type: 'font-awesome', name: 'credit-card', color: 'grey' }}
