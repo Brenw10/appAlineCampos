@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useReducer, useState } from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
 import Logo from '../components/Logo';
 import DefaultButton from '../components/DefaultButton';
@@ -10,9 +10,10 @@ import { MESSAGE } from '../constants/Appointment';
 import { Input } from 'react-native-elements';
 import IconButton from '../components/IconButton';
 import Coupon from '../services/Coupon';
+import UpperCase, { ACTIONS } from '../reducers/UpperCase';
 
 function SchedulingResult({ setRoute, treatments, datetime }) {
-  const [coupon, setCoupon] = useState();
+  const [coupon, dispatchCoupon] = useReducer(UpperCase, "");
   const [validCoupon, setValidCoupon] = useState();
   const [isUsingCoupon, setIsUsingCoupon] = useState();
   const { token } = useAuth();
@@ -42,7 +43,7 @@ function SchedulingResult({ setRoute, treatments, datetime }) {
       <AppointmentDetail appointment={{ datetime, treatments }} coupon={validCoupon} />
       <View style={styles.rowContainer}>
         <Input containerStyle={styles.coupon}
-          value={coupon} onChangeText={value => setCoupon(value)}
+          value={coupon} onChangeText={value => dispatchCoupon({ type: ACTIONS.ADD, payload: { value } })}
           placeholder='Digite o cupom' label="Cupom"
           leftIcon={{ type: 'font-awesome', name: 'tag', color: 'grey' }}
           errorMessage={isUsingCoupon ? (validCoupon ? 'Cupom Válido' : 'Cupom Inválido') : ''}
