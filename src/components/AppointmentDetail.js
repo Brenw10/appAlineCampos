@@ -4,7 +4,7 @@ import Section from './Section';
 import DateTime from '../services/DateTime';
 import AppointmentManager from '../services/AppointmentManager';
 
-function AppointmentDetail({ appointment, coupon }) {
+function AppointmentDetail({ appointment, coupon, isAdmin }) {
 
   return (
     <View style={styles.container}>
@@ -38,7 +38,7 @@ function AppointmentDetail({ appointment, coupon }) {
             title="Desconto de Cupom"
           />
           <View style={styles.centered}>
-            <Text>R$ {coupon.value} - {coupon.name}</Text>
+            <Text>{isAdmin && `R$ ${coupon.value} - `}{coupon.name}</Text>
           </View>
         </>
       }
