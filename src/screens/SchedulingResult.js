@@ -47,7 +47,7 @@ function SchedulingResult({ setRoute, treatments, datetime }) {
 
   return (
     <>
-      <ScrollView style={styles.scroll}>
+      <ScrollView style={{ marginBottom: 20 }}>
         <Logo
           title='Agendamento de Consulta'
           description='Confime os dados e envie o pedido de consulta para aprovação' />
@@ -67,7 +67,7 @@ function SchedulingResult({ setRoute, treatments, datetime }) {
           <IconButton name='check' onPress={getCoupon} />
         </View>
       </ScrollView>
-      <View style={styles.rowContainer}>
+      <View style={{ ...styles.rowContainer, marginTop: -20 }}>
         <DefaultButton style={styles.cancelButton} relativeIcon={true}
           color='#787878'
           icon='close' text='Cancelar' isLeft={true}
@@ -99,9 +99,6 @@ const styles = StyleSheet.create({
   coupon: {
     marginTop: 15,
     flex: 1,
-  },
-  scroll: {
-    height: '95%',
   },
 });
 
